@@ -22,7 +22,7 @@ def input_error(varname,numargs):
     return(error_message)
 
 def value_error(varname, inp,  exp):
-    error_message="The variable " + varname +" returns the wrong value(s)\n\
+    error_message="The function " + varname +" returns the wrong value(s)\n\
     When executed with the input(s), "+ str(inp) +", we expected the\n\
     output, " + str(exp)+", but instead we got something different."
     return(error_message)
