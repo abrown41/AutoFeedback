@@ -31,6 +31,8 @@ def returns(func,inputs):
             res=func(*inputs)
         else:
             res=func(inputs)
+        if hasattr(res,"__len__"):
+            res=list(res)
         return (res!=None)
     except:
         return False
