@@ -21,10 +21,10 @@ def input_error(varname,numargs):
     """
     return(error_message)
 
-def value_error(varname, inp,  exp):
+def value_error(varname, inp,  exp, res):
     error_message="The function " + varname +" returns the wrong value(s)\n\
     When executed with the input(s), "+ str(inp) +", we expected the\n\
-    output, " + str(exp)+", but instead we got something different."
+    output, " + str(exp)+", but instead we got " + str(res)
     return(error_message)
 
 def return_error(varname):
@@ -59,7 +59,7 @@ def execution_error(varname,inp):
     return(error_message)
 
 
-def print_error_message(error,varname,inp=(0,), exp=7,callname='print'):
+def print_error_message(error,varname,inp=(0,), exp=7,result=0,callname='print'):
     from AssCheck.bcolors import bcolors
 
     if (str(error)=="success"):
@@ -71,7 +71,7 @@ def print_error_message(error,varname,inp=(0,), exp=7,callname='print'):
         elif (str(error)=="inputs"):
             emsg=input_error(varname,len(inp))
         elif (str(error)=="outputs"):
-            emsg=value_error(varname,inp,exp) 
+            emsg=value_error(varname,inp,exp,result) 
         elif (str(error)=="return"):
             emsg=return_error(varname)
         elif (str(error)=="calls"):
