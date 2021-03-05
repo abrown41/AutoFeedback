@@ -53,7 +53,7 @@ def check_axes(l1,l2):
 def reorder(a,b):
     from itertools import permutations,zip_longest
     for perm in permutations(b):
-        if (all ([check_linedata(x,y) for x,y in zip(perm,a)])):
+        if (all ([y.check_linedata(x) for x,y in zip(perm,a)])):
             return (perm)
     return b
 
@@ -79,7 +79,7 @@ def check_plot(explines,explabels=None,expaxes=None,explegend=False,output=False
         if (explines):
             for line,expline,legend in zip_longest(lines,explines,legends):
                 if expline:
-                    assert (check_linedata(line,expline)), e_string("data",expline.label)
+                    assert (expline.check_linedata(line)), e_string("data",expline.label)
                     if expline.linestyle:
                         assert(check_linestyle(line,expline.linestyle)), e_string("linestyle",expline.label)
                     if expline.marker: assert(check_marker(line,expline.marker)), e_string("marker",expline.label)
@@ -89,15 +89,15 @@ def check_plot(explines,explabels=None,expaxes=None,explegend=False,output=False
                             assert(check_legend(line.get_label(),expline.label)), "legend"
                         else:
                             assert(check_legend(legend,expline.label)), "legend"
-                    if output: print_error_message(e_string("partial",expline.label))
+                    if output: print_error_message(e_string("partial",expline.label),expline)
         else:
             assert(False), "data"
         if explabels        : assert(check_axes(labels,explabels)), "labels"
         if expaxes          : assert(check_axes(axes,expaxes)),"axes"
-        if output: print_error_message("success")
+        if output: print_error_message("success",expline)
         return(True)
     except AssertionError as error:
-        if output: print_error_message (error)
+        if output: print_error_message (error,expline)
         return(False)
 
 

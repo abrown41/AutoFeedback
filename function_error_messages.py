@@ -71,7 +71,8 @@ def print_error_message(error,varname,inp=(0,), exp=7,result=0,callname='print')
         elif (str(error)=="inputs"):
             emsg=input_error(varname,len(inp))
         elif (str(error)=="outputs"):
-            emsg=value_error(varname,inp,exp,result) 
+            if hasattr(exp, "get_error") and callable(exp.get_error) : emsg=exp.get_error("values returned from the function " + varname + " with input parameters " + str(inp))
+            else : emsg=value_error(varname,inp,exp)
         elif (str(error)=="return"):
             emsg=return_error(varname)
         elif (str(error)=="calls"):

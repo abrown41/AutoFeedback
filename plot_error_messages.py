@@ -71,12 +71,15 @@ class error_message():
 
     success="Plot is correct!\n"
 
-def print_error_message(error):
+def print_error_message(error,expline):
     from AssCheck.bcolors import bcolors
     if (str(error)=="success" or str(error)[0:7]=="partial"):
         emsg=eval("error_message."+str(error))
         print(f"{bcolors.OKGREEN}{emsg}{bcolors.ENDC}")
-    else:
+    elif hasattr(expline,"diagnosis") and expline.diagnosis!="ok":
+        emsg=expline.get_error( str(error).replace("data(","").replace(")","") )
+        print(f"{bcolors.FAIL}{emsg}{bcolors.ENDC}")
+    else :
         emsg=eval("error_message."+str(error))
         print(f"{bcolors.FAIL}{emsg}{bcolors.ENDC}")
     print(f"{bcolors.WARNING}{30*'='}\n{bcolors.ENDC}")

@@ -41,7 +41,8 @@ def check_outputs(func,inputs,expected):
     from AssCheck.varchecks import check_value
     try:
         res=func(*inputs)
-        return (check_value(res,expected))
+        if hasattr(expected, "check_value") and callable(expected.check_value) : return expected.check_value(res)
+        else : return (check_value(res,expected))
     except:
         return False
 

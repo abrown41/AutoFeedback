@@ -1,3 +1,5 @@
+from AssCheck.varchecks import check_value
+from AssCheck import plot_error_messages
 class line:
     def __init__(self, xdata, ydata, linestyle=None, colour=None,label=None,marker=None):
         self.xdata = xdata
@@ -6,6 +8,39 @@ class line:
         self.colour= colour
         self.label= label
         self.marker= marker
+        self.diagnosis = "ok"
     def get_xydata(self):
         return(self.xdata,self.ydata)
+    def check_linedata(self,gline) :
+        x,y=zip(*gline.get_xydata())
+        goodx, goody = False, False
+        if hasattr(self.xdata, "check_value") and callable(self.xdata.check_value) : goodx=self.xdata.check_value( x )
+        else : goodx=check_value(x,self.xdata)
+        if hasattr(self.ydata, "check_value") and callable(self.ydata.check_value) : goody=self.ydata.check_value( y )
+        else : goody=check_value(y,self.ydata)
+        if not goodx and not goody : self.diagnosis = "badxy"
+        elif not goodx : self.diagnosis = "badx"
+        elif not goody : self.diagnosis = "bady"
+        return(goodx and goody)
+    def get_error(self,label) :
+        if self.diagnosis == "badxy" :
+           error_message = plot_error_messages.error_message.data(label)
+        elif self.diagnosis == "badx" : 
+           if hasattr(self.xdata, "get_error") and callable(self.xdata.get_error) : error_message = self.xdata.get_error("x coordinates of the data series in the graph labelled " + label)
+           else : 
+              error_message = "The x-coordinates of the points in your graph are incorrect\n"
+              """
+              The instructions in the README file explain the specific values for the x-coordinates of the points in your graph.
+              Make sure you have read those instructions carefully and that you know what the x-coordinates of 
+              the points in your graph should be"""
+        elif self.diagnosis == "bady" : 
+           if hasattr(self.ydata, "get_error") and callable(self.ydata.get_error) : error_message = self.ydata.get_error("y coordinates of the data series in the graph labelled " + label)
+           else : 
+              error_message = error_message = "The y-coordinates of the points in your graph are incorrect\n"
+              """
+              The instructions in the README file explain the specific values for the y-coordinates of the points in your graph.
+              Make sure you have read those instructions carefully and that you know what the y-coordinates of 
+              the points in your graph should be"""
+        return error_message
+ 
 
