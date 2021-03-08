@@ -42,10 +42,11 @@ class error_message():
     where the four numbers correspond to the lower and upper limits of the x and
     y-axes respectively."""
 
-    labels="""The axis labels in your plot are set incorrectly.
+    labels="""The axis labels or titles in your plot are set incorrectly.
     Set the axis labels with the plt.xlabel and plt.ylabel commands like this
         plt.xlabel('this is the x axis label')
         plt.ylabel('this is the y axis label')
+        plt.title('this is the title')
     remembering to check that the spacing, case and spelling of all words are
     correct """
 

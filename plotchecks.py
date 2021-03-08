@@ -71,6 +71,7 @@ def check_plot(explines,explabels=None,expaxes=None,explegend=False,output=False
                                                             axislabels=bool(explabels),\
                                                             legend=explegend)
         explegends=[l.label for l in explines if l.label is not None]
+        expline=""
         if not check_partial : 
             assert (len(lines)==len(explines)), "datasets"
             if explegend : assert (len(legends)==len(explegends)), "legend"
