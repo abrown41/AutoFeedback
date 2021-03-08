@@ -63,6 +63,7 @@ def check_func(funcname,inputs,expected,calls=[]):
     call=[]
     ins=inputs[0]
     outs=expected[0]
+    res = -999
     try:
         assert(exists(funcname)), "existence"
         func=get_func(funcname)
