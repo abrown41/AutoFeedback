@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 
-import funcchecks as fc
+import AssCheck.funcchecks as fc
 
 
 class tmod:
@@ -63,3 +63,7 @@ class UnitTests(unittest.TestCase) :
     def test_notcalls(self):
         assert(not fc.check_calls(f3,(10,),'f1'))
 
+class SystemTests(unittest.TestCase) :
+    def test_f1(self):
+        assert (fc.check_func('f1',[(3,),(-4,)],[9,16],modname=tmod,output=False) and\
+            not fc.check_func('f2',[(3,),(-4,)],[9,16],modname=tmod,output=False))

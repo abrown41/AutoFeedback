@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 
-import varchecks as vc
+import AssCheck.varchecks as vc
 
 class tmod:
     x = 3
@@ -44,15 +44,16 @@ class UnitTests(unittest.TestCase) :
     def test_not_tol_value(self):
         assert(not vc.check_value(1.0,1.0001))
 
+class SystemTests(unittest.TestCase):
     def test_mod_varx(self):
-        assert(vc.check_vars('x',3,modname=tmod))
+        assert(vc.check_vars('x',3,modname=tmod,output=False))
 
     def test_mod_vary(self):
-        assert(vc.check_vars('y',[0,0.5,1.0],modname=tmod))
+        assert(vc.check_vars('y',[0,0.5,1.0],modname=tmod,output=False))
 
     def test_notmod_varx(self):
-        assert(not vc.check_vars('x',[2,3],modname=tmod))
+        assert(not vc.check_vars('x',[2,3],modname=tmod,output=False))
 
     def test_notmod_vary(self):
-        assert(not vc.check_vars('y',[0.1,0.5,1.0],modname=tmod))
+        assert(not vc.check_vars('y',[0.1,0.5,1.0],modname=tmod,output=False))
 
