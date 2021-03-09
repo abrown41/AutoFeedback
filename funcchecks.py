@@ -64,7 +64,7 @@ def check_calls(func,inputs,call):
         return False
 
 
-def check_func(funcname,inputs,expected,calls=[],modname=None):
+def check_func(funcname,inputs,expected,calls=[],modname=None,output=True):
     from AssCheck.function_error_messages import print_error_message
     call=[]
     ins=inputs[0]
@@ -81,12 +81,12 @@ def check_func(funcname,inputs,expected,calls=[],modname=None):
             assert(check_outputs(func,ins,outs)), "outputs"
         for call in calls:
             assert(check_calls(func,inputs[0],call)), "calls"
-        print_error_message("success",funcname)
+        if output: print_error_message("success",funcname)
     except AssertionError as error:
-        print_error_message(error,funcname,inp=ins,exp=outs,result=res,callname=call)
+        if output: print_error_message(error,funcname,inp=ins,exp=outs,result=res,callname=call)
         return(False)
     except:
-        print_error_message("execution",funcname,inp=ins)
+        if output: print_error_message("execution",funcname,inp=ins)
         return(False)
 
     return(True)

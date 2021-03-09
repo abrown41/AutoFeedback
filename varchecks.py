@@ -22,6 +22,7 @@ def get_var(varname,modname=None):
     return(eval(varstring))
 
 def check_size(a,b):
+    print (a,b)
     if hasattr(b,"__len__") and  hasattr(a,"__len__"): # both arrays
         if len(a)==len(b): # size of arrays matches
             return True
@@ -51,16 +52,16 @@ def check_value(a,b):
         else:
             return (abs(a-b)<10**-5)
 
-def check_vars(varname,expected,modname=None):
+def check_vars(varname,expected,modname=None,output=True):
     from AssCheck.variable_error_messages import print_error_message
     try:
         assert(exists(varname,modname)), "existence"
         var=get_var(varname,modname)
         assert(check_size(var,expected)), "size"
         assert(check_value(var,expected)), "value"
-        print_error_message("success",varname)
+        if output: print_error_message("success",varname)
     except AssertionError as error:
-        print_error_message(error,varname)
+        if output: print_error_message(error,varname)
         return(False)
     return(True)
 
