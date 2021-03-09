@@ -1,14 +1,17 @@
 from AssCheck.varchecks import check_value
 import matplotlib.pyplot as plt
 
-try:
-    plt.ion() #make any show commands non-blocking
-    from main import *
-    fighand=plt.gca()
-    #plt.close() # close any open figures
-except:
-    import sys
-    sys.exit()
+def grab_figure(modname='main'):
+    fighand=None
+    try:
+        plt.ion() #make any show commands non-blocking
+        mod=__import__(modname)
+        fighand=plt.gca()
+        #plt.close() # close any open figures
+    except:
+        import sys
+        sys.exit()
+    return fighand
 
 def extract_plot_elements(fighand,lines=True,axislabels=False,axes=False,legend=False): 
     line_data,axes_data, axis_labels, legend_data = None,None,None,[None]
@@ -63,10 +66,11 @@ def e_string(error,label):
     else:
         return error+"('')"
         
-def check_plot(explines,explabels=None,expaxes=None,explegend=False,output=False,check_partial=False):
+def check_plot(explines,explabels=None,expaxes=None,explegend=False,output=False,check_partial=False,modname='main'):
     from AssCheck.plot_error_messages import print_error_message
     from itertools import zip_longest
     try:
+        fighand = grab_figure(modname)
         lines, axes,labels, legends= extract_plot_elements(fighand,axes=bool(expaxes),\
                                                             axislabels=bool(explabels),\
                                                             legend=explegend)
