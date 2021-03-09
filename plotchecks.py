@@ -5,7 +5,8 @@ def grab_figure(modname='main'):
     fighand=None
     try:
         plt.ion() #make any show commands non-blocking
-        mod=__import__(modname)
+        if modname == 'main':
+            mod=__import__(modname)
         fighand=plt.gca()
         #plt.close() # close any open figures
     except:
