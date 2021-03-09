@@ -1,6 +1,10 @@
 import importlib
-def exists(varname):
-    mod = importlib.import_module('main')
+
+def exists(varname,modname=None):
+    if not modname:
+        mod = importlib.import_module('main')
+    else:
+        mod=modname
 
     varstring="mod."+varname # get variable from main code
     try:
@@ -9,8 +13,11 @@ def exists(varname):
     except:
         return(False)
         
-def get_var(varname):
-    mod = importlib.import_module('main')
+def get_var(varname,modname=None):
+    if not modname:
+        mod = importlib.import_module('main')
+    else:
+        mod=modname
     varstring="mod."+varname # get variable from main code
     return(eval(varstring))
 
@@ -44,11 +51,11 @@ def check_value(a,b):
         else:
             return (abs(a-b)<10**-5)
 
-def check_vars(varname,expected):
+def check_vars(varname,expected,modname=None):
     from AssCheck.variable_error_messages import print_error_message
     try:
-        assert(exists(varname)), "existence"
-        var=get_var(varname)
+        assert(exists(varname,modname)), "existence"
+        var=get_var(varname,modname)
         assert(check_size(var,expected)), "size"
         assert(check_value(var,expected)), "value"
         print_error_message("success",varname)
