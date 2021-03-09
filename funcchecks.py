@@ -1,8 +1,11 @@
 import importlib
 
-def exists(funcname):
+def exists(funcname,modname=None):
     import inspect
-    mod = importlib.import_module('main')
+    if not modname:
+        mod = importlib.import_module('main')
+    else:
+        mod=modname
     funcstring="mod."+funcname # get variable from main code
     try:
         testfunc=eval(funcstring)
@@ -10,8 +13,11 @@ def exists(funcname):
     except:
         return (False)
 
-def get_func(funcname):
-    mod = importlib.import_module('main')
+def get_func(funcname,modname=None):
+    if not modname:
+        mod = importlib.import_module('main')
+    else:
+        mod=modname
     funcstring="mod."+funcname # get function from main code
     return(eval(funcstring))
 
@@ -58,15 +64,15 @@ def check_calls(func,inputs,call):
         return False
 
 
-def check_func(funcname,inputs,expected,calls=[]):
+def check_func(funcname,inputs,expected,calls=[],modname=None):
     from AssCheck.function_error_messages import print_error_message
     call=[]
     ins=inputs[0]
     outs=expected[0]
     res = -999
     try:
-        assert(exists(funcname)), "existence"
-        func=get_func(funcname)
+        assert(exists(funcname,modname)), "existence"
+        func=get_func(funcname,modname)
         assert(input_vars(func,inputs[0])), "inputs"
         
         assert(returns(func,inputs[0])), "return"
