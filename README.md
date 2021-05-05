@@ -11,6 +11,6 @@ AutoFeedback can be installed via pip
     pip install AutoFeedback
 
 The suite provides three basic checkers: one each for checking variables,
-functions and matplotlib.pyplot figures. These are invoked 
+functions and matplotlib.pyplot figures. 
 
 
