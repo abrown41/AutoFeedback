@@ -1,4 +1,4 @@
-from AssCheck.varchecks import check_value
+from AutoFeedback.varchecks import check_value
 import matplotlib.pyplot as plt
 
 def grab_figure(modname='main'):
@@ -68,7 +68,7 @@ def e_string(error,label):
         return error+"('')"
         
 def check_plot(explines,explabels=None,expaxes=None,explegend=False,output=False,check_partial=False,modname='main'):
-    from AssCheck.plot_error_messages import print_error_message
+    from AutoFeedback.plot_error_messages import print_error_message
     from itertools import zip_longest
     try:
         fighand = grab_figure(modname)

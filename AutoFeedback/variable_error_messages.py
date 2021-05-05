@@ -30,7 +30,7 @@ def import_error():
     return(error_message)
 
 def print_error_message(error,varname):
-    from AssCheck.bcolors import bcolors
+    from AutoFeedback.bcolors import bcolors
 
     if (str(error)=="success"):
         print(f"{bcolors.OKGREEN}Variable {varname} is correct!\n{bcolors.ENDC}")
@@ -53,7 +53,7 @@ def print_error_message(error,varname):
 def output_check(expected):
     import subprocess
     import sys
-    from AssCheck.bcolors import bcolors
+    from AutoFeedback.bcolors import bcolors
 
     def run(cmd):
         proc = subprocess.Popen(cmd,

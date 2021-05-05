@@ -60,7 +60,7 @@ def execution_error(varname,inp):
 
 
 def print_error_message(error,varname,inp=(0,), exp=7,result=0,callname='print'):
-    from AssCheck.bcolors import bcolors
+    from AutoFeedback.bcolors import bcolors
 
     if (str(error)=="success"):
         print(f"{bcolors.OKGREEN}Function, {varname} is correct!\n{bcolors.ENDC}")

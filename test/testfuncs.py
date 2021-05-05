@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 
-import AssCheck.funcchecks as fc
+import AutoFeedback.funcchecks as fc
 
 
 class tmod:

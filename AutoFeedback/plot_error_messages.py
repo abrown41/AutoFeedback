@@ -73,7 +73,7 @@ class error_message():
     success="Plot is correct!\n"
 
 def print_error_message(error,expline):
-    from AssCheck.bcolors import bcolors
+    from AutoFeedback.bcolors import bcolors
     if (str(error)=="success" or str(error)[0:7]=="partial"):
         emsg=eval("error_message."+str(error))
         print(f"{bcolors.OKGREEN}{emsg}{bcolors.ENDC}")

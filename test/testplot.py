@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
-import AssCheck.plotchecks as pc
-from AssCheck.plotclass import line
+import AutoFeedback.plotchecks as pc
+from AutoFeedback.plotclass import line
 import matplotlib.pyplot as plt
 
 class tmod:

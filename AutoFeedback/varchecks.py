@@ -53,7 +53,7 @@ def check_value(a,b):
             return (abs(a-b)<10**-5)
 
 def check_vars(varname,expected,modname=None,output=True):
-    from AssCheck.variable_error_messages import print_error_message
+    from AutoFeedback.variable_error_messages import print_error_message
     try:
         assert(exists(varname,modname)), "existence"
         var=get_var(varname,modname)
@@ -66,5 +66,5 @@ def check_vars(varname,expected,modname=None,output=True):
     return(True)
 
 def check_output(expected):
-    from AssCheck.variable_error_messages import output_check
+    from AutoFeedback.variable_error_messages import output_check
     return output_check(expected)

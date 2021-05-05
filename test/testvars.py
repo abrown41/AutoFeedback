@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 
-import AssCheck.varchecks as vc
+import AutoFeedback.varchecks as vc
 
 class tmod:
     x = 3

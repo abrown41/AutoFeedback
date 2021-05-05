@@ -1,5 +1,5 @@
-from AssCheck.varchecks import check_value
-from AssCheck import plot_error_messages
+from AutoFeedback.varchecks import check_value
+from AutoFeedback import plot_error_messages
 class line:
     def __init__(self, xdata, ydata, linestyle=None, colour=None,label=None,marker=None):
         self.xdata = xdata

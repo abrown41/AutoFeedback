@@ -44,7 +44,7 @@ def returns(func,inputs):
         return False
 
 def check_outputs(func,inputs,expected):
-    from AssCheck.varchecks import check_value
+    from AutoFeedback.varchecks import check_value
     try:
         res=func(*inputs)
         if hasattr(expected, "check_value") and callable(expected.check_value) : return expected.check_value(res)
@@ -65,7 +65,7 @@ def check_calls(func,inputs,call):
 
 
 def check_func(funcname,inputs,expected,calls=[],modname=None,output=True):
-    from AssCheck.function_error_messages import print_error_message
+    from AutoFeedback.function_error_messages import print_error_message
     call=[]
     ins=inputs[0]
     outs=expected[0]
