@@ -64,9 +64,9 @@ def output_check(expected):
         return  stdout
 
     out= run([sys.executable, 'main.py'])
-    screen_out=str(out).split("'")[1].strip("\\n")   
+    screen_out=str(out).split("'")[1]
 
-    check = screen_out==expected
+    check = screen_out==expected+"\\n"
 
     errmsg="The text printed to screen is not correct. Ensure you have printed the correct variables, in the correct order, and that nothing else is printed."
 
