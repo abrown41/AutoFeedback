@@ -50,7 +50,7 @@ def print_error_message(error,varname):
     print(f"{bcolors.WARNING}{30*'='}\n{bcolors.ENDC}")
 
 
-def output_check(expected):
+def output_check(expected,executable="main.py"):
     import subprocess
     import sys
     from AutoFeedback.bcolors import bcolors
@@ -63,7 +63,7 @@ def output_check(expected):
 
         return  stdout
 
-    out= run([sys.executable, 'main.py'])
+    out= run([sys.executable, executable])
     screen_out=str(out).split("'")[1]
 
     check = screen_out==expected+"\\n"
