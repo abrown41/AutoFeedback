@@ -14,14 +14,18 @@ class randomvar :
              self.diagnosis="integer"
              return(False)
        if self.lower=="unset" and val>self.upper : 
-             self.diagnosis="range"
-             return(False)
+          self.diagnosis="range"
+          return(False)
+       elif self.lower=="unset" :
+          return(True)
        if val<self.lower and self.upper=="unset" : 
-             self.diagnosis="range"
-             return(False)
+          self.diagnosis="range"
+          return(False)
+       elif self.upper=="unset" : 
+          return(True)
        if val<self.lower or val>self.upper : 
-             self.diagnosis="range" 
-             return(False)
+          self.diagnosis="range" 
+          return(False)
        return(True)
 
    def check_value( self, val ) :
