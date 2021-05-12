@@ -1,8 +1,9 @@
 class randomvar :
-   def __init__( self, expectation, variance=0, vmin="unset", vmax="unset", isinteger=False ) :
+   def __init__( self, expectation, variance=0, vmin="unset", vmax="unset", isinteger=False, meanconv=False ) :
        self.expectation = expectation
        self.variance = variance
        self.isinteger = isinteger
+       self.meanconv = meanconv
        self.lower=vmin
        self.upper=vmax
        self.diagnosis="ok"
@@ -27,17 +28,9 @@ class randomvar :
           self.diagnosis="range" 
           return(False)
        return(True)
-
-   def check_value( self, val ) :
-       if hasattr(val,"__len__") :
-          for v in val : 
-              if not self.check_for_bad_value(v) : return(False)
-       elif not self.check_for_bad_value(val) : return(False)
-       from math import sqrt
+      
+   def hypo_check( self, stat ) :
        from scipy.stats import norm
-       if hasattr(val,"__len__") : stat = ( sum(val)/len(val) - self.expectation ) / sqrt(self.variance/len(val))
-       else : stat = ( val - self.expectation ) / sqrt(self.variance)
-
        if stat>0 : pval = 2*norm.cdf(-stat)
        else : pval = 2*norm.cdf(stat)
 
@@ -46,6 +39,29 @@ class randomvar :
              return(False)
        self.diagnosis="ok"
        return(True)
+
+   def check_value( self, val ) :
+       if hasattr(val,"__len__") :
+          for v in val : 
+              if not self.check_for_bad_value(v) : return(False)
+       elif not self.check_for_bad_value(val) : return(False)
+       from math import sqrt
+       from math import floor
+       if hasattr(val,"__len__") : 
+            if self.meanconv :
+               nn = 1 
+               stride=int( floor( len(val) / 30 ) )
+               for vv in val :
+                   if nn%stride!=0 : continue 
+                   stat = ( vv - self.expectation ) / sqrt(self.variance/nn)
+                   nn = nn + 1
+                   if not self.hypo_check( stat ) : return(False)
+
+               return(True) 
+            else : stat = ( sum(val)/len(val) - self.expectation ) / sqrt(self.variance/len(val))
+       else : stat = ( val - self.expectation ) / sqrt(self.variance)
+         
+       return self.hypo_check( stat )
 
    def get_error( self, obj ) :
        error_message=""
