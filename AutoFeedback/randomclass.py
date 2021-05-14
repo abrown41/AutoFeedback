@@ -1,7 +1,8 @@
 class randomvar :
-   def __init__( self, expectation, variance=0, vmin="unset", vmax="unset", isinteger=False, meanconv=False ) :
+   def __init__( self, expectation, dist="normal", variance=0, vmin="unset", vmax="unset", isinteger=False, meanconv=False ) :
        self.expectation = expectation
        self.variance = variance
+       self.distribution = dist
        self.isinteger = isinteger
        self.meanconv = meanconv
        self.lower=vmin
@@ -16,11 +17,12 @@ class randomvar :
           if not isclose(val,round(val),abs_tol=10**-7)  : 
              self.diagnosis="integer"
              return(False)
-       
+
+       if self.lower=="unset" and self.upper=="unset" : return(True)
        low, up = self.lower, self.upper
        if self.lower!="unset" and num>=0 : low=self.lower[num]
        if self.upper!="unset" and num>=0 : up=self.upper[num] 
-
+ 
        if self.lower=="unset" and val>up : 
           self.diagnosis="range"
           return(False)
@@ -35,11 +37,26 @@ class randomvar :
           self.diagnosis="range" 
           return(False)
        return(True)
-      
-   def hypo_check( self, stat ) :
-       from scipy.stats import norm
-       if stat>0 : pval = 2*norm.cdf(-stat)
-       else : pval = 2*norm.cdf(stat)
+
+   def get_statistic( self, value, expectation, variance, number ) :
+       if self.distribution=="normal" :
+          from math import sqrt
+          return ( value - expectation ) / sqrt(variance/number)
+       elif self.distribution=="chi2" :
+          return (number-1)*value / variance
+       return 1      
+
+   def hypo_check( self, stat, number ) :
+       if self.distribution=="normal" : 
+          from scipy.stats import norm
+          if stat>0 : pval = 2*norm.cdf(-stat)
+          else : pval = 2*norm.cdf(stat)
+       elif self.distribution=="chi2" : 
+          from scipy.stats import chi2
+          pval = chi2.cdf(stat,number-1) 
+          if pval>0.5 : 1-chi2.cdf(stat,number-1)
+       else : 
+          return(False)
 
        if pval<0.01 :
              self.diagnosis="hypothesis" 
@@ -59,33 +76,31 @@ class randomvar :
           return self.check_random_var(val,-1) 
 
    def check_random_var( self, val, num ) :
-
        if hasattr(val,"__len__") :
           for v in val : 
               if not self.check_for_bad_value(v,num) : return(False)
        elif not self.check_for_bad_value(val,num) : return(False)
-       from math import sqrt
-       from math import floor
        if hasattr(val,"__len__") : 
             if self.meanconv :
-               nn = 1 
-               stride=int( floor( len(val) / 30 ) )
+               from math import floor
+               nn, stride = 0, int( floor( len(val) / 30 ) )
                for vv in val :
-                   if nn%stride!=0 : continue 
-                   if num<0 : stat = ( vv - self.expectation ) / sqrt(self.variance/nn)
-                   else : stat = ( vv - self.expectation[num] ) / sqrt(self.variance[num]/nn)
                    nn = nn + 1
-                   if not self.hypo_check( stat ) : return(False)
+                   if nn%stride!=0 : continue 
+                   if num<0 : stat = self.get_statistic( vv, self.expectation, self.variance, nn )    
+                   else : stat = self.get_statistic( vv, self.expectation[num], self.variance[num], nn ) 
+                   if not self.hypo_check( stat, nn ) : return(False)
 
                return(True) 
             else : 
-               if num<0 : stat = ( sum(val)/len(val) - self.expectation ) / sqrt(self.variance/len(val))
-               else : stat = ( sum(val)/len(val) - self.expectation[num] ) / sqrt(self.variance[num]/len(val))
-       else : 
-         if num<0 : stat = ( val - self.expectation ) / sqrt(self.variance)
-         else : stat = ( val - self.expectation[num] ) / sqrt(self.variance[num])         
+               if num<0 : stat = self.get_statistic( sum(val)/len(val),  self.expectation, self.variance, len(val) )
+               else : stat = self.get_statistic( sum(val)/len(val), self.expectation[num], self.variance[num],  len(val) )
+               return self.hypo_check( stat, len(val) )
+       else :
+         if num<0 : stat = self.get_statistic( val,  self.expectation, self.variance, 1 )
+         else : stat = self.get_statistic( val,  self.expectation[num], self.variance[num], 1 )         
 
-       return self.hypo_check( stat )
+       return self.hypo_check( stat, 1 )
 
    def get_error( self, obj ) :
        error_message=""
