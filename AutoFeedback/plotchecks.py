@@ -14,11 +14,13 @@ def grab_figure(modname='main'):
         sys.exit()
     return fighand
 
-def extract_plot_elements(fighand,lines=True,axislabels=False,axes=False,legend=False): 
-    line_data,axes_data, axis_labels, legend_data = None,None,None,[None]
+def extract_plot_elements(fighand,lines=True,patches=False,axislabels=False,axes=False,legend=False): 
+    line_data, patch_data, axes_data, axis_labels, legend_data = None,None,None,None,[None]
 
     if lines: line_data = fighand.get_lines()
 
+    if patches: patch_data = fighand.patches
+ 
     if axes: axes_data = [*fighand.get_xlim(), *fighand.get_ylim()]
 
     if axislabels: labels=[fighand.get_xlabel(), fighand.get_ylabel(), fighand.get_title()]
@@ -29,7 +31,7 @@ def extract_plot_elements(fighand,lines=True,axislabels=False,axes=False,legend=
         except:
             legend_data = []
 
-    return line_data, axes_data ,labels, legend_data
+    return line_data, patch_data, axes_data ,labels, legend_data
 
 def check_linestyle(line,expected):
     style=line.get_linestyle()
@@ -45,8 +47,16 @@ def check_colour(line,expected):
 
 def check_linedata(line,expline):
     x,y=zip(*line.get_xydata())
-    xx,yy=expline.get_xydata()
-    return (check_value(x,xx) and check_value(y,yy))
+    return expline.check_linedata(x,y)
+
+def check_patchdata(patch,exppatch):
+    x, y = [], []
+    for p in patch :
+        xd, yd = p.get_xy()
+        yd = p.get_height()
+        x.append( xd + 0.5*p.get_width() )
+        y.append( yd )
+    return exppatch.check_linedata(x,y) 
 
 def check_legend(legend_data,expected):
     return(legend_data and check_value(legend_data,expected)) 
@@ -57,7 +67,7 @@ def check_axes(l1,l2):
 def reorder(a,b):
     from itertools import permutations,zip_longest
     for perm in permutations(b):
-        if (all ([y.check_linedata(x) for x,y in zip(perm,a)])):
+        if (all ([check_linedata(x,y) for x,y in zip(perm,a)])):
             return (perm)
     return b
 
@@ -67,25 +77,30 @@ def e_string(error,label):
     else:
         return error+"('')"
         
-def check_plot(explines,explabels=None,expaxes=None,explegend=False,output=False,check_partial=False,modname='main'):
+def check_plot(explines,exppatch=None,explabels=None,expaxes=None,explegend=False,output=False,check_partial=False,modname='main'):
     from AutoFeedback.plot_error_messages import print_error_message
     from itertools import zip_longest
     try:
         fighand = grab_figure(modname)
-        lines, axes,labels, legends= extract_plot_elements(fighand,axes=bool(expaxes),\
-                                                            axislabels=bool(explabels),\
-                                                            legend=explegend)
+        lines, patch, axes,labels, legends= extract_plot_elements(fighand,
+                                                                  lines=(len(explines)>0),\
+                                                                  patches=exppatch,\
+                                                                  axes=bool(expaxes),\
+                                                                  axislabels=bool(explabels),\
+                                                                  legend=explegend)
+        
         explegends=[l.label for l in explines if l.label is not None]
         expline=""
         if not check_partial : 
-            assert (len(lines)==len(explines)), "datasets"
+            if explines : assert (len(lines)==len(explines)), "datasets"
             if explegend : assert (len(legends)==len(explegends)), "legend"
-        lines=reorder(explines,lines)
-
+      
         if (explines):
+            lines=reorder(explines,lines)
+
             for line,expline,legend in zip_longest(lines,explines,legends):
                 if expline:
-                    assert (expline.check_linedata(line)), e_string("data",expline.label)
+                    assert (check_linedata(line,expline)), e_string("data",expline.label)
                     if expline.linestyle:
                         assert(check_linestyle(line,expline.linestyle)), e_string("linestyle",expline.label)
                     if expline.marker: assert(check_marker(line,expline.marker)), e_string("marker",expline.label)
@@ -96,7 +111,11 @@ def check_plot(explines,explabels=None,expaxes=None,explegend=False,output=False
                         else:
                             assert(check_legend(legend,expline.label)), "legend"
                     if output: print_error_message(e_string("partial",expline.label),expline)
-        else:
+        if (exppatch):
+            expline=exppatch
+            assert(check_patchdata(patch,exppatch)), e_string("data","") 
+            if output: print_error_message(e_string("partial",""),exppatch)
+        if not explines and not exppatch :
             assert(False), "data"
         if explabels        : assert(check_axes(labels,explabels)), "labels"
         if expaxes          : assert(check_axes(axes,expaxes)),"axes"

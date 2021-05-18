@@ -11,8 +11,7 @@ class line:
         self.diagnosis = "ok"
     def get_xydata(self):
         return(self.xdata,self.ydata)
-    def check_linedata(self,gline) :
-        x,y=zip(*gline.get_xydata())
+    def check_linedata(self,x,y) :
         goodx, goody = False, False
         if hasattr(self.xdata, "check_value") and callable(self.xdata.check_value) : goodx=self.xdata.check_value( x )
         else : goodx=check_value(x,self.xdata)

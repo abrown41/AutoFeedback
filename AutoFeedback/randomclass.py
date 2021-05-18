@@ -1,38 +1,62 @@
 class randomvar :
-   def __init__( self, expectation, variance=0, vmin="unset", vmax="unset", isinteger=False, meanconv=False ) :
+   def __init__( self, expectation, dist="normal", variance=0, vmin="unset", vmax="unset", isinteger=False, meanconv=False ) :
        self.expectation = expectation
        self.variance = variance
+       self.distribution = dist
        self.isinteger = isinteger
        self.meanconv = meanconv
        self.lower=vmin
        self.upper=vmax
        self.diagnosis="ok"
 
-   def check_for_bad_value( self, val ) :
-       if self.isinteger : 
+   def check_for_bad_value( self, val, num ) :
+       if num<0 : isint = self.isinteger
+       else : isint = self.isinteger[num]
+       if isint : 
           from math import isclose
           if not isclose(val,round(val),abs_tol=10**-7)  : 
              self.diagnosis="integer"
              return(False)
-       if self.lower=="unset" and val>self.upper : 
+
+       if self.lower=="unset" and self.upper=="unset" : return(True)
+       low, up = self.lower, self.upper
+       if self.lower!="unset" and num>=0 : low=self.lower[num]
+       if self.upper!="unset" and num>=0 : up=self.upper[num] 
+ 
+       if self.lower=="unset" and val>up : 
           self.diagnosis="range"
           return(False)
        elif self.lower=="unset" :
           return(True)
-       if val<self.lower and self.upper=="unset" : 
+       if val<low and self.upper=="unset" : 
           self.diagnosis="range"
           return(False)
        elif self.upper=="unset" : 
           return(True)
-       if val<self.lower or val>self.upper : 
+       if val<low or val>up : 
           self.diagnosis="range" 
           return(False)
        return(True)
-      
-   def hypo_check( self, stat ) :
-       from scipy.stats import norm
-       if stat>0 : pval = 2*norm.cdf(-stat)
-       else : pval = 2*norm.cdf(stat)
+
+   def get_statistic( self, value, expectation, variance, number ) :
+       if self.distribution=="normal" :
+          from math import sqrt
+          return ( value - expectation ) / sqrt(variance/number)
+       elif self.distribution=="chi2" :
+          return (number-1)*value / variance
+       return 1      
+
+   def hypo_check( self, stat, number ) :
+       if self.distribution=="normal" : 
+          from scipy.stats import norm
+          if stat>0 : pval = 2*norm.cdf(-stat)
+          else : pval = 2*norm.cdf(stat)
+       elif self.distribution=="chi2" : 
+          from scipy.stats import chi2
+          pval = chi2.cdf(stat,number-1) 
+          if pval>0.5 : 1-chi2.cdf(stat,number-1)
+       else : 
+          return(False)
 
        if pval<0.01 :
              self.diagnosis="hypothesis" 
@@ -41,27 +65,42 @@ class randomvar :
        return(True)
 
    def check_value( self, val ) :
+       if hasattr(self.expectation,"__len__") :
+          if len(val)!=len(self.expectation) : 
+              self.diagnosis="number"
+              return(False)
+          for n, v in enumerate(val) :
+              if not self.check_random_var(v,n) : return(False)
+          return(True)
+       else : 
+          return self.check_random_var(val,-1) 
+
+   def check_random_var( self, val, num ) :
        if hasattr(val,"__len__") :
           for v in val : 
-              if not self.check_for_bad_value(v) : return(False)
-       elif not self.check_for_bad_value(val) : return(False)
-       from math import sqrt
-       from math import floor
+              if not self.check_for_bad_value(v,num) : return(False)
+       elif not self.check_for_bad_value(val,num) : return(False)
        if hasattr(val,"__len__") : 
             if self.meanconv :
-               nn = 1 
-               stride=int( floor( len(val) / 30 ) )
+               from math import floor
+               nn, stride = 0, int( floor( len(val) / 30 ) )
                for vv in val :
-                   if nn%stride!=0 : continue 
-                   stat = ( vv - self.expectation ) / sqrt(self.variance/nn)
                    nn = nn + 1
-                   if not self.hypo_check( stat ) : return(False)
+                   if nn%stride!=0 : continue 
+                   if num<0 : stat = self.get_statistic( vv, self.expectation, self.variance, nn )    
+                   else : stat = self.get_statistic( vv, self.expectation[num], self.variance[num], nn ) 
+                   if not self.hypo_check( stat, nn ) : return(False)
 
                return(True) 
-            else : stat = ( sum(val)/len(val) - self.expectation ) / sqrt(self.variance/len(val))
-       else : stat = ( val - self.expectation ) / sqrt(self.variance)
-         
-       return self.hypo_check( stat )
+            else : 
+               if num<0 : stat = self.get_statistic( sum(val)/len(val),  self.expectation, self.variance, len(val) )
+               else : stat = self.get_statistic( sum(val)/len(val), self.expectation[num], self.variance[num],  len(val) )
+               return self.hypo_check( stat, len(val) )
+       else :
+         if num<0 : stat = self.get_statistic( val,  self.expectation, self.variance, 1 )
+         else : stat = self.get_statistic( val,  self.expectation[num], self.variance[num], 1 )         
+
+       return self.hypo_check( stat, 1 )
 
    def get_error( self, obj ) :
        error_message=""
@@ -83,6 +122,10 @@ class randomvar :
             a significance level of 1%.  There is thus a small probability that you will fail on this test even if your code is correct.
             If you see this error only you should thus run the calculation again to check whether the hypothesis test is giving a type I
             error.  If you fail this test twice your code is most likely wrong.
+            """
+       elif self.diagnosis=="number" :
+            error_message="The " + obj + " is not generating the correct number of random variables" + """
+            You should be generating a vector that contains multiple random variables in this object
             """
        return(error_message)
       

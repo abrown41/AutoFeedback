@@ -9,7 +9,8 @@ setup(
     packages=find_packages(),
     install_requires=[
         'matplotlib',
-        'numpy'],
+        'numpy',
+        'scipy'],
     version='0.1.5',
     description='check basic python exercises with pretty feedback',
     long_description=README,
