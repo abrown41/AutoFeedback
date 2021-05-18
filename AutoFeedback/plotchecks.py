@@ -52,7 +52,8 @@ def check_linedata(line,expline):
 def check_patchdata(patch,exppatch):
     x, y = [], []
     for p in patch :
-        xd, yd = p.get_xy()  
+        xd, yd = p.get_xy()
+        yd = p.get_height()
         x.append( xd + 0.5*p.get_width() )
         y.append( yd )
     return exppatch.check_linedata(x,y) 
@@ -111,7 +112,9 @@ def check_plot(explines,exppatch=None,explabels=None,expaxes=None,explegend=Fals
                             assert(check_legend(legend,expline.label)), "legend"
                     if output: print_error_message(e_string("partial",expline.label),expline)
         if (exppatch):
+            expline=exppatch
             assert(check_patchdata(patch,exppatch)), e_string("data","") 
+            if output: print_error_message(e_string("partial",""),exppatch)
         if not explines and not exppatch :
             assert(False), "data"
         if explabels        : assert(check_axes(labels,explabels)), "labels"
