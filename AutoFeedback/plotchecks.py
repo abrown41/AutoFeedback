@@ -45,9 +45,9 @@ def check_colour(line,expected):
     color=line.get_color()
     return (color in expected)
 
-def check_linedata(line,expline):
+def check_linedata(line,expline,no_diagnose=False):
     x,y=zip(*line.get_xydata())
-    return expline.check_linedata(x,y)
+    return expline.check_linedata(x,y,no_diagnose)
 
 def check_patchdata(patch,exppatch):
     x, y = [], []
@@ -67,7 +67,7 @@ def check_axes(l1,l2):
 def reorder(a,b):
     from itertools import permutations,zip_longest
     for perm in permutations(b):
-        if (all ([check_linedata(x,y) for x,y in zip(perm,a)])):
+        if (all ([check_linedata(x,y,no_diagnose=True) for x,y in zip(perm,a)])):
             return (perm)
     return b
 

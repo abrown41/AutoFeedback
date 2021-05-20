@@ -11,7 +11,7 @@ class line:
         self.diagnosis = "ok"
     def get_xydata(self):
         return(self.xdata,self.ydata)
-    def check_linedata(self,x,y) :
+    def check_linedata(self,x,y,no_diagnose=False) :
         goodx, goody = False, False
         if hasattr(self.xdata, "check_value") and callable(self.xdata.check_value) : goodx=self.xdata.check_value( x )
         else : goodx=check_value(x,self.xdata)
@@ -20,6 +20,7 @@ class line:
         if not goodx and not goody : self.diagnosis = "badxy"
         elif not goodx : self.diagnosis = "badx"
         elif not goody : self.diagnosis = "bady"
+        if no_diagnose :  self.diagnosis = "ok" # reset self.diagnose if we are just running check_linedata to get the lines in the right order
         return(goodx and goody)
     def generic_error(self,label,axis):
         return( f"The {axis}-coordinates of the points in the data set {label} are incorrect\n"+\
