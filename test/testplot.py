@@ -13,7 +13,7 @@ class tmod:
     plt.ylabel('y')
     plt.title('z')
     fighand=plt.gca()
-    line_data,axes_data,labels,legend_data = \
+    line_data,patch_data,axes_data,labels,legend_data = \
        pc.extract_plot_elements(fighand,lines=True,axislabels=True,axes=True,legend=True)
     l1,l2 = line_data[0], line_data[1]
 
