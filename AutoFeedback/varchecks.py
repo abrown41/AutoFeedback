@@ -34,23 +34,20 @@ def check_size(a,b):
         return False
 
 def check_value(a,b):
-    from math import isclose
-    if hasattr(b,"__len__") and  hasattr(a,"__len__"): # both arrays
-        for x,y in zip (a,b):
-            if isinstance(x,str) and isinstance(y,str):
-                if not(x==y) : return False
-            elif not isinstance(x,complex):
-                if not isclose(x,y,abs_tol=10**-5): return False
-            else:
-                if not (abs(x-y)<10**-5) : return False
-        return True
+    import numpy as np
+
+    if isinstance(a,str) and isinstance(b,str):
+        return (a==b)
     else:
-        if isinstance(a,str) and isinstance(b,str):
-            return (a==b)
-        elif not isinstance(a,complex):
-            return isclose(a,b,abs_tol=10**-7)
-        else:
-            return (abs(a-b)<10**-5)
+        try: # treat inputs as ndarrays and compare with builtin
+            return np.all(np.isclose(a,b))
+        except: # if not ndarrays, treat as list (of strings) and compare elements
+            try: 
+                for x,y in zip(a,b):
+                    if not(x==y): return False
+                return True
+            except:
+                return False
 
 def check_vars(varname,expected,modname=None,output=True):
     from AutoFeedback.variable_error_messages import print_error_message
