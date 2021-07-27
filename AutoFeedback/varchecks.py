@@ -33,10 +33,13 @@ def check_size(a,b):
 
 def check_value(a,b):
     import numpy as np
+    import sympy as sp
 
     if (isinstance(a,str) and isinstance(b,str)) \
         or (isinstance(a,dict) and isinstance(b,dict)):
         return (a==b)
+    elif (isinstance(a,sp.Expr) and isinstance(b,sp.Expr)):
+        return(sp.simplify(a)==sp.simplify(b))
     else:
         try: # treat inputs as ndarrays and compare with builtin
             return np.all(np.isclose(a,b))
