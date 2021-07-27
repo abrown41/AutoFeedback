@@ -34,7 +34,8 @@ def check_size(a,b):
 def check_value(a,b):
     import numpy as np
 
-    if isinstance(a,str) and isinstance(b,str):
+    if (isinstance(a,str) and isinstance(b,str)) \
+        or (isinstance(a,dict) and isinstance(b,dict)):
         return (a==b)
     else:
         try: # treat inputs as ndarrays and compare with builtin
