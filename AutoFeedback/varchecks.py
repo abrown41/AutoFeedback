@@ -22,12 +22,10 @@ def get_var(varname,modname=None):
     return(eval(varstring))
 
 def check_size(a,b):
-    print (a,b)
+    if hasattr(b,"__shape__") and hasattr(a,"__shape__"): #both ndarrays
+        return a.shape==b.shape
     if hasattr(b,"__len__") and  hasattr(a,"__len__"): # both arrays
-        if len(a)==len(b): # size of arrays matches
-            return True
-        else: # mismatch in size
-            return False
+        return len(a)==len(b) # size of arrays matches
     elif not (hasattr(b,"__len__") or hasattr(a,"__len__")):# both scalars
         return True
     else:# mismatch in type
