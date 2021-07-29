@@ -15,11 +15,14 @@ def size_error(varname):
     """
     return(error_message)
 
-def value_error(varname):
-    error_message="The variable " + varname +" has the wrong value(s)" +"""
-    Try using print(...) to check the values look as you expect them to, and 
-    ensure the expression used to calculate the variable is correct.
-    """
+def value_error(varname, exp, res):
+    error_message="The variable " + varname +" has the wrong value(s)\n"\
+    +"We expected the output\n"\
+    + str(exp)+",\n"\
+    +"but instead we got \n"\
+    + str(res)+".\n\n"\
+    +"Try using print(...) to check the values look as you expect them to,\n"\
+    +"and ensure the expression used to calculate the variable is correct."
     return(error_message)
 
 def import_error():
@@ -29,7 +32,7 @@ def import_error():
     """
     return(error_message)
 
-def print_error_message(error,varname):
+def print_error_message(error,varname,exp,res):
     from AutoFeedback.bcolors import bcolors
 
     if (str(error)=="success"):
@@ -41,7 +44,7 @@ def print_error_message(error,varname):
         elif (str(error)=="size"):
             emsg=size_error(varname)
         elif (str(error)=="value"):
-            emsg=value_error(varname) 
+            emsg=value_error(varname,exp,res) 
         elif (str(error)=="import"):
             emsg=import_error()
         else:

@@ -38,8 +38,13 @@ def check_value(a,b):
     if (isinstance(a,str) and isinstance(b,str)) \
         or (isinstance(a,dict) and isinstance(b,dict)):
         return (a==b)
-    elif (isinstance(a,sp.Expr) and isinstance(b,sp.Expr)):
-        return(sp.simplify(a)==sp.simplify(b))
+    elif (isinstance(a,sp.Basic) and isinstance(b,sp.Basic)):
+        try: 
+            sp.simplify(a) 
+            sp.simplify(b)
+            return(sp.simplify(a)==sp.simplify(b) or (sp.factor(a) == sp.factor(b))) 
+        except:
+            return(a==b)
     else:
         try: # treat inputs as ndarrays and compare with builtin
             return np.all(np.isclose(a,b))
@@ -58,9 +63,9 @@ def check_vars(varname,expected,modname=None,output=True):
         var=get_var(varname,modname)
         assert(check_size(var,expected)), "size"
         assert(check_value(var,expected)), "value"
-        if output: print_error_message("success",varname)
+        if output: print_error_message("success",varname,expected,var)
     except AssertionError as error:
-        if output: print_error_message(error,varname)
+        if output: print_error_message(error,varname,expected,var)
         return(False)
     return(True)
 
