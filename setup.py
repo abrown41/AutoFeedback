@@ -10,8 +10,9 @@ setup(
     install_requires=[
         'matplotlib',
         'numpy',
-        'scipy'],
-    version='0.1.5',
+        'scipy',
+        'sympy'],
+    version='0.1.12',
     description='check basic python exercises with pretty feedback',
     long_description=README,
     long_description_content_type="text/markdown",
