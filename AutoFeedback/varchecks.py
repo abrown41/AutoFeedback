@@ -22,35 +22,39 @@ def get_var(varname,modname=None):
     return(eval(varstring))
 
 def check_size(a,b):
-    print (a,b)
+    if hasattr(b,"shape") and hasattr(a,"shape"): #both ndarrays
+        return a.shape==b.shape
     if hasattr(b,"__len__") and  hasattr(a,"__len__"): # both arrays
-        if len(a)==len(b): # size of arrays matches
-            return True
-        else: # mismatch in size
-            return False
+        return len(a)==len(b) # size of arrays matches
     elif not (hasattr(b,"__len__") or hasattr(a,"__len__")):# both scalars
         return True
     else:# mismatch in type
         return False
 
 def check_value(a,b):
-    from math import isclose
-    if hasattr(b,"__len__") and  hasattr(a,"__len__"): # both arrays
-        for x,y in zip (a,b):
-            if isinstance(x,str) and isinstance(y,str):
-                if not(x==y) : return False
-            elif not isinstance(x,complex):
-                if not isclose(x,y,abs_tol=10**-5): return False
-            else:
-                if not (abs(x-y)<10**-5) : return False
-        return True
+    import numpy as np
+    import sympy as sp
+
+    if (isinstance(a,str) and isinstance(b,str)) \
+        or (isinstance(a,dict) and isinstance(b,dict)):
+        return (a==b)
+    elif (isinstance(a,sp.Basic) and isinstance(b,sp.Basic)):
+        try: 
+            sp.simplify(a) 
+            sp.simplify(b)
+            return(sp.simplify(a)==sp.simplify(b) or (sp.factor(a) == sp.factor(b))) 
+        except:
+            return(a==b)
     else:
-        if isinstance(a,str) and isinstance(b,str):
-            return (a==b)
-        elif not isinstance(a,complex):
-            return isclose(a,b,abs_tol=10**-7)
-        else:
-            return (abs(a-b)<10**-5)
+        try: # treat inputs as ndarrays and compare with builtin
+            return np.all(np.isclose(a,b))
+        except: # if not ndarrays, treat as list (of strings) and compare elements
+            try: 
+                for x,y in zip(a,b):
+                    if not(x==y): return False
+                return True
+            except:
+                return False
 
 def check_vars(varname,expected,modname=None,output=True):
     from AutoFeedback.variable_error_messages import print_error_message
@@ -59,9 +63,9 @@ def check_vars(varname,expected,modname=None,output=True):
         var=get_var(varname,modname)
         assert(check_size(var,expected)), "size"
         assert(check_value(var,expected)), "value"
-        if output: print_error_message("success",varname)
+        if output: print_error_message("success",varname,expected,var)
     except AssertionError as error:
-        if output: print_error_message(error,varname)
+        if output: print_error_message(error,varname,expected,var)
         return(False)
     return(True)
 

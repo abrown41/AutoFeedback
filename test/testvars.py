@@ -6,13 +6,14 @@ import AutoFeedback.varchecks as vc
 class tmod:
     x = 3
     y = np.linspace(0,1,3)
+    z = np.eye(3)
 
 class UnitTests(unittest.TestCase) :
     def test_exists(self):
         assert(vc.exists('x',modname=tmod))
 
     def test_notexists(self):
-        assert( not vc.exists('z',modname=tmod))
+        assert( not vc.exists('t',modname=tmod))
 
     def test_size(self):
         assert(vc.check_size([1,2,3],[4,5,6]))
@@ -23,6 +24,16 @@ class UnitTests(unittest.TestCase) :
     def test_np_size(self):
         assert(vc.check_size([1,2,3],np.array([4,5,6])))
     
+    def test_ndarray_size(self):
+        a=np.array([[2,3],[4,5],[6,7]])
+        b=np.array([[3,4],[5,6],[7,8]])
+        assert(vc.check_size(a,b))
+
+    def test_notndarray_size(self):
+        a=np.array([[2,3,4],[5,6,7]])
+        b=np.array([[3,4],[5,6],[7,8]])
+        assert(not vc.check_size(a,b))
+
     def test_notnp_size(self):
         assert(not vc.check_size([1,2,3],np.array([4,5])))
 
@@ -50,6 +61,9 @@ class SystemTests(unittest.TestCase):
 
     def test_mod_vary(self):
         assert(vc.check_vars('y',[0,0.5,1.0],modname=tmod,output=False))
+
+    def test_mod_varz(self):
+        assert(vc.check_vars('z',np.eye(3),modname=tmod,output=False))
 
     def test_notmod_varx(self):
         assert(not vc.check_vars('x',[2,3],modname=tmod,output=False))
