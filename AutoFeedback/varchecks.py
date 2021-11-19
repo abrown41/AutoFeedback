@@ -58,6 +58,7 @@ def check_value(a,b):
 
 def check_vars(varname,expected,modname=None,output=True):
     from AutoFeedback.variable_error_messages import print_error_message
+    var = -999
     try:
         assert(exists(varname,modname)), "existence"
         var=get_var(varname,modname)
