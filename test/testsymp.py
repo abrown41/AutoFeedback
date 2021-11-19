@@ -1,5 +1,7 @@
 import unittest
 import numpy as np
+from AutoFeedback.utils import check_module
+check_module("sympy")
 import sympy as sp
 
 import AutoFeedback.varchecks as vc

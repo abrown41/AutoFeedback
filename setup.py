@@ -3,15 +3,18 @@ import pathlib
 
 HERE = pathlib.Path(__file__).parent
 
-README = ( HERE / "README.md").read_text() 
+README = (HERE / "README.md").read_text()
 setup(
     name='AutoFeedback',
     packages=find_packages(),
     install_requires=[
-        'matplotlib>=3.4.2',
         'numpy>=1.20.3',
-        'scipy>=1.4.1',
-        'sympy'],
+        'scipy>=1.4.1'
+    ],
+    extras_require={
+        "plot": ['matplotlib>=3.4.2'],
+        "sympy": ['sympy']
+    },
     version='0.1.14',
     description='check basic python exercises with pretty feedback',
     long_description=README,

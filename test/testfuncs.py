@@ -25,7 +25,7 @@ class UnitTests(unittest.TestCase) :
         assert(not fc.exists('f3',modname=tmod))
 
     def test_1input_vars(self):
-        assert(fc.input_vars(tmod.f1,(10,)))
+        assert(fc.input_vars(tmod.f1,10))
 
     def test_2input_vars(self):
         assert(fc.input_vars(tmod.f2,(10,11)))
