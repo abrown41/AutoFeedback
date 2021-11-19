@@ -15,7 +15,7 @@ setup(
         "plot": ['matplotlib>=3.4.2'],
         "sympy": ['sympy']
     },
-    version='0.1.14',
+    version='0.1.15',
     description='check basic python exercises with pretty feedback',
     long_description=README,
     long_description_content_type="text/markdown",
