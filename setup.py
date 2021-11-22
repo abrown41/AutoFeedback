@@ -8,14 +8,14 @@ setup(
     name='AutoFeedback',
     packages=find_packages(),
     install_requires=[
-        'numpy>=1.20.3',
-        'scipy>=1.4.1'
+        'numpy',
+        'scipy'
     ],
     extras_require={
-        "plot": ['matplotlib>=3.4.2'],
+        "plot": ['matplotlib'],
         "sympy": ['sympy']
     },
-    version='0.1.15',
+    version='0.1.16',
     description='check basic python exercises with pretty feedback',
     long_description=README,
     long_description_content_type="text/markdown",
