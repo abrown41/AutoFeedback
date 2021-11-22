@@ -27,8 +27,9 @@ jobs:
     - name: make_docs
       run: |
         make -C docs html
-        with:
-          name: documentation
-          path: docs/build/html
-          retention-days: 7
-
+    - name: Archive generated docs
+      uses: actions/upload-artifact@v2
+      with:
+        name: html_docs
+        path: docs/build/html
+        retention-days: 7
