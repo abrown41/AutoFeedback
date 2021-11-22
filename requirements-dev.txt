@@ -3,7 +3,6 @@
 codecov
 coverage
 flake8
-unittest
 sphinx
 twine
 versioneer
