@@ -11,7 +11,7 @@ def exists(funcname, modname=None):
     try:
         testfunc = eval(funcstring)
         return(inspect.isfunction(testfunc))
-    except:
+    except Exception:
         return (False)
 
 
@@ -44,7 +44,7 @@ def returns(func, inputs):
         if hasattr(res, "__len__"):
             res = list(res)
         return (res is not None)
-    except:
+    except Exception:
         return False
 
 
@@ -56,7 +56,7 @@ def check_outputs(func, inputs, expected):
             return expected.check_value(res)
         else:
             return (check_value(res, expected))
-    except:
+    except Exception:
         return False
 
 
@@ -69,7 +69,7 @@ def check_calls(func, inputs, call):
         call_names = [name.id for name in all_names if
                       isinstance(name, ast.Name)]
         return (call in call_names)
-    except:
+    except Exception:
         return False
 
 
@@ -98,7 +98,7 @@ def check_func(funcname, inputs, expected, calls=[],
             print_error_message(error, funcname, inp=ins,
                                 exp=outs, result=res, callname=call)
         return(False)
-    except:
+    except Exception:
         if output:
             print_error_message("execution", funcname, inp=ins)
         return(False)

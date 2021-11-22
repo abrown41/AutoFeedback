@@ -9,9 +9,9 @@ def exists(varname, modname=None):
 
     varstring = "mod."+varname  # get variable from main code
     try:
-        var = eval(varstring)
+        eval(varstring)
         return(True)
-    except:
+    except AttributeError:
         return(False)
 
 
@@ -53,19 +53,19 @@ def check_value(a, b):
             sp.simplify(b)
             return(sp.simplify(a) == sp.simplify(b) or
                    (sp.factor(a) == sp.factor(b)))
-        except:
+        except Exception:
             return(a == b)
     else:
         try:  # treat inputs as ndarrays and compare with builtin
             return np.all(np.isclose(a, b))
         # if not ndarrays, treat as list (of strings) and compare elements
-        except:
+        except Exception:
             try:
                 for x, y in zip(a, b):
                     if not(x == y):
                         return False
                 return True
-            except:
+            except Exception:
                 return False
 
 

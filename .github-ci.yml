@@ -39,7 +39,7 @@ pytest-and-coverage:
     # Remove these two lines once GitLab is upgraded to 13+
     - sed -i "s=<source>.*rmt_utilities</source>=<source>./rmt_utilities</source>=g" coverage.xml
     - sed -i "s;filename=\";filename=\"rmt_utilities/;g" coverage.xml
-    - flake8
+    - flake8 --ignore=F841,E2,W50
   coverage: '/TOTAL.+ ([0-9]{1,3}%)/'
   artifacts:
     reports:
@@ -47,7 +47,7 @@ pytest-and-coverage:
     expire_in: 1 week
   rules:
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
-    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
+    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
     - if: '$CI_COMMIT_BRANCH' 
 
 build-docs:

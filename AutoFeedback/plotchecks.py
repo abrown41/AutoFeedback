@@ -7,10 +7,10 @@ def grab_figure(modname='main'):
     try:
         plt.ion()  # make any show commands non-blocking
         if modname == 'main':
-            mod = __import__(modname)
+            __import__(modname)
         fighand = plt.gca()
         # plt.close() # close any open figures
-    except:
+    except ModuleNotFoundError:
         import sys
         sys.exit()
     return fighand
@@ -38,7 +38,7 @@ def extract_plot_elements(fighand, lines=True, patches=False, axislabels=False,
         try:
             legend_data = [x.get_text()
                            for x in fighand.get_legend().get_texts()]
-        except:
+        except AttributeError:
             legend_data = []
 
     return line_data, patch_data, axes_data, labels, legend_data
