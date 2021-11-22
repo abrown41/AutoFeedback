@@ -1,11 +1,11 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: Sphinx docs
+name: Install package
 
 on:
   workflow_run:
-    workflows: ["install"]
+    workflows: ["build_test"]
     branches: [master]
     types:
       - completed
@@ -27,12 +27,3 @@ jobs:
         pip install -r requirements.txt
         pip install -r requirements-dev.txt 
         pip install .
-    - name: make_docs
-      run: |
-        make -C docs html
-    - name: Archive generated docs
-      uses: actions/upload-artifact@v2
-      with:
-        name: html_docs
-        path: docs/build/html
-        retention-days: 7

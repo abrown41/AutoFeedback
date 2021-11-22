@@ -30,7 +30,7 @@ jobs:
         flake8 AutoFeedback --ignore=F841,E2,W50
     - name: Test with unittest
       run: |
-        coverage run -m unittest
+        coverage run --source=. -m unittest
         coverage report -m
         coverage xml
     - name: Archive code coverage results
