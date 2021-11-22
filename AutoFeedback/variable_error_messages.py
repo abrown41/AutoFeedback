@@ -23,8 +23,10 @@ def value_error(varname, exp, res):
         + str(exp)+",\n"\
         + "but instead we got \n"\
         + str(res)+".\n\n"\
-        + "Try using print(...) to check the values look as you expect them to,\n"\
-        + "and ensure the expression used to calculate the variable is correct."
+        + "Try using print(...) to check the values look as you expect\
+        them to,\n"\
+        + "and ensure the expression used to calculate the variable\
+        is correct."
     return(error_message)
 
 
@@ -40,7 +42,8 @@ def print_error_message(error, varname, exp, res):
     from AutoFeedback.bcolors import bcolors
 
     if (str(error) == "success"):
-        print(f"{bcolors.OKGREEN}Variable {varname} is correct!\n{bcolors.ENDC}")
+        print(f"{bcolors.OKGREEN}Variable {varname} is correct!\
+              \n{bcolors.ENDC}")
 
     else:
         if (str(error) == "existence"):
@@ -75,7 +78,9 @@ def output_check(expected, executable="main.py"):
 
     check = screen_out == expected+"\\n"
 
-    errmsg = "The text printed to screen is not correct. Ensure you have printed the correct variables, in the correct order, and that nothing else is printed."
+    errmsg = "The text printed to screen is not correct. Ensure you have\
+        printed the correct variables, in the correct order,\
+        and that nothing else is printed."
 
     if not (check):
         print(f"{bcolors.FAIL}test_output has failed. \n{errmsg}")

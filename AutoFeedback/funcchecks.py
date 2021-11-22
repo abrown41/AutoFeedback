@@ -66,13 +66,15 @@ def check_calls(func, inputs, call):
     try:
         all_names = [c.func for c in ast.walk(
             ast.parse(inspect.getsource(func))) if isinstance(c, ast.Call)]
-        call_names = [name.id for name in all_names if isinstance(name, ast.Name)]
+        call_names = [name.id for name in all_names if
+                      isinstance(name, ast.Name)]
         return (call in call_names)
     except:
         return False
 
 
-def check_func(funcname, inputs, expected, calls=[], modname=None, output=True):
+def check_func(funcname, inputs, expected, calls=[],
+               modname=None, output=True):
     from AutoFeedback.function_error_messages import print_error_message
     call = []
     ins = inputs[0]

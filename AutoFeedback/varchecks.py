@@ -46,7 +46,8 @@ def check_value(a, b):
     if (isinstance(a, str) and isinstance(b, str)) \
             or (isinstance(a, dict) and isinstance(b, dict)):
         return (a == b)
-    elif (sym_installed and isinstance(a, sp.Basic) and isinstance(b, sp.Basic)):
+    elif (sym_installed and isinstance(a, sp.Basic) and
+          isinstance(b, sp.Basic)):
         try:
             sp.simplify(a)
             sp.simplify(b)

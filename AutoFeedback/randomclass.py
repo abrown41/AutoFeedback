@@ -1,5 +1,6 @@
 class randomvar:
-    def __init__(self, expectation, dist="normal", variance=0, vmin="unset", vmax="unset", isinteger=False, meanconv=False):
+    def __init__(self, expectation, dist="normal", variance=0, vmin="unset",
+                 vmax="unset", isinteger=False, meanconv=False):
         self.expectation = expectation
         self.variance = variance
         self.distribution = dist
@@ -115,10 +116,12 @@ class randomvar:
             else:
                 if num < 0:
                     stat = self.get_statistic(
-                        sum(val)/len(val),  self.expectation, self.variance, len(val))
+                        sum(val)/len(val),  self.expectation,
+                        self.variance, len(val))
                 else:
                     stat = self.get_statistic(
-                        sum(val)/len(val), self.expectation[num], self.variance[num],  len(val))
+                        sum(val)/len(val), self.expectation[num],
+                        self.variance[num],  len(val))
                 return self.hypo_check(stat, len(val))
         else:
             if num < 0:
@@ -139,27 +142,36 @@ class randomvar:
              """
         elif self.diagnosis == "range":
             error_message = "The " + obj + \
-                " fall outside the allowed range of values for this type of random variable"
+                " fall outside the allowed range of values for this\
+                type of random variable"
             if self.lower == "unset":
-                error_message += "\n The random variable should be less than or equal to " + \
+                error_message += "\n The random variable should be less\
+                    than or equal to " + \
                     str(self.upper)
             elif self.upper == "unset":
-                error_message += "\n The random variable should be greater than or equal to " + \
+                error_message += "\n The random variable should be greater\
+                    than or equal to " + \
                     str(self.lower)
             else:
-                error_message += "\n The random variable should be between " + \
+                error_message += "\n The random variable should be between " +\
                     str(self.lower) + " and " + str(self.upper)
         elif self.diagnosis == "hypothesis":
             error_message = "The " + obj + " appear to be sampled from the wrong distribution" + """
-            To test if you generating a random variable from the correct distribution the test code
-            performs a hypothesis test.  The null hypothesis in this test is that you are sampling from the desired distribution
-            and the alternative is that you are not sampling the correct distribution.  The size of the critical region is determined using a
-            a significance level of 1%.  There is thus a small probability that you will fail on this test even if your code is correct.
-            If you see this error only you should thus run the calculation again to check whether the hypothesis test is giving a type I
-            error.  If you fail this test twice your code is most likely wrong.
+            To test if you generating a random variable from the correct
+            distribution the test code performs a hypothesis test.  The null
+            hypothesis in this test is that you are sampling from the desired
+            distribution and the alternative is that you are not sampling the
+            correct distribution.  The size of the critical region is
+            determined using a a significance level of 1%.  There is thus a
+            small probability that you will fail on this test even if your code
+            is correct. If you see this error only you should thus run the
+            calculation again to check whether the hypothesis test is giving a
+            type I error.  If you fail this test twice your code is most likely
+            wrong.
             """
         elif self.diagnosis == "number":
             error_message = "The " + obj + " is not generating the correct number of random variables" + """
-            You should be generating a vector that contains multiple random variables in this object
+            You should be generating a vector that contains multiple random
+            variables in this object
             """
         return(error_message)

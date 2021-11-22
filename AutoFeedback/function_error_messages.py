@@ -16,7 +16,8 @@ def existence_error(varname):
 def input_error(varname, numargs):
     error_message = "The function " + varname + " does not accept input correctly\n\
     The function is supposed to accept "+str(numargs)+" input argument(s)."+"""
-    Ensure you have specified the input arguments in the function definition. i.e.
+    Ensure you have specified the input arguments in the function definition.
+    i.e.
         def function_name(input_1, input_2, ...):
             ...
     """
@@ -32,7 +33,8 @@ def value_error(varname, inp,  exp, res):
 
 def return_error(varname):
     error_message = "The function " + varname + " does not return a value"+"""
-    Ensure that the function uses the correct syntax for a return statement.  i.e.
+    Ensure that the function uses the correct syntax for a return statement.
+    i.e.
         def function_name(input):
             ...
             return (answer)
@@ -41,7 +43,8 @@ def return_error(varname):
 
 
 def call_error(varname, callname):
-    error_message = "The function " + varname + " does not call the function " + callname+"""
+    error_message = "The function " + varname + " does not call the function "\
+        + callname+"""
     Make sure that rather than repeating lines of code, your function passes
     input to the previously defined function, e.g.
 
@@ -64,11 +67,13 @@ def execution_error(varname, inp):
     return(error_message)
 
 
-def print_error_message(error, varname, inp=(0,), exp=7, result=0, callname='print'):
+def print_error_message(error, varname, inp=(0,), exp=7, result=0,
+                        callname='print'):
     from AutoFeedback.bcolors import bcolors
 
     if (str(error) == "success"):
-        print(f"{bcolors.OKGREEN}Function, {varname} is correct!\n{bcolors.ENDC}")
+        print(f"{bcolors.OKGREEN}Function, {varname} is correct!\
+              \n{bcolors.ENDC}")
 
     else:
         if (str(error) == "existence"):
@@ -78,7 +83,8 @@ def print_error_message(error, varname, inp=(0,), exp=7, result=0, callname='pri
         elif (str(error) == "outputs"):
             if hasattr(exp, "get_error") and callable(exp.get_error):
                 emsg = exp.get_error(
-                    "values returned from the function " + varname + " with input parameters " + str(inp))
+                    "values returned from the function " + varname +
+                    " with input parameters " + str(inp))
             else:
                 emsg = value_error(varname, inp, exp, result)
         elif (str(error) == "return"):

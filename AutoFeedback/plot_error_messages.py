@@ -9,7 +9,8 @@ class error_message():
     the right variables in the right order (i.e. plt.plot(X,Y))""")
 
     def linestyle(label):
-        return ("Data set " + label+" is plotted with the incorrect linestyle.\n"
+        return ("Data set " + label+" is plotted with the incorrect\
+                linestyle.\n"
                 """
     Set the linestyle with the optional third argument in the plot command e.g.
         plt.plot(X,Y,'--')
@@ -38,8 +39,8 @@ class error_message():
     axes = """The axis limits in your plot are set incorrectly.
     Set the axis limits with the plt.axis command like this
         plt.axis([ -1 , 1, -2, 2])
-    where the four numbers correspond to the lower and upper limits of the x and
-    y-axes respectively."""
+    where the four numbers correspond to the lower and upper limits of the x
+    and y-axes respectively."""
 
     labels = """The axis labels or titles in your plot are set incorrectly.
     Set the axis labels with the plt.xlabel and plt.ylabel commands like this

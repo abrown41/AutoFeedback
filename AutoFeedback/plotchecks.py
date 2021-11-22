@@ -1,6 +1,4 @@
 from AutoFeedback.varchecks import check_value
-from AutoFeedback.utils import check_module
-check_module("matplotlib")
 import matplotlib.pyplot as plt
 
 
@@ -18,9 +16,10 @@ def grab_figure(modname='main'):
     return fighand
 
 
-def extract_plot_elements(fighand, lines=True, patches=False, axislabels=False, axes=False, legend=False):
-    line_data, patch_data, axes_data, labels, legend_data = None, None, None, None, [
-        None]
+def extract_plot_elements(fighand, lines=True, patches=False, axislabels=False,
+                          axes=False, legend=False):
+    line_data, patch_data, axes_data, labels, legend_data =\
+        None, None, None, None, [None]
 
     if lines:
         line_data = fighand.get_lines()
@@ -86,7 +85,8 @@ def check_axes(l1, l2):
 def reorder(a, b):
     from itertools import permutations
     for perm in permutations(b):
-        if (all([check_linedata(x, y, no_diagnose=True) for x, y in zip(perm, a)])):
+        if (all([check_linedata(x, y, no_diagnose=True)
+                 for x, y in zip(perm, a)])):
             return (perm)
     return b
 
@@ -109,7 +109,8 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
             extract_plot_elements(fighand, lines=(len(explines) > 0),
                                   patches=exppatch, axes=bool(expaxes),
                                   axislabels=bool(explabels), legend=explegend)
-        explegends = [line.label for line in explines if line.label is not None]
+        explegends = [line.label for line in explines
+                      if line.label is not None]
         expline = ""
         if not check_partial:
             if explines:
@@ -138,7 +139,8 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
                             assert(check_legend(line.get_label(),
                                                 expline.label)), "legend"
                         else:
-                            assert(check_legend(legend, expline.label)), "legend"
+                            assert(check_legend(legend, expline.label)),\
+                                "legend"
                     if output:
                         print_error_message(
                             e_string("partial", expline.label), expline)
