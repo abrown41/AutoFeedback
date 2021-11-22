@@ -5,7 +5,7 @@ name: Install package
 
 on:
   workflow_run:
-    workflows: ["build_test"]
+    workflows: ["Python application"]
     branches: [master]
     types:
       - completed

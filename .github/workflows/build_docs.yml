@@ -5,7 +5,7 @@ name: Sphinx docs
 
 on:
   workflow_run:
-    workflows: ["install"]
+    workflows: ["Install package"]
     branches: [master]
     types:
       - completed
