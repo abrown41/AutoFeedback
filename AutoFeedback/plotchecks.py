@@ -118,6 +118,9 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
             if explegend:
                 assert (len(legends) == len(explegends)), "legend"
 
+        if (explines and not lines):
+            assert (False), "datasets"
+
         if (explines):
             lines = reorder(explines, lines)
 
