@@ -39,6 +39,7 @@ setup(
     cmdclass=versioneer.get_cmdclass(),
     description="check basic python exercises with pretty feedback",
     long_description=readme,
+    long_description_content_type="text/x-rst",
     author="Andrew Brown",
     author_email='andrew.brown@qub.ac.uk',
     url='https://github.com/abrown41/AutoFeedback',

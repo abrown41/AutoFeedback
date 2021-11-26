@@ -37,6 +37,14 @@ def check_size(a, b):
 
 def check_value(a, b):
     import numpy as np
+
+    # if check_value is invoked without first having called check_size,
+    # incommensurate sizes can be missed
+    try:
+        if not check_size(a, b):
+            return False
+    except Exception:
+        return False
     try:
         import sympy as sp
         sym_installed = True
@@ -57,7 +65,7 @@ def check_value(a, b):
             return(a == b)
     else:
         try:  # treat inputs as ndarrays and compare with builtin
-            return np.all(np.isclose(a, b))
+            return np.all(np.isclose(a, b)) 
         # if not ndarrays, treat as list (of strings) and compare elements
         except Exception:
             try:
