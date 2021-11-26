@@ -6,6 +6,7 @@ flake8
 sphinx
 twine
 versioneer
+pyyaml
 # These are dependencies of various sphinx extensions for documentation.
 ipython
 matplotlib

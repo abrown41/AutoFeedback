@@ -2,6 +2,7 @@ from os import path
 from setuptools import setup, find_packages
 import sys
 import versioneer
+import yaml
 
 
 # NOTE: This file must remain Python 2 compatible for the foreseeable future,
@@ -32,6 +33,8 @@ with open(path.join(here, 'requirements.txt')) as requirements_file:
     requirements = [line for line in requirements_file.read().splitlines()
                     if not line.startswith('#')]
 
+with open(path.join(here, 'optional_requirements.txt'), 'r') as opt_req_file:
+    optional_requirements = yaml.load(opt_req_file, Loader=yaml.Loader)
 
 setup(
     name='AutoFeedback',
@@ -59,6 +62,7 @@ setup(
         ]
     },
     install_requires=requirements,
+    extras_require=optional_requirements,
     license="BSD (3-clause)",
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
