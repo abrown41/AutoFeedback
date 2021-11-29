@@ -24,7 +24,9 @@ def get_func(funcname, modname=None):
     return(eval(funcstring))
 
 
-def input_vars(func, inputs):
+def input_vars(func, ins):
+    from copy import deepcopy as dc
+    inputs = dc(ins)
     try:
         if hasattr(inputs, "__len__"):
             func(*inputs)
@@ -35,7 +37,9 @@ def input_vars(func, inputs):
         return (False)
 
 
-def returns(func, inputs):
+def returns(func, ins):
+    from copy import deepcopy as dc
+    inputs = dc(ins)
     try:
         if hasattr(inputs, "__len__"):
             res = func(*inputs)
@@ -48,8 +52,10 @@ def returns(func, inputs):
         return False
 
 
-def check_outputs(func, inputs, expected):
+def check_outputs(func, ins, expected):
     from AutoFeedback.varchecks import check_value
+    from copy import deepcopy as dc
+    inputs = dc(ins)
     try:
         res = func(*inputs)
         if hasattr(expected, "check_value") and callable(expected.check_value):
@@ -76,6 +82,7 @@ def check_calls(func, inputs, call):
 def check_func(funcname, inputs, expected, calls=[],
                modname=None, output=True):
     from AutoFeedback.function_error_messages import print_error_message
+    from copy import deepcopy as copy
     call = []
     ins = inputs[0]
     outs = expected[0]
@@ -87,7 +94,7 @@ def check_func(funcname, inputs, expected, calls=[],
 
         assert(returns(func, inputs[0])), "return"
         for ins, outs in zip(inputs, expected):
-            res = func(*ins)
+            res = func(*copy(ins))  # ensure the inputs are not overwritten
             assert(check_outputs(func, ins, outs)), "outputs"
         for call in calls:
             assert(check_calls(func, inputs[0], call)), "calls"
