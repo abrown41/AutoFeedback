@@ -16,17 +16,17 @@ class tmod:
 class UnitTests(unittest.TestCase):
     def test_matrixshape(self):
         myz = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-        assert(vc.check_size(tmod.z, myz))
+        assert(vc._check_size(tmod.z, myz))
 
     def test_notmatrixshape(self):
         myz = np.array([[1, 2, 3, 4, 5, 6, 7, 8, 9]])
-        assert(not vc.check_size(tmod.z, myz))
+        assert(not vc._check_size(tmod.z, myz))
 
     def test_arraysize(self):
-        assert(vc.check_size(tmod.y, [1, 2, 3]))
+        assert(vc._check_size(tmod.y, [1, 2, 3]))
 
     def test_notarraysize(self):
-        assert(not vc.check_size(tmod.y, [1, 2, 3, 4]))
+        assert(not vc._check_size(tmod.y, [1, 2, 3, 4]))
 
     def test_dictequal(self):
         assert(vc.check_value(tmod.d, {"b": 2, "a": 1}))

@@ -14,7 +14,7 @@ class tmod:
     plt.title('z')
     fighand = plt.gca()
     line_data, patch_data, axes_data, labels, legend_data = \
-        pc.extract_plot_elements(
+        pc._extract_plot_elements(
             fighand, lines=True, axislabels=True, axes=True, legend=True)
     l1, l2 = line_data[0], line_data[1]
 
@@ -52,39 +52,39 @@ class ExtractTests(unittest.TestCase):
 
 class UnitTests(unittest.TestCase):
     def test_reorder(self):
-        a = [pc.reorder([line2, line1], tmod.line_data)[i] for i in [1, 0]]
-        b = [pc.reorder([line1, line2], tmod.line_data)[i] for i in [0, 1]]
+        a = [pc._reorder([line2, line1], tmod.line_data)[i] for i in [1, 0]]
+        b = [pc._reorder([line1, line2], tmod.line_data)[i] for i in [0, 1]]
         assert (a == b)
 
     def test_check_axes(self):
-        assert (pc.check_axes([0, 1], [0, 1])
-                and not pc.check_axes([0, 1], [1, 2]))
+        assert (pc._check_axes([0, 1], [0, 1])
+                and not pc._check_axes([0, 1], [1, 2]))
 
     def test_check_legend(self):
-        assert (pc.check_legend(['this'], ['this'])
-                and not pc.check_legend(['this'], ['that']))
+        assert (pc._check_legend(['this'], ['this'])
+                and not pc._check_legend(['this'], ['that']))
 
     def test_check_empty_legend(self):
-        assert (not pc.check_legend([], []))
+        assert (not pc._check_legend([], []))
 
     def test_check_linedata(self):
-        assert (pc.check_linedata(tmod.l1, line1) and not
-                pc.check_linedata(tmod.l1, line2))
+        assert (pc._check_linedata(tmod.l1, line1) and not
+                pc._check_linedata(tmod.l1, line2))
 
     def test_check_colour(self):
-        assert (pc.check_colour(tmod.l1, line1.colour) and not
-                pc.check_colour(tmod.l2, line1.colour))
+        assert (pc._check_colour(tmod.l1, line1.colour) and not
+                pc._check_colour(tmod.l2, line1.colour))
 
     def test_check_marker(self):
-        assert (pc.check_marker(tmod.l2, line2.marker) and not
-                pc.check_marker(tmod.l1, line2.marker))
+        assert (pc._check_marker(tmod.l2, line2.marker) and not
+                pc._check_marker(tmod.l1, line2.marker))
 
     def test_check_linestyle(self):
-        assert (pc.check_linestyle(tmod.l1, line1.linestyle) and not
-                pc.check_linestyle(tmod.l2, line1.linestyle))
+        assert (pc._check_linestyle(tmod.l1, line1.linestyle) and not
+                pc._check_linestyle(tmod.l2, line1.linestyle))
 
     def test_e_string(self):
-        assert (pc.e_string('dataset', 'label')) == 'dataset("label")'
+        assert (pc._e_string('dataset', 'label')) == 'dataset("label")'
 
 
 class SystemTests(unittest.TestCase):

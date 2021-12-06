@@ -1,7 +1,7 @@
 import importlib
 
 
-def exists(varname, modname=None):
+def _exists(varname, modname=None):
     if not modname:
         mod = importlib.import_module('main')
     else:
@@ -15,7 +15,7 @@ def exists(varname, modname=None):
         return(False)
 
 
-def get_var(varname, modname=None):
+def _get_var(varname, modname=None):
     if not modname:
         mod = importlib.import_module('main')
     else:
@@ -24,7 +24,7 @@ def get_var(varname, modname=None):
     return(eval(varstring))
 
 
-def check_size(a, b):
+def _check_size(a, b):
     if hasattr(b, "shape") and hasattr(a, "shape"):  # both ndarrays
         return a.shape == b.shape
     if hasattr(b, "__len__") and hasattr(a, "__len__"):  # both arrays
@@ -41,7 +41,7 @@ def check_value(a, b):
     # if check_value is invoked without first having called check_size,
     # incommensurate sizes can be missed
     try:
-        if not check_size(a, b):
+        if not _check_size(a, b):
             return False
     except Exception:
         return False
@@ -81,9 +81,9 @@ def check_vars(varname, expected, modname=None, output=True):
     from AutoFeedback.variable_error_messages import print_error_message
     var = -999
     try:
-        assert(exists(varname, modname)), "existence"
-        var = get_var(varname, modname)
-        assert(check_size(var, expected)), "size"
+        assert(_exists(varname, modname)), "existence"
+        var = _get_var(varname, modname)
+        assert(_check_size(var, expected)), "size"
         assert(check_value(var, expected)), "value"
         if output:
             print_error_message("success", varname, expected, var)

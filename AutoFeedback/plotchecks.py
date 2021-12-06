@@ -2,7 +2,7 @@ from AutoFeedback.varchecks import check_value
 import matplotlib.pyplot as plt
 
 
-def grab_figure(modname='main'):
+def _grab_figure(modname='main'):
     fighand = None
     try:
         plt.ion()  # make any show commands non-blocking
@@ -16,7 +16,7 @@ def grab_figure(modname='main'):
     return fighand
 
 
-def extract_plot_elements(fighand, lines=True, patches=False, axislabels=False,
+def _extract_plot_elements(fighand, lines=True, patches=False, axislabels=False,
                           axes=False, legend=False):
     line_data, patch_data, axes_data, labels, legend_data =\
         None, None, None, None, [None]
@@ -44,27 +44,27 @@ def extract_plot_elements(fighand, lines=True, patches=False, axislabels=False,
     return line_data, patch_data, axes_data, labels, legend_data
 
 
-def check_linestyle(line, expected):
+def _check_linestyle(line, expected):
     style = line.get_linestyle()
     return (style in expected)
 
 
-def check_marker(line, expected):
+def _check_marker(line, expected):
     style = line.get_marker()
     return (style in expected)
 
 
-def check_colour(line, expected):
+def _check_colour(line, expected):
     color = line.get_color()
     return (color in expected)
 
 
-def check_linedata(line, expline, no_diagnose=False):
+def _check_linedata(line, expline, no_diagnose=False):
     x, y = zip(*line.get_xydata())
     return expline.check_linedata(x, y, no_diagnose)
 
 
-def check_patchdata(patch, exppatch):
+def _check_patchdata(patch, exppatch):
     x, y = [], []
     for p in patch:
         xd, yd = p.get_xy()
@@ -74,24 +74,24 @@ def check_patchdata(patch, exppatch):
     return exppatch.check_linedata(x, y)
 
 
-def check_legend(legend_data, expected):
+def _check_legend(legend_data, expected):
     return(legend_data and check_value(legend_data, expected))
 
 
-def check_axes(l1, l2):
+def _check_axes(l1, l2):
     return(check_value(l1, l2))
 
 
-def reorder(a, b):
+def _reorder(a, b):
     from itertools import permutations
     for perm in permutations(b):
-        if (all([check_linedata(x, y, no_diagnose=True)
+        if (all([_check_linedata(x, y, no_diagnose=True)
                  for x, y in zip(perm, a)])):
             return (perm)
     return b
 
 
-def e_string(error, label):
+def _e_string(error, label):
     if label:
         return error+'("'+label+'")'
     else:
@@ -104,9 +104,9 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
     from AutoFeedback.plot_error_messages import print_error_message
     from itertools import zip_longest
     try:
-        fighand = grab_figure(modname)
+        fighand = _grab_figure(modname)
         lines, patch, axes, labels, legends =\
-            extract_plot_elements(fighand, lines=(len(explines) > 0),
+            _extract_plot_elements(fighand, lines=(len(explines) > 0),
                                   patches=exppatch, axes=bool(expaxes),
                                   axislabels=bool(explabels), legend=explegend)
         explegends = [line.label for line in explines
@@ -114,54 +114,55 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
         expline = ""
         if not check_partial:
             if explines:
-                assert (len(lines) == len(explines)), "datasets"
+                assert (len(lines) == len(explines)), "_datasets"
             if explegend:
-                assert (len(legends) == len(explegends)), "legend"
+                assert (len(legends) == len(explegends)), "_legend"
 
         if (explines and not lines):
-            assert (False), "datasets"
+            assert (False), "_datasets"
 
         if (explines):
-            lines = reorder(explines, lines)
+            lines = _reorder(explines, lines)
 
             for line, expline, legend in zip_longest(lines, explines, legends):
                 if expline:
-                    assert (check_linedata(line, expline)), e_string(
-                        "data", expline.label)
+                    assert (_check_linedata(line, expline)), _e_string(
+                        "_data", expline.label)
                     if expline.linestyle:
-                        assert(check_linestyle(line, expline.linestyle)
-                               ), e_string("linestyle", expline.label)
+                        assert(_check_linestyle(line, expline.linestyle)
+                               ), _e_string("_linestyle", expline.label)
                     if expline.marker:
-                        assert(check_marker(line, expline.marker)
-                               ), e_string("marker", expline.label)
+                        assert(_check_marker(line, expline.marker)
+                               ), _e_string("_marker", expline.label)
                     if expline.colour:
-                        assert(check_colour(line, expline.colour)
-                               ), e_string("colour", expline.label)
+                        assert(_check_colour(line, expline.colour)
+                               ), _e_string("_colour", expline.label)
                     if expline.label and explegend:
                         if line.get_label()[0] != "_":
-                            assert(check_legend(line.get_label(),
-                                                expline.label)), "legend"
+                            assert(_check_legend(line.get_label(),
+                                                expline.label)), "_legend"
                         else:
-                            assert(check_legend(legend, expline.label)),\
-                                "legend"
+                            assert(_check_legend(legend, expline.label)),\
+                                "_legend"
                     if output:
                         print_error_message(
-                            e_string("partial", expline.label), expline)
+                            _e_string("_partial", expline.label), expline)
         if (exppatch):
             expline = exppatch
-            assert(check_patchdata(patch, exppatch)), e_string("data", "")
+            assert(_check_patchdata(patch, exppatch)), _e_string("_data", "")
             if output:
-                print_error_message(e_string("partial", ""), exppatch)
+                print_error_message(_e_string("_partial", ""), exppatch)
         if not explines and not exppatch:
-            assert(False), "data"
+            assert(False), "_data"
         if explabels:
-            assert(check_axes(labels, explabels)), "labels"
+            assert(_check_axes(labels, explabels)), "_labels"
         if expaxes:
-            assert(check_axes(axes, expaxes)), "axes"
+            assert(_check_axes(axes, expaxes)), "_axes"
         if output:
-            print_error_message("success", expline)
+            print_error_message("_success", expline)
         return(True)
     except AssertionError as error:
         if output:
             print_error_message(error, expline)
         return(False)
+    

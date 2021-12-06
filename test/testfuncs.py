@@ -22,49 +22,49 @@ def f3(x):
 
 class UnitTests(unittest.TestCase):
     def test_exists(self):
-        assert(fc.exists('f1', modname=tmod))
+        assert(fc._exists('f1', modname=tmod))
 
     def test_notexists(self):
-        assert(not fc.exists('f3', modname=tmod))
+        assert(not fc._exists('f3', modname=tmod))
 
     def test_1input_vars(self):
-        assert(fc.input_vars(tmod.f1, 10))
+        assert(fc._input_vars(tmod.f1, 10))
 
     def test_2input_vars(self):
-        assert(fc.input_vars(tmod.f2, (10, 11)))
+        assert(fc._input_vars(tmod.f2, (10, 11)))
 
     def test_not1input_vars(self):
-        assert(not fc.input_vars(tmod.f1, (10, 11, 12)))
+        assert(not fc._input_vars(tmod.f1, (10, 11, 12)))
 
     def test_not2input_vars(self):
-        assert(not fc.input_vars(tmod.f2, (10,)))
+        assert(not fc._input_vars(tmod.f2, (10,)))
 
     def test_returns(self):
-        assert(fc.returns(tmod.f1, (10,)))
+        assert(fc._returns(tmod.f1, (10,)))
 
     def test_notreturns(self):
-        assert(not fc.returns(tmod.f2, (10, 11)))
+        assert(not fc._returns(tmod.f2, (10, 11)))
 
     def test_check_outputs(self):
-        assert(fc.check_outputs(tmod.f1, (4,), 16))
+        assert(fc._check_outputs(tmod.f1, (4,), 16))
 
     def test_2check_outputs(self):
-        assert(fc.check_outputs(tmod.f1, (-10,), 100))
+        assert(fc._check_outputs(tmod.f1, (-10,), 100))
 
     def test_array_check_outputs(self):
-        assert(fc.check_outputs(tmod.f1, (np.array([1, 2, 3]),), [1, 4, 9]))
+        assert(fc._check_outputs(tmod.f1, (np.array([1, 2, 3]),), [1, 4, 9]))
 
     def test_notcheck_outputs1(self):
-        assert(not fc.check_outputs(tmod.f1, (3,), 10))
+        assert(not fc._check_outputs(tmod.f1, (3,), 10))
 
     def test_notcheck_outputs2(self):
-        assert(not fc.check_outputs(tmod.f2, (10, 11), 10))
+        assert(not fc._check_outputs(tmod.f2, (10, 11), 10))
 
     def test_calls(self):
-        assert(fc.check_calls(f3, (10,), 'f4'))
+        assert(fc._check_calls(f3, (10,), 'f4'))
 
     def test_notcalls(self):
-        assert(not fc.check_calls(f3, (10,), 'f1'))
+        assert(not fc._check_calls(f3, (10,), 'f1'))
 
 
 class SystemTests(unittest.TestCase):

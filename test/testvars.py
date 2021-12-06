@@ -12,32 +12,32 @@ class tmod:
 
 class UnitTests(unittest.TestCase):
     def test_exists(self):
-        assert(vc.exists('x', modname=tmod))
+        assert(vc._exists('x', modname=tmod))
 
     def test_notexists(self):
-        assert(not vc.exists('t', modname=tmod))
+        assert(not vc._exists('t', modname=tmod))
 
     def test_size(self):
-        assert(vc.check_size([1, 2, 3], [4, 5, 6]))
+        assert(vc._check_size([1, 2, 3], [4, 5, 6]))
 
     def test_notsize(self):
-        assert(not vc.check_size([1, 2], [4, 5, 6]))
+        assert(not vc._check_size([1, 2], [4, 5, 6]))
 
     def test_np_size(self):
-        assert(vc.check_size([1, 2, 3], np.array([4, 5, 6])))
+        assert(vc._check_size([1, 2, 3], np.array([4, 5, 6])))
 
     def test_ndarray_size(self):
         a = np.array([[2, 3], [4, 5], [6, 7]])
         b = np.array([[3, 4], [5, 6], [7, 8]])
-        assert(vc.check_size(a, b))
+        assert(vc._check_size(a, b))
 
     def test_notndarray_size(self):
         a = np.array([[2, 3, 4], [5, 6, 7]])
         b = np.array([[3, 4], [5, 6], [7, 8]])
-        assert(not vc.check_size(a, b))
+        assert(not vc._check_size(a, b))
 
     def test_notnp_size(self):
-        assert(not vc.check_size([1, 2, 3], np.array([4, 5])))
+        assert(not vc._check_size([1, 2, 3], np.array([4, 5])))
 
     def test_single_value(self):
         assert(vc.check_value(1.0, 10.0/10))

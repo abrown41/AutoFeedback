@@ -10,7 +10,7 @@ class randomvar:
         self.upper = vmax
         self.diagnosis = "ok"
 
-    def check_for_bad_value(self, val, num):
+    def _check_for_bad_value(self, val, num):
         if num < 0:
             isint = self.isinteger
         else:
@@ -44,7 +44,7 @@ class randomvar:
             return(False)
         return(True)
 
-    def get_statistic(self, value, expectation, variance, number):
+    def _get_statistic(self, value, expectation, variance, number):
         if self.distribution == "normal":
             from math import sqrt
             return (value - expectation) / sqrt(variance/number)
@@ -52,7 +52,7 @@ class randomvar:
             return (number-1)*value / variance
         return 1
 
-    def hypo_check(self, stat, number):
+    def _hypo_check(self, stat, number):
         if self.distribution == "normal" or self.distribution == "chi2":
             from AutoFeedback.utils import check_module
             check_module("scipy")
@@ -82,18 +82,18 @@ class randomvar:
                 self.diagnosis = "number"
                 return(False)
             for n, v in enumerate(val):
-                if not self.check_random_var(v, n):
+                if not self._check_random_var(v, n):
                     return(False)
             return(True)
         else:
-            return self.check_random_var(val, -1)
+            return self._check_random_var(val, -1)
 
-    def check_random_var(self, val, num):
+    def _check_random_var(self, val, num):
         if hasattr(val, "__len__"):
             for v in val:
-                if not self.check_for_bad_value(v, num):
+                if not self._check_for_bad_value(v, num):
                     return(False)
-        elif not self.check_for_bad_value(val, num):
+        elif not self._check_for_bad_value(val, num):
             return(False)
         if hasattr(val, "__len__"):
             if self.meanconv:
@@ -104,34 +104,34 @@ class randomvar:
                     if nn % stride != 0:
                         continue
                     if num < 0:
-                        stat = self.get_statistic(
+                        stat = self._get_statistic(
                             vv, self.expectation, self.variance, nn)
                     else:
-                        stat = self.get_statistic(
+                        stat = self._get_statistic(
                             vv, self.expectation[num], self.variance[num], nn)
-                    if not self.hypo_check(stat, nn):
+                    if not self._hypo_check(stat, nn):
                         return(False)
 
                 return(True)
             else:
                 if num < 0:
-                    stat = self.get_statistic(
+                    stat = self._get_statistic(
                         sum(val)/len(val),  self.expectation,
                         self.variance, len(val))
                 else:
-                    stat = self.get_statistic(
+                    stat = self._get_statistic(
                         sum(val)/len(val), self.expectation[num],
                         self.variance[num],  len(val))
-                return self.hypo_check(stat, len(val))
+                return self._hypo_check(stat, len(val))
         else:
             if num < 0:
-                stat = self.get_statistic(
+                stat = self._get_statistic(
                     val,  self.expectation, self.variance, 1)
             else:
-                stat = self.get_statistic(
+                stat = self._get_statistic(
                     val,  self.expectation[num], self.variance[num], 1)
 
-        return self.hypo_check(stat, 1)
+        return self._hypo_check(stat, 1)
 
     def get_error(self, obj):
         error_message = ""

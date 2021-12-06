@@ -41,18 +41,18 @@ class line:
         return(goodx and goody)
 
     def generic_error(self, label, axis):
-        return(f"The {axis}-coordinates of the points in the data set\
-               {label} are incorrect\n" +
+        return(f"The {axis}-coordinates of the points in the data set {label} \
+are incorrect\n" +
                ("""
-              The instructions in the README file explain the specific values
-              for the xoordinates of the points in your graph.
-              Make sure you have read those instructions carefully and that you
-              know what the coordinates of the points in your graph should be
+       The instructions in the README file explain the specific values
+       for the coordinates of the points in your graph.
+       Make sure you have read those instructions carefully and that you
+       know what the coordinates of the points in your graph should be
                 """))
 
     def get_error(self, label):
         if self.diagnosis == "badxy":
-            error_message = plot_error_messages.error_message.data(label)
+            error_message = plot_error_messages.error_message._data(label)
         elif self.diagnosis == "badx":
             if hasattr(self.xdata, "get_error") and\
                     callable(self.xdata.get_error):

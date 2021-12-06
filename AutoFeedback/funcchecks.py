@@ -1,7 +1,7 @@
 import importlib
 
 
-def exists(funcname, modname=None):
+def _exists(funcname, modname=None):
     import inspect
     if not modname:
         mod = importlib.import_module('main')
@@ -15,7 +15,7 @@ def exists(funcname, modname=None):
         return (False)
 
 
-def get_func(funcname, modname=None):
+def _get_func(funcname, modname=None):
     if not modname:
         mod = importlib.import_module('main')
     else:
@@ -24,7 +24,7 @@ def get_func(funcname, modname=None):
     return(eval(funcstring))
 
 
-def input_vars(func, ins):
+def _input_vars(func, ins):
     from copy import deepcopy as dc
     inputs = dc(ins)
     try:
@@ -37,7 +37,7 @@ def input_vars(func, ins):
         return (False)
 
 
-def returns(func, ins):
+def _returns(func, ins):
     from copy import deepcopy as dc
     inputs = dc(ins)
     try:
@@ -52,7 +52,7 @@ def returns(func, ins):
         return False
 
 
-def check_outputs(func, ins, expected):
+def _check_outputs(func, ins, expected):
     from AutoFeedback.varchecks import check_value
     from copy import deepcopy as dc
     inputs = dc(ins)
@@ -66,7 +66,7 @@ def check_outputs(func, ins, expected):
         return False
 
 
-def check_calls(func, inputs, call):
+def _check_calls(func, inputs, call):
     import inspect
     import ast
     try:
@@ -88,16 +88,16 @@ def check_func(funcname, inputs, expected, calls=[],
     outs = expected[0]
     res = -999
     try:
-        assert(exists(funcname, modname)), "existence"
-        func = get_func(funcname, modname)
-        assert(input_vars(func, inputs[0])), "inputs"
+        assert(_exists(funcname, modname)), "existence"
+        func = _get_func(funcname, modname)
+        assert(_input_vars(func, inputs[0])), "inputs"
 
-        assert(returns(func, inputs[0])), "return"
+        assert(_returns(func, inputs[0])), "return"
         for ins, outs in zip(inputs, expected):
             res = func(*copy(ins))  # ensure the inputs are not overwritten
-            assert(check_outputs(func, ins, outs)), "outputs"
+            assert(_check_outputs(func, ins, outs)), "outputs"
         for call in calls:
-            assert(check_calls(func, inputs[0], call)), "calls"
+            assert(_check_calls(func, inputs[0], call)), "calls"
         if output:
             print_error_message("success", funcname)
     except AssertionError as error:
