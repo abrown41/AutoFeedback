@@ -16,8 +16,8 @@ def _grab_figure(modname='main'):
     return fighand
 
 
-def _extract_plot_elements(fighand, lines=True, patches=False, axislabels=False,
-                          axes=False, legend=False):
+def _extract_plot_elements(fighand, lines=True, patches=False,
+                           axislabels=False, axes=False, legend=False):
     line_data, patch_data, axes_data, labels, legend_data =\
         None, None, None, None, [None]
 
@@ -107,8 +107,9 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
         fighand = _grab_figure(modname)
         lines, patch, axes, labels, legends =\
             _extract_plot_elements(fighand, lines=(len(explines) > 0),
-                                  patches=exppatch, axes=bool(expaxes),
-                                  axislabels=bool(explabels), legend=explegend)
+                                   patches=exppatch, axes=bool(expaxes),
+                                   axislabels=bool(explabels),
+                                   legend=explegend)
         explegends = [line.label for line in explines
                       if line.label is not None]
         expline = ""
@@ -140,7 +141,7 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
                     if expline.label and explegend:
                         if line.get_label()[0] != "_":
                             assert(_check_legend(line.get_label(),
-                                                expline.label)), "_legend"
+                                                 expline.label)), "_legend"
                         else:
                             assert(_check_legend(legend, expline.label)),\
                                 "_legend"
@@ -165,4 +166,3 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
         if output:
             print_error_message(error, expline)
         return(False)
-    

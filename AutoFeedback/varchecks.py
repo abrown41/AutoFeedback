@@ -65,7 +65,7 @@ def check_value(a, b):
             return(a == b)
     else:
         try:  # treat inputs as ndarrays and compare with builtin
-            return np.all(np.isclose(a, b)) 
+            return np.all(np.isclose(a, b))
         # if not ndarrays, treat as list (of strings) and compare elements
         except Exception:
             try:
