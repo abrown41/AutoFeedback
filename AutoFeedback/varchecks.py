@@ -1,5 +1,4 @@
 import importlib
-from AutoFeedback.randomclass import randomvar
 
 
 def _exists(varname, modname=None):
@@ -26,8 +25,6 @@ def _get_var(varname, modname=None):
 
 
 def _check_size(a, b):
-#    if isinstance(b, randomvar):
-#        return True
     if hasattr(b, "shape") and hasattr(a, "shape"):  # both ndarrays
         return a.shape == b.shape
     if hasattr(b, "__len__") and hasattr(a, "__len__"):  # both arrays
