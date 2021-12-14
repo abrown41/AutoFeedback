@@ -37,6 +37,7 @@ def _check_size(a, b):
 
 def check_value(a, b):
     import numpy as np
+    np.set_printoptions(threshold=10)
 
     # if check_value is invoked without first having called check_size,
     # incommensurate sizes can be missed
