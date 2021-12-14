@@ -1,4 +1,5 @@
 import importlib
+from AutoFeedback.randomclass import randomvar
 
 
 def _exists(varname, modname=None):
@@ -25,6 +26,8 @@ def _get_var(varname, modname=None):
 
 
 def _check_size(a, b):
+#    if isinstance(b, randomvar):
+#        return True
     if hasattr(b, "shape") and hasattr(a, "shape"):  # both ndarrays
         return a.shape == b.shape
     if hasattr(b, "__len__") and hasattr(a, "__len__"):  # both arrays
@@ -38,6 +41,9 @@ def _check_size(a, b):
 def check_value(a, b):
     import numpy as np
 
+    if hasattr(b, "check_value") and callable(b.check_value):
+        return b.check_value(a)
+
     # if check_value is invoked without first having called check_size,
     # incommensurate sizes can be missed
     try:
@@ -45,6 +51,7 @@ def check_value(a, b):
             return False
     except Exception:
         return False
+
     try:
         import sympy as sp
         sym_installed = True
