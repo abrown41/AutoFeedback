@@ -67,10 +67,6 @@ and {str(self.upper)} with expectation {str(self.expectation)}"
             return (value - expectation) / sqrt(variance/number)
         elif self.distribution == "chi2":
             return (number-1)*value / variance
-        ### ACB: I'm making things up as I go along here ###
-        elif self.distribution == "uniform":
-            return (value-expectation)/(self.upper-self.lower)
-        ######################################################
         return 1
 
     def _hypo_check(self, stat, number):
@@ -87,12 +83,7 @@ and {str(self.upper)} with expectation {str(self.expectation)}"
             from scipy.stats import chi2
             pval = chi2.cdf(stat, number-1)
             if pval > 0.5:
-                1-chi2.cdf(stat, number-1)
-        ### ACB: I'm making things up as I go along here ###
-        elif self.distribution == "uniform":
-            from scipy.stats import uniform
-            pval = uniform.cdf((stat-self.lower)/(self.upper-self.lower))
-        ######################################################
+                pval = 1-chi2.cdf(stat, number-1)
         else:
             return(False)
 
