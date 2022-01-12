@@ -1,6 +1,6 @@
 class randomvar:
     def __init__(self, expectation, dist="normal", variance=0, vmin="unset",
-                 vmax="unset", isinteger=False, meanconv=False):
+                 vmax="unset", isinteger=False, meanconv=False, length=1):
         self.expectation = expectation
         self.variance = variance
         self.distribution = dist
@@ -9,6 +9,23 @@ class randomvar:
         self.lower = vmin
         self.upper = vmax
         self.diagnosis = "ok"
+        self.len = length
+
+    def __str__(self):
+        """ This is what is printed if the print method is executed on an
+        instance of randomclass: it's defined as it is so that when
+        AutoFeedback prints out the expected value of a given variable we get
+        something other than '<AutoFeedback.randomclass.randomvar>'"""
+
+        return f"{self.distribution} random variable between {str(self.lower)} \
+and {str(self.upper)} with expectation {str(self.expectation)}"
+
+    def __len__(self):
+        """ This is what is returned if the len method is executed on an
+        instance of randomclass. The expected length (number of elements in an
+        array containing random values) is set upon instantiation with the
+        optional length parameter which defaults to 1"""
+        return self.len
 
     def _check_for_bad_value(self, val, num):
         if num < 0:
@@ -66,7 +83,7 @@ class randomvar:
             from scipy.stats import chi2
             pval = chi2.cdf(stat, number-1)
             if pval > 0.5:
-                1-chi2.cdf(stat, number-1)
+                pval = 1-chi2.cdf(stat, number-1)
         else:
             return(False)
 

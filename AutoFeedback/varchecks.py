@@ -39,6 +39,9 @@ def check_value(a, b):
     import numpy as np
     np.set_printoptions(threshold=10)
 
+    if hasattr(b, "check_value") and callable(b.check_value):
+        return b.check_value(a)
+
     # if check_value is invoked without first having called check_size,
     # incommensurate sizes can be missed
     try:
@@ -46,6 +49,7 @@ def check_value(a, b):
             return False
     except Exception:
         return False
+
     try:
         import sympy as sp
         sym_installed = True
