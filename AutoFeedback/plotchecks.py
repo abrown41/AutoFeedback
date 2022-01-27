@@ -156,6 +156,8 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
         if not explines and not exppatch:
             assert(False), "_data"
         if explabels:
+            if len(explabels) == 2:
+                explabels.append("")
             assert(_check_axes(labels, explabels)), "_labels"
         if expaxes:
             assert(_check_axes(axes, expaxes)), "_axes"
