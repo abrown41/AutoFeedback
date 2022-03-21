@@ -33,8 +33,8 @@ def _input_vars(func, ins):
         else:
             func(inputs)
         return True
-    except TypeError:
-        return (False)
+    except TypeError as e:
+        return ('positional' not in str(e))
 
 
 def _returns(func, ins):
@@ -48,8 +48,8 @@ def _returns(func, ins):
         if hasattr(res, "__len__"):
             res = list(res)
         return (res is not None)
-    except Exception:
-        return False
+    except Exception as e:
+        raise(e)
 
 
 def _check_outputs(func, ins, expected):
