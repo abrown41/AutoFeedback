@@ -105,9 +105,12 @@ def check_func(funcname, inputs, expected, calls=[],
             print_error_message(error, funcname, inp=ins,
                                 exp=outs, result=res, callname=call)
         return(False)
-    except Exception:
+    except Exception as e:
         if output:
-            print_error_message("execution", funcname, inp=ins)
+            import traceback
+            print_error_message("execution", funcname, inp=ins,
+                                exp=outs, result=res, callname=call,
+                                msg=traceback.format_exc().splitlines()[-3:])
         return(False)
 
     return(True)

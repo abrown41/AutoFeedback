@@ -58,16 +58,21 @@ def _call_error(varname, callname):
     return(error_message)
 
 
-def _execution_error(varname, inp):
+def _execution_error(varname, inp, msg=[None, None, None]):
     error_message = f"""The function {varname} does not execute correctly.
     Test it by adding a function call, e.g.
         print({varname}({inp})
+
+Error reported:
+    {msg[0]}
+    {msg[1]}
+    {msg[2]}
         """
     return(error_message)
 
 
 def print_error_message(error, varname, inp=(0,), exp=7, result=0,
-                        callname='print'):
+                        callname='print', msg=[None, None, None]):
     from AutoFeedback.bcolors import bcolors
 
     if (str(error) == "success"):
@@ -91,7 +96,7 @@ def print_error_message(error, varname, inp=(0,), exp=7, result=0,
         elif (str(error) == "calls"):
             emsg = _call_error(varname, callname)
         elif (str(error) == "execution"):
-            emsg = _execution_error(varname, inp)
+            emsg = _execution_error(varname, inp, msg=msg)
         else:
             emsg = (f"something not right with {varname}")
         print(f"{bcolors.FAIL}{emsg}{bcolors.ENDC}")
