@@ -14,9 +14,3 @@ AutoFeedback Documentation
    release-history
    min_versions
    autoapi/index
-
-Indices
-=======
-
-* :ref:`genindex`
-* :ref:`modindex`
