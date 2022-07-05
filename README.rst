@@ -8,6 +8,9 @@ AutoFeedback: Assignment Checker
 .. image:: https://img.shields.io/pypi/v/AutoFeedback.svg
         :target: https://pypi.python.org/pypi/AutoFeedback
 
+.. image:: https://codecov.io/gh/abrown41/AutoFeedback/branch/master/graph/badge.svg?token=R2Z5SI6T71
+        :target: https://codecov.io/gh/abrown41/AutoFeedback
+
 
 check basic python exercises with pretty feedback
 
