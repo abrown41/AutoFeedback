@@ -2,8 +2,12 @@
 AutoFeedback: Assignment Checker
 ================================
 
-.. image:: https://img.shields.io/travis/abrown41/AutoFeedback.svg
-        :target: https://travis-ci.org/abrown41/AutoFeedback
+.. image:: https://github.com/abrown41/AutoFeedback/actions/workflows/build_test.yml/badge.svg
+        :target: https://github.com/abrown41/AutoFeedback/actions/workflows/ 
+.. image:: https://github.com/abrown41/AutoFeedback/actions/workflows/build_docs.yml/badge.svg
+        :target: https://github.com/abrown41/AutoFeedback/actions/workflows/
+.. image:: https://github.com/abrown41/AutoFeedback/actions/workflows/install.yml/badge.svg
+        :target: https://github.com/abrown41/AutoFeedback/actions/workflows/
 
 .. image:: https://img.shields.io/pypi/v/AutoFeedback.svg
         :target: https://pypi.python.org/pypi/AutoFeedback
