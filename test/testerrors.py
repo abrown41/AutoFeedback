@@ -1,10 +1,12 @@
 import unittest
 import AutoFeedback.variable_error_messages as vm
 import AutoFeedback.function_error_messages as fm
-from AutoFeedback.plot_error_messages import error_message as pm
+from AutoFeedback.plot_error_messages import error_message 
 from AutoFeedback.plot_error_messages import print_error_message as pr
 import io
 import contextlib
+
+pm = error_message()
 
 
 def colour_message(emsg):
@@ -169,13 +171,30 @@ Error reported:
                                inp=(1, 2, 3), msg=["this", "and", "that"]))
 
 
+class dummyline:
+    label = "googlyboo"
+
+
+myline = dummyline()
+
+
 class PlotErrorTests(unittest.TestCase):
+    def checkprint(self, estring, error_message, line=myline):
+        """ estring is the string passed to print_error_message,
+        error_message is the expected error message that is printed"""
+        f = io.StringIO()
+        with contextlib.redirect_stdout(f):
+            pr(estring, line)
+        printed = f.getvalue()
+        expected = colour_message(error_message)
+        return printed == expected
 
     def test_plot_data(self):
         error_message = """Data set googlyboo is plotted with incorrect data.
     Check that all variables are correctly defined, and that you are plotting
     the right variables in the right order (i.e. plt.plot(X,Y))"""
         assert(pm._data("googlyboo") == error_message)
+        assert(self.checkprint("_data", error_message))
 
     def test_plot_linestyle(self):
         error_message = """Data set googlyboo is plotted with the incorrect linestyle.
@@ -185,6 +204,7 @@ class PlotErrorTests(unittest.TestCase):
         plt.plot(X,Y,'.')
     for dots."""
         assert(pm._linestyle("googlyboo") == error_message)
+        assert(self.checkprint("_linestyle", error_message))
 
     def test_plot_marker(self):
         error_message = """Data set googlyboo is plotted with incorrect markers.
@@ -194,6 +214,7 @@ class PlotErrorTests(unittest.TestCase):
         plt.plot(X,Y,'o')
     for circles."""
         assert(pm._marker("googlyboo") == error_message)
+        assert(self.checkprint("_marker", error_message))
 
     def test_plot_colour(self):
         error_message = """Data set googlyboo is plotted with the incorrect colour.
@@ -203,6 +224,7 @@ class PlotErrorTests(unittest.TestCase):
         plt.plot(X,Y,'r')
     for red."""
         assert(pm._colour("googlyboo") == error_message)
+        assert(self.checkprint("_colour", error_message))
 
     def test_plot_partial(self):
         error_message = """Dataset googlyboo plotted correctly!\n"""

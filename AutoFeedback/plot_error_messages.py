@@ -4,13 +4,13 @@ Feedback strings for plot-based exercises
 from __future__ import print_function
 
 
-class error_message():
-    def _data(label):
+class error_message:
+    def _data(self, label):
         return (f"""Data set {label} is plotted with incorrect data.
     Check that all variables are correctly defined, and that you are plotting
     the right variables in the right order (i.e. plt.plot(X,Y))""")
 
-    def _linestyle(label):
+    def _linestyle(self, label):
         return (f"""Data set {label} is plotted with the incorrect linestyle.
     Set the linestyle with the optional third argument in the plot command e.g.
         plt.plot(X,Y,'--')
@@ -18,7 +18,7 @@ class error_message():
         plt.plot(X,Y,'.')
     for dots.""")
 
-    def _marker(label):
+    def _marker(self, label):
         return (f"""Data set {label} is plotted with incorrect markers.
     Set the marker with the optional third argument in the plot command e.g.
         plt.plot(X,Y,'.')
@@ -26,7 +26,7 @@ class error_message():
         plt.plot(X,Y,'o')
     for circles.""")
 
-    def _colour(label):
+    def _colour(self, label):
         return (f"""Data set {label} is plotted with the incorrect colour.
     Set the colour with the optional third argument in the plot command e.g.
         plt.plot(X,Y,'k')
@@ -65,7 +65,7 @@ class error_message():
     Check that the number of datasets plotted matches the number requested in
     the instructions"""
 
-    def _partial(name):
+    def _partial(self, name):
         return (f"""Dataset {name} plotted correctly!\n""")
 
     _success = "Plot is correct!\n"
@@ -94,14 +94,15 @@ def print_error_message(error, expline):
         the expected line, i.e. what the student was supposed to plot
     """
     from AutoFeedback.bcolors import bcolors
+    em = error_message()
     if (str(error) == "_success" or str(error)[0:8] == "_partial"):
-        emsg = eval("error_message."+str(error))
+        emsg = eval(f"em.f{error}")
         print(f"{bcolors.OKGREEN}{emsg}{bcolors.ENDC}")
     elif hasattr(expline, "diagnosis") and expline.diagnosis != "ok":
         emsg = expline.get_error(
             str(error).replace("_data(", "").replace(")", ""))
         print(f"{bcolors.FAIL}{emsg}{bcolors.ENDC}")
     else:
-        emsg = eval("error_message."+str(error))
+        emsg = eval(f"em.{error}(expline.label)")
         print(f"{bcolors.FAIL}{emsg}{bcolors.ENDC}")
     print(f"{bcolors.WARNING}{30*'='}\n{bcolors.ENDC}")
