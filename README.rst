@@ -2,14 +2,21 @@
 AutoFeedback: Assignment Checker
 ================================
 
-.. image:: https://img.shields.io/travis/abrown41/AutoFeedback.svg
-        :target: https://travis-ci.org/abrown41/AutoFeedback
+.. image:: https://github.com/abrown41/AutoFeedback/actions/workflows/build_test.yml/badge.svg
+        :target: https://github.com/abrown41/AutoFeedback/actions/workflows/ 
+.. image:: https://github.com/abrown41/AutoFeedback/actions/workflows/build_docs.yml/badge.svg
+        :target: https://github.com/abrown41/AutoFeedback/actions/workflows/
+.. image:: https://github.com/abrown41/AutoFeedback/actions/workflows/install.yml/badge.svg
+        :target: https://github.com/abrown41/AutoFeedback/actions/workflows/
 
 .. image:: https://img.shields.io/pypi/v/AutoFeedback.svg
         :target: https://pypi.python.org/pypi/AutoFeedback
 
 .. image:: https://codecov.io/gh/abrown41/AutoFeedback/branch/master/graph/badge.svg?token=R2Z5SI6T71
         :target: https://codecov.io/gh/abrown41/AutoFeedback
+        
+.. image:: https://img.shields.io/lgtm/grade/python/g/abrown41/AutoFeedback.svg?logo=lgtm&logoWidth=18
+        :target: https://lgtm.com/projects/g/abrown41/AutoFeedback/context:python
 
 
 check basic python exercises with pretty feedback
