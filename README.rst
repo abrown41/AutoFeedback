@@ -9,7 +9,6 @@ AutoFeedback: Assignment Checker
 .. image:: https://github.com/abrown41/AutoFeedback/actions/workflows/install.yml/badge.svg
         :target: https://github.com/abrown41/AutoFeedback/actions/workflows/
 
-
 .. image:: https://img.shields.io/pypi/v/AutoFeedback.svg
         :target: https://pypi.python.org/pypi/AutoFeedback
 
