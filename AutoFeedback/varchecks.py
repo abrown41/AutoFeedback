@@ -1,7 +1,12 @@
+"""
+Check a student-defined variable has expected value, and provide feedback
+"""
 import importlib
 
 
 def _exists(varname, modname=None):
+    """Check that modname.varname exists (modname and varname are both
+    strings)"""
     if not modname:
         mod = importlib.import_module('main')
     else:
@@ -16,6 +21,7 @@ def _exists(varname, modname=None):
 
 
 def _get_var(varname, modname=None):
+    """import modname.varname (modname and varname are both strings)"""
     if not modname:
         mod = importlib.import_module('main')
     else:
@@ -25,6 +31,7 @@ def _get_var(varname, modname=None):
 
 
 def _check_size(a, b):
+    """check that variable a is the same size (and shape) as b"""
     if hasattr(b, "shape") and hasattr(a, "shape"):  # both ndarrays
         return a.shape == b.shape
     if hasattr(b, "__len__") and hasattr(a, "__len__"):  # both arrays
@@ -36,6 +43,13 @@ def _check_size(a, b):
 
 
 def check_value(a, b):
+    """check that variable a has the same value as b
+
+    Note that this has been tested for strings, integers, floats, numpy arrays,
+    lists, tuples and sympy objects. In the case of sympy objects, the
+    expressions are simplified to make sure that they are compared correctly,
+    so that x*x == x**2 for instance.
+    """
     import numpy as np
     np.set_printoptions(threshold=10)
 
@@ -83,6 +97,25 @@ def check_value(a, b):
 
 
 def check_vars(varname, expected, modname=None, output=True):
+    """given information on a variable which the student has been asked to
+    define, check whether it has been defined correctly, and provide feedback
+
+    Parameters
+    ==========
+    varname : str
+        name of the variable to be investigated
+    expected : any
+        expected value of varname
+    modname : str
+        name of module from which funcname should be imported (mostly used for
+        testing. If modname==None, then main.py will be used as the source
+    output : bool
+        if True, print output to screen. otherwise execute quietly
+
+    Returns
+    =======
+    bool: True if function works as expected, False otherwise.
+    """
     from AutoFeedback.variable_error_messages import print_error_message
     var = -999
     try:
@@ -100,5 +133,6 @@ def check_vars(varname, expected, modname=None, output=True):
 
 
 def check_output(expected):
+    """Check that information printed to screen matches expected (str)"""
     from AutoFeedback.variable_error_messages import output_check
     return output_check(expected)

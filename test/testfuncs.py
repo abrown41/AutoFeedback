@@ -9,7 +9,7 @@ class tmod:
         return(x**2)
 
     def f2(x, y):
-        print(np.sqrt(tmod.f1(x)))
+        return
 
 
 def f4(x):
@@ -61,10 +61,10 @@ class UnitTests(unittest.TestCase):
         assert(not fc._check_outputs(tmod.f2, (10, 11), 10))
 
     def test_calls(self):
-        assert(fc._check_calls(f3, (10,), 'f4'))
+        assert(fc._check_calls(f3, 'f4'))
 
     def test_notcalls(self):
-        assert(not fc._check_calls(f3, (10,), 'f1'))
+        assert(not fc._check_calls(f3, 'f1'))
 
 
 class SystemTests(unittest.TestCase):

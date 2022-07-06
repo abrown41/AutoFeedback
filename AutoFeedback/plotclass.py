@@ -1,8 +1,35 @@
+"""
+Define objects for comparison to matplotlib objects. I.E create something with
+attributes comparable with matplotlib lines, axes etc. without having to create
+a figure.
+"""
 from AutoFeedback.varchecks import check_value
 from AutoFeedback import plot_error_messages
 
 
 class line:
+    """
+    generic class for data plotted in a figure
+
+    Attributes
+    ==========
+    xdata : list/np.array
+        x-values for xydata/patch
+    ydata : list/np.array
+        y-values for xydata/patch
+    linestyle : list of strings or None
+        linestyles that will be accepted as correct, e.g. ['-', '--', '-.']
+    colour : list of colour identifiers or None
+       colours that will be accepted as correct
+       e.g. ['r','red',(1.0,0.0,0.0,1)])
+    label : str
+        label attached to data (for legend entry for instance)
+    marker : list of strings or None
+        markers that will be accepted as correct, e.g. ['.', ',', 'o']
+    diagnosis : str
+        diagnosis of what is incorrect about the line
+    """
+
     def __init__(self, xdata, ydata, linestyle=None, colour=None,
                  label=None, marker=None):
         self.xdata = xdata
@@ -14,9 +41,25 @@ class line:
         self.diagnosis = "ok"
 
     def get_xydata(self):
+        """mimic matplotlib.axes.get_xydata()"""
         return(self.xdata, self.ydata)
 
     def check_linedata(self, x, y, no_diagnose=False):
+        """determine whether the xy data matches the expected data
+
+        Parameters
+        ==========
+        x : list or np.array
+            expected x data
+        y : list or np.array
+            expected y data
+        no_diagnose : bool
+            if True then don't provide any feedback on the comparison.
+
+        Returns
+        =======
+        bool : True if data matches expected, False otherwise
+        """
         goodx, goody = False, False
         if hasattr(self.xdata, "check_value") and\
                 callable(self.xdata.check_value):
@@ -41,6 +84,7 @@ class line:
         return(goodx and goody)
 
     def generic_error(self, label, axis):
+        """Generic error message for incorrect data in plot"""
         return(f"The {axis}-coordinates of the points in the data set {label} \
 are incorrect\n" +
                ("""
@@ -51,6 +95,12 @@ are incorrect\n" +
                 """))
 
     def get_error(self, label):
+        """determine the error message to be printed, based on the diagnosis
+        Parameters
+        ==========
+        label : str
+            label for the data set to be plotted
+        """
         if self.diagnosis == "badxy":
             error_message = plot_error_messages.error_message._data(label)
         elif self.diagnosis == "badx":

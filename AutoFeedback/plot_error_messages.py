@@ -1,3 +1,6 @@
+"""
+Feedback strings for plot-based exercises
+"""
 from __future__ import print_function
 
 
@@ -20,7 +23,7 @@ class error_message():
     Set the marker with the optional third argument in the plot command e.g.
         plt.plot(X,Y,'.')
     for points
-        plt.plot(X,Y,'o ')
+        plt.plot(X,Y,'o')
     for circles.""")
 
     def _colour(label):
@@ -69,6 +72,27 @@ class error_message():
 
 
 def print_error_message(error, expline):
+    """ given information on the plot, display meaningful
+    feedback in the terminal as to why the submitted code has failed (or
+    passed).
+
+    Parameters
+    ==========
+    error : str
+        Possible error strings are:
+            - '_success' : plot is correct
+            - '_partial' : one specific data set has been plotted correctly
+            - '_data' : plotted data is incorrect
+            - '_linestyle' : data plotted with incorrect linestyle
+            - '_colour' : data plotted with incorrect colour
+            - '_marker' : data plotted with incorrect marker
+            - '_axes' : plot axes set incorrectly
+            - '_labels' : axis labels set incorrectly
+            - '_legend' : legend not shown/ set incorrectly
+            - '_datasets' : number of datasets set incorrectly
+    expline : Autofeedback.plotclass.line
+        the expected line, i.e. what the student was supposed to plot
+    """
     from AutoFeedback.bcolors import bcolors
     if (str(error) == "_success" or str(error)[0:8] == "_partial"):
         emsg = eval("error_message."+str(error))

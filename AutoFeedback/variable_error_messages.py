@@ -1,37 +1,40 @@
+"""
+Feedback strings for variable-based exercises
+"""
 from __future__ import print_function
 
 
 def _existence_error(varname):
-    error_message = """The variable {} does not exist.
+    error_message = f"""The variable {varname} does not exist.
     Ensure you have named the variable properly,
     bearing in mind that capital letters matter.
-    """.format(varname)
+    """
     return(error_message)
 
 
 def _size_error(varname):
-    error_message = """The variable {} is the wrong size.
-    Try using len(...) to determine the size of the array, or print(...)
-    to check the values look as you expect them to.
-    """.format(varname)
+    error_message = f"""The variable {varname} is the wrong size.
+    Try using len({varname}) to determine the size of the array, or
+    print({varname} to check the values look as you expect them to.
+    """
     return(error_message)
 
 
 def _value_error(varname, exp, res):
-    error_message = """The variable {} has the wrong value(s)\n
+    error_message = f"""The variable {varname} has the wrong value(s)\n
         We expected the output:
-        {}\n
+        {exp}
         but instead we got:
-        {}\n
-        Try using print(...) to check the values look as you expect them to
-        and ensure the expression used to calculate the variable
+        {res}
+        Try using print({varname}) to check the values look as you expect them
+        to and ensure the expression used to calculate the variable
         is correct.
-        """.format(varname, exp, res)
+        """
     return(error_message)
 
 
 def _import_error():
-    error_message = """Your code failes to execute.
+    error_message = """Your code fails to execute.
     Please refer to the error messages printed in the terminal to resolve
     any errors in your code.
     """
@@ -39,6 +42,24 @@ def _import_error():
 
 
 def print_error_message(error, varname, exp, res):
+    """given information on the variable, display meaningful feedback in the
+    terminal as to why the submitted code has failed (or passed).
+
+    Parameters
+    ==========
+    error : str
+        Possible error strings are:
+            - 'success' : variable is defined correctly
+            - 'existence' : variable has not been defined
+            - 'size' : variable is the wrong size (e.g. wrong length of array)
+            - 'import' : main.py cannot be imported
+    varname : str
+        name of the variable under investigation
+    exp : any
+        expected value of varname
+    res : any
+        actual value of varname
+    """
     from AutoFeedback.bcolors import bcolors
 
     if (str(error) == "success"):
@@ -55,12 +76,27 @@ def print_error_message(error, varname, exp, res):
         elif (str(error) == "import"):
             emsg = _import_error()
         else:
-            emsg("something not right with "+varname)
+            emsg = f"something not right with {varname}"
         print(f"{bcolors.FAIL}{emsg}{bcolors.ENDC}")
     print(f"{bcolors.WARNING}{30*'='}\n{bcolors.ENDC}")
 
 
 def output_check(expected, executable="main.py"):
+    """Check whether printed information matches expected
+
+    Parameters
+    ==========
+    expected : str
+        The expected contents of stdout
+    executable : str
+        name of the python executable which when executed should print
+        `expected` to screen
+
+    Returns
+    =======
+    check : bool
+        True if stdout is expected, False otherwise
+    """
     import subprocess
     import sys
     from AutoFeedback.bcolors import bcolors

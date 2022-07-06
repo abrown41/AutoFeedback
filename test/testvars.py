@@ -9,10 +9,24 @@ class tmod:
     y = np.linspace(0, 1, 3)
     z = np.eye(3)
 
+    def check_value(self, a):
+        return self.x * a
+
 
 class UnitTests(unittest.TestCase):
     def test_exists(self):
         assert(vc._exists('x', modname=tmod))
+
+    def test_main_exists(self):
+        assert(vc._exists('x'))
+
+    def test_main_getvar(self):
+        mainx = vc._get_var('x')
+        assert(mainx == 17)
+
+    def test_check_value(self):
+        b = tmod()
+        assert(vc.check_value(12, b))
 
     def test_notexists(self):
         assert(not vc._exists('t', modname=tmod))

@@ -1,3 +1,7 @@
+"""
+Colors used for printing messages to terminal
+"""
+
 
 class bcolors:
     HEADER = '\033[95m'

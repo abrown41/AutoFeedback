@@ -1,7 +1,12 @@
+"""
+Check a students' function works as expected, and provide feedback
+"""
 import importlib
 
 
 def _exists(funcname, modname=None):
+    """Check that modname.funcname exists (modname and funcname are both
+    strings)"""
     import inspect
     if not modname:
         mod = importlib.import_module('main')
@@ -16,6 +21,7 @@ def _exists(funcname, modname=None):
 
 
 def _get_func(funcname, modname=None):
+    """import modname.funcname (modname and funcname are both strings)"""
     if not modname:
         mod = importlib.import_module('main')
     else:
@@ -25,6 +31,12 @@ def _get_func(funcname, modname=None):
 
 
 def _input_vars(func, ins):
+    """check that func accepts input as expected
+    Parameters
+    ==========
+    func : function handle for function to be checked
+    ins : tuple containing sample inputs
+    """
     from copy import deepcopy as dc
     inputs = dc(ins)
     try:
@@ -38,6 +50,12 @@ def _input_vars(func, ins):
 
 
 def _returns(func, ins):
+    """check that func returns a value
+    Parameters
+    ==========
+    func : function handle for function to be checked
+    ins : tuple containing sample inputs
+    """
     from copy import deepcopy as dc
     inputs = dc(ins)
     try:
@@ -53,6 +71,13 @@ def _returns(func, ins):
 
 
 def _check_outputs(func, ins, expected):
+    """check that func(ins) returns the expected value
+    Parameters
+    ==========
+    func : function handle for function to be checked
+    ins : tuple containing sample inputs
+    expected : expected return value of func(ins)
+    """
     from AutoFeedback.varchecks import check_value
     from copy import deepcopy as dc
     inputs = dc(ins)
@@ -66,7 +91,13 @@ def _check_outputs(func, ins, expected):
         return False
 
 
-def _check_calls(func, inputs, call):
+def _check_calls(func, call):
+    """check that func calls another function called 'call'
+    Parameters
+    ==========
+    func : function handle for function to be checked
+    call : str, name of other function to be called
+    """
     import inspect
     import ast
     try:
@@ -81,6 +112,29 @@ def _check_calls(func, inputs, call):
 
 def check_func(funcname, inputs, expected, calls=[],
                modname=None, output=True):
+    """given information on a function which the student has been asked to
+    define, check whether it has been defined correctly, and provide feedback
+
+    Parameters
+    ==========
+    funcname : str
+        name of function to be investigated
+    inputs : list of tuples
+        inputs with which to test funcname
+    expected : list
+        expected outputs of [funcname(inp) for inp in inputs]
+    calls : list of strings
+        names of any functions which funcname should call
+    modname : str
+        name of module from which funcname should be imported (mostly used for
+        testing. If modname==None, then main.py will be used as the source
+    output : bool
+        if True, print output to screen. otherwise execute quietly
+
+    Returns
+    =======
+    bool: True if function works as expected, False otherwise.
+    """
     from AutoFeedback.function_error_messages import print_error_message
     from copy import deepcopy as copy
     call = []
@@ -97,7 +151,7 @@ def check_func(funcname, inputs, expected, calls=[],
             res = func(*copy(ins))  # ensure the inputs are not overwritten
             assert(_check_outputs(func, ins, outs)), "outputs"
         for call in calls:
-            assert(_check_calls(func, inputs[0], call)), "calls"
+            assert(_check_calls(func, call)), "calls"
         if output:
             print_error_message("success", funcname)
     except AssertionError as error:
