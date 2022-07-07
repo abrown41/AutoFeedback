@@ -19,5 +19,22 @@ class VarErrorTests(unittest.TestCase):
  type of random variable"""
         error_message += """\n The random variable should be between
  -1 and 1"""
+        assert(error_message == r.get_error("googlyboo"))
+
+    def test_range_up(self):
+        r = rv(expectation=0, vmin=-1)
+        r.diagnosis = "range"
+        error_message = """The googlyboo fall outside the allowed range of values for this
+ type of random variable"""
+        error_message += """\n The random variable should be greater
+ than or equal to -1"""
         assert(error_message[-1] == r.get_error("googlyboo")[-1])
 
+    def test_range_lo(self):
+        r = rv(expectation=0, vmax=-1)
+        r.diagnosis = "range"
+        error_message = """The googlyboo fall outside the allowed range of values for this
+ type of random variable"""
+        error_message += """\n The random variable should be less
+ than or equal to -1"""
+        assert(error_message[-1] == r.get_error("googlyboo")[-1])
