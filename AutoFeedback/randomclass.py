@@ -153,27 +153,24 @@ and {str(self.upper)} with expectation {str(self.expectation)}"
     def get_error(self, obj):
         error_message = ""
         if self.diagnosis == "integer":
-            error_message = "The " + obj + " should only take integer values" + """
+            error_message = f"""The {obj} should only take integer values
              You should be generating integer valued discrete random variables
              Your random variables should thus only ever take integer values
              """
         elif self.diagnosis == "range":
-            error_message = "The " + obj + \
-                " fall outside the allowed range of values for this\
-                type of random variable"
+            error_message = f"""The {obj} fall outside the allowed range of values for this
+ type of random variable"""
             if self.lower == "unset":
-                error_message += "\n The random variable should be less\
-                    than or equal to " + \
-                    str(self.upper)
+                error_message += f"""\n The random variable should be less
+ than or equal to  {self.upper}"""
             elif self.upper == "unset":
-                error_message += "\n The random variable should be greater\
-                    than or equal to " + \
-                    str(self.lower)
+                error_message += f"""\n The random variable should be greater
+ than or equal to {self.lower}"""
             else:
-                error_message += "\n The random variable should be between " +\
-                    str(self.lower) + " and " + str(self.upper)
+                error_message += f"""\n The random variable should be between
+ {self.lower} and {self.upper}"""
         elif self.diagnosis == "hypothesis":
-            error_message = "The " + obj + " appear to be sampled from the wrong distribution" + """
+            error_message = f"""The {obj} appear to be sampled from the wrong distribution
             To test if you generating a random variable from the correct
             distribution the test code performs a hypothesis test.  The null
             hypothesis in this test is that you are sampling from the desired
@@ -187,7 +184,7 @@ and {str(self.upper)} with expectation {str(self.expectation)}"
             wrong.
             """
         elif self.diagnosis == "number":
-            error_message = "The " + obj + " is not generating the correct number of random variables" + """
+            error_message = f"""The {obj} is not generating the correct number of random variables
             You should be generating a vector that contains multiple random
             variables in this object
             """
