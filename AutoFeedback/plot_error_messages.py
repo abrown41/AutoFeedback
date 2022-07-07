@@ -94,15 +94,14 @@ def print_error_message(error, expline):
         the expected line, i.e. what the student was supposed to plot
     """
     from AutoFeedback.bcolors import bcolors
-    em = error_message()
     if (str(error) == "_success" or str(error)[0:8] == "_partial"):
-        emsg = eval(f"em.f{error}")
+        emsg = eval(f"error_message().{error}")
         print(f"{bcolors.OKGREEN}{emsg}{bcolors.ENDC}")
     elif hasattr(expline, "diagnosis") and expline.diagnosis != "ok":
         emsg = expline.get_error(
             str(error).replace("_data(", "").replace(")", ""))
         print(f"{bcolors.FAIL}{emsg}{bcolors.ENDC}")
     else:
-        emsg = eval(f"em.{error}(expline.label)")
+        emsg = eval(f"error_message().{error}(expline.label)")
         print(f"{bcolors.FAIL}{emsg}{bcolors.ENDC}")
     print(f"{bcolors.WARNING}{30*'='}\n{bcolors.ENDC}")

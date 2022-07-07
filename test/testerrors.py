@@ -229,3 +229,12 @@ class PlotErrorTests(unittest.TestCase):
     def test_plot_partial(self):
         error_message = """Dataset googlyboo plotted correctly!\n"""
         assert(pm._partial("googlyboo") == error_message)
+
+    def test_plot_success(self):
+        from AutoFeedback.bcolors import bcolors
+        error_message = f"{bcolors.OKGREEN}Plot is correct!\n{bcolors.ENDC}\n"
+        error_message += f"{bcolors.WARNING}{30*'='}\n{bcolors.ENDC}\n"
+        f = io.StringIO()
+        with contextlib.redirect_stdout(f):
+            pr("_success", myline)
+        assert(f.getvalue() == error_message)

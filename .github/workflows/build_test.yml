@@ -27,7 +27,7 @@ jobs:
         pip install -r requirements-dev.txt 
     - name: Lint with flake8
       run: |
-        flake8 AutoFeedback --ignore=F841,E2,W50
+        flake8 AutoFeedback
     - name: Test with unittest
       run: |
         coverage run --source=. -m unittest

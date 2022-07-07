@@ -17,6 +17,7 @@ class tmod:
         pc._extract_plot_elements(
             fighand, lines=True, axislabels=True, axes=True, legend=True)
     l1, l2 = line_data[0], line_data[1]
+    plt.close()
 
 
 line1 = line([0, 1, 2], [0, 1, 4], linestyle=['-', 'solid'],
@@ -91,14 +92,14 @@ class SystemTests(unittest.TestCase):
     def test_check_plot(self):
         assert(pc.check_plot([line1, line2], expaxes=axeslimits,
                              explabels=axislabels,
-                             explegend=True, modname='tmod'))
+                             explegend=True))
 
     def test_invert_order(self):
         assert(pc.check_plot([line2, line1], expaxes=axeslimits,
                              explabels=axislabels,
-                             explegend=True, modname='tmod'))
+                             explegend=True))
 
     def test_partial(self):
         assert(pc.check_plot([line2], check_partial=True, expaxes=axeslimits,
                              explabels=axislabels,
-                             explegend=True, modname='tmod'))
+                             explegend=True))

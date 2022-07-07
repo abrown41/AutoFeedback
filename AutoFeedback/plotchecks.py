@@ -5,13 +5,10 @@ from AutoFeedback.varchecks import check_value
 import matplotlib.pyplot as plt
 
 
-def _grab_figure(modname='main'):
+def _grab_figure():
     """ get figure handle for plot to be investigated
     Parameters
     ==========
-    modname : str
-        module in which the plot for investigation is defined. Mostly used for
-        testing. By default the plot will be imported from main.py
 
     Returns
     =======
@@ -20,8 +17,7 @@ def _grab_figure(modname='main'):
     fighand = None
     try:
         plt.ion()  # make any show commands non-blocking
-        if modname == 'main':
-            __import__(modname)
+        __import__('main')
         fighand = plt.gca()
         # plt.close() # close any open figures
     except ModuleNotFoundError:
@@ -163,8 +159,8 @@ def _e_string(error, label):
 
 
 def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
-               explegend=False, output=False, check_partial=False,
-               modname='main'):
+               explegend=False, output=False, check_partial=False):
+
     """given information on a plot which the student has been asked to
     produce, check whether it has been done correctly, and provide feedback
 
@@ -186,9 +182,6 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
     check_partial : bool
         if more than one line is to be plotted, check only whether at least one
         has been plotted
-    modname : str
-        name of module from which funcname should be imported (mostly used for
-        testing. If modname==None, then main.py will be used as the source
 
     Returns
     =======
@@ -198,7 +191,7 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
     from AutoFeedback.plot_error_messages import print_error_message
     from itertools import zip_longest
     try:
-        fighand = _grab_figure(modname)
+        fighand = _grab_figure()
         lines, patch, axes, labels, legends =\
             _extract_plot_elements(fighand, lines=(len(explines) > 0),
                                    patches=exppatch, axes=bool(expaxes),

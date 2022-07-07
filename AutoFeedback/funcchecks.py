@@ -1,33 +1,22 @@
 """
 Check a students' function works as expected, and provide feedback
 """
-import importlib
 
 
-def _exists(funcname, modname=None):
-    """Check that modname.funcname exists (modname and funcname are both
-    strings)"""
+def _exists(funcname):
+    """Check that main.funcname exists (funcname is string)"""
     import inspect
-    if not modname:
-        mod = importlib.import_module('main')
-    else:
-        mod = modname
-    funcstring = "mod."+funcname  # get variable from main code
     try:
-        testfunc = eval(funcstring)
+        testfunc = getattr(__import__('main', fromlist=[funcname]), funcname)
         return(inspect.isfunction(testfunc))
     except Exception:
         return (False)
 
 
-def _get_func(funcname, modname=None):
-    """import modname.funcname (modname and funcname are both strings)"""
-    if not modname:
-        mod = importlib.import_module('main')
-    else:
-        mod = modname
-    funcstring = "mod."+funcname  # get function from main code
-    return(eval(funcstring))
+def _get_func(funcname):
+    """import main.funcname (funcname is string)"""
+    testfunc = getattr(__import__('main', fromlist=[funcname]), funcname)
+    return(testfunc)
 
 
 def _input_vars(func, ins):
@@ -110,8 +99,7 @@ def _check_calls(func, call):
         return False
 
 
-def check_func(funcname, inputs, expected, calls=[],
-               modname=None, output=True):
+def check_func(funcname, inputs, expected, calls=[], output=True):
     """given information on a function which the student has been asked to
     define, check whether it has been defined correctly, and provide feedback
 
@@ -125,9 +113,6 @@ def check_func(funcname, inputs, expected, calls=[],
         expected outputs of [funcname(inp) for inp in inputs]
     calls : list of strings
         names of any functions which funcname should call
-    modname : str
-        name of module from which funcname should be imported (mostly used for
-        testing. If modname==None, then main.py will be used as the source
     output : bool
         if True, print output to screen. otherwise execute quietly
 
@@ -142,8 +127,8 @@ def check_func(funcname, inputs, expected, calls=[],
     outs = expected[0]
     res = -999
     try:
-        assert(_exists(funcname, modname)), "existence"
-        func = _get_func(funcname, modname)
+        assert(_exists(funcname)), "existence"
+        func = _get_func(funcname)
         assert(_input_vars(func, inputs[0])), "inputs"
 
         assert(_returns(func, inputs[0])), "return"
@@ -159,7 +144,7 @@ def check_func(funcname, inputs, expected, calls=[],
             print_error_message(error, funcname, inp=ins,
                                 exp=outs, result=res, callname=call)
         return(False)
-    except Exception as e:
+    except Exception:
         if output:
             import traceback
             print_error_message("execution", funcname, inp=ins,

@@ -1,33 +1,24 @@
 """
 Check a student-defined variable has expected value, and provide feedback
 """
-import importlib
 
 
-def _exists(varname, modname=None):
-    """Check that modname.varname exists (modname and varname are both
-    strings)"""
-    if not modname:
-        mod = importlib.import_module('main')
-    else:
-        mod = modname
-
-    varstring = "mod."+varname  # get variable from main code
+def _exists(varname):
+    """Check that main.varname exists (varname is string)"""
+#    mod = importlib.import_module('main')
+#    varstring = f"mod.{varname}"  # get variable from main code
     try:
-        eval(varstring)
+        getattr(__import__('main', fromlist=[varname]), varname)
+#        eval(varstring)
         return(True)
     except AttributeError:
         return(False)
 
 
-def _get_var(varname, modname=None):
-    """import modname.varname (modname and varname are both strings)"""
-    if not modname:
-        mod = importlib.import_module('main')
-    else:
-        mod = modname
-    varstring = "mod."+varname  # get variable from main code
-    return(eval(varstring))
+def _get_var(varname):
+    """import main.varname (varname is string)"""
+    imported = getattr(__import__('main', fromlist=[varname]), varname)
+    return(imported)
 
 
 def _check_size(a, b):
@@ -96,7 +87,7 @@ def check_value(a, b):
                 return False
 
 
-def check_vars(varname, expected, modname=None, output=True):
+def check_vars(varname, expected, output=True):
     """given information on a variable which the student has been asked to
     define, check whether it has been defined correctly, and provide feedback
 
@@ -106,9 +97,6 @@ def check_vars(varname, expected, modname=None, output=True):
         name of the variable to be investigated
     expected : any
         expected value of varname
-    modname : str
-        name of module from which funcname should be imported (mostly used for
-        testing. If modname==None, then main.py will be used as the source
     output : bool
         if True, print output to screen. otherwise execute quietly
 
@@ -119,8 +107,8 @@ def check_vars(varname, expected, modname=None, output=True):
     from AutoFeedback.variable_error_messages import print_error_message
     var = -999
     try:
-        assert(_exists(varname, modname)), "existence"
-        var = _get_var(varname, modname)
+        assert(_exists(varname)), "existence"
+        var = _get_var(varname)
         assert(_check_size(var, expected)), "size"
         assert(check_value(var, expected)), "value"
         if output:
