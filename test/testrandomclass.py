@@ -68,6 +68,16 @@ class VarErrorTests(unittest.TestCase):
             """
         assert(error_message == r.get_error("googlyboo"))
 
+    def test_conf_error(self):
+        r = rv(expectation=0)
+        r.diagnosis = "conf_number"
+        error_message = """The googlyboo is not generating the correct number of random variables.
+            googlyboo should return three random variables.  The first of these is the lower bound for the
+            confident limit.  The second is the sample mean and the third is the upper bound for the confidence
+            limit
+            """
+        assert(error_message == r.get_error("googlyboo")) 
+
     def test_length(self):
         r = rv(expectation=0, vmin=0, vmax=1 )
         r2 = rv( expectation=[0,0,0], vmin=[0,0,0], vmax=[1,1,1] )
@@ -143,3 +153,17 @@ class VarErrorTests(unittest.TestCase):
         vals2 = [scipy.stats.chi2.ppf(0.02,10)/10,scipy.stats.chi2.ppf(0.02,10)/10,scipy.stats.chi2.ppf(0.005,10)/10]
         vals3 = [scipy.stats.chi2.ppf(0.02,10)/10,scipy.stats.chi2.ppf(0.02,10)/10,scipy.stats.chi2.ppf(0.998,10)/10]
         assert( r.check_value( vals1 ) and not r.check_value( vals2 ) and not r.check_value( vals3 ) )
+
+    def test_conflim(self) :
+        r, pref = rv( expectation=0, variance=1, dist="conf_lim", dof=9, limit=0.90 ), scipy.stats.norm.ppf(0.95) 
+        goodmean1, goodmean2 = scipy.stats.norm.ppf(0.02), scipy.stats.norm.ppf(0.98)
+        badmean1, badmean2 = scipy.stats.norm.ppf(0.005), scipy.stats.norm.ppf(0.998)
+        goodvar1, goodvar2 = scipy.stats.chi2.ppf(0.02,9)/9, scipy.stats.chi2.ppf(0.98,9)/9
+        badvar1, badvar2 = scipy.stats.chi2.ppf(0.005,9)/9, scipy.stats.chi2.ppf(0.998,9)/9
+        assert( r.check_value( [goodmean1-pref*np.sqrt(goodvar1), goodmean1, goodmean1+pref*np.sqrt(goodvar2)] ) and 
+                r.check_value( [goodmean2-pref*np.sqrt(goodvar2), goodmean2, goodmean2+pref*np.sqrt(goodvar1)] ) and 
+                not r.check_value( [goodmean1-pref*np.sqrt(goodvar1), badmean1, goodmean1+pref*np.sqrt(goodvar2)] ) and 
+                not r.check_value( [goodmean2-pref*np.sqrt(goodvar2), badmean2, goodmean2+pref*np.sqrt(goodvar1)] ) and 
+                not r.check_value( [goodmean1-pref*np.sqrt(badvar1), goodmean1, goodmean1+pref*np.sqrt(goodvar2)] ) and
+                not r.check_value( [goodmean2-pref*np.sqrt(goodvar1), goodmean2, goodmean2+pref*np.sqrt(badvar2)] ) and
+                not r.check_value( [goodmean2-pref*np.sqrt(goodvar1), goodmean2] ) )

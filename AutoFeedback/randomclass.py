@@ -9,7 +9,7 @@ class randomvar:
     expectation : float/list/np.array
         the expectation/s for your random variable/s
     dist : str
-        type of distribution to use in hypothesis testing can be normal/chi2
+        type of distribution to use in hypothesis testing can be normal/chi2/conf_lim
     variance : float/list/np.array
         the variance/s for your random variable/s 
     vmin : float/list/np.array
@@ -24,10 +24,11 @@ class randomvar:
         of identical random variables
     dof : number of degrees of freedom to use when calculating test statistic with 
         chi2 distribution
+    limit : size of confidence limit to use when checking confidence limits
     """
 
     def __init__(self, expectation, dist="normal", variance=0, vmin="unset",
-                 vmax="unset", isinteger=False, meanconv=False, dof=-1):
+                 vmax="unset", isinteger=False, meanconv=False, dof=-1, limit=-1):
         self.expectation = expectation
         self.variance = variance
         self.distribution = dist
@@ -36,7 +37,9 @@ class randomvar:
         self.lower = vmin
         self.upper = vmax
         self.diagnosis = "ok"
+        self.output_component = ""
         self.dof = dof
+        self.limit = limit
 
     def __str__(self):
         """ This is what is printed if the print method is executed on an
@@ -159,16 +162,43 @@ and {str(self.upper)} with expectation {str(self.expectation)}"
         val : float/list/nparray
               values to check if they are from specified distribution/s
         """
-        if hasattr(self.expectation, "__len__"):
-            if len(val) != len(self.expectation):
-                self.diagnosis = "number"
-                return(False)
-            for n, v in enumerate(val):
-                if not self._check_random_var(v, n):
+        if self.distribution=="conf_lim" : 
+           if self.limit<=0 : raise RuntimeError("if running conf_lim test the limit needs to be set")
+           if len(val)!=3 : 
+              self.diagnosis = "conf_number"
+              return(False)
+           # Check the mean
+           self.distribution="normal"
+           if not self._check_random_var( val[1], -1 ) :
+              self.distribution="conf_lim"
+              self.output_component = "mean from the "
+              return(False)
+           # Now check the limits
+           from scipy.stats import norm
+           self.distribution="chi2" 
+           varest = ( (val[0]-val[1]) / norm.ppf( (1+self.limit)/2) )**2
+           if not self._check_random_var( varest, -1 ) :
+              self.distribution="conf_lim"
+              self.output_component = "lower confidence limit from the " 
+              return(False)
+           varest = ( (val[2]-val[1]) / norm.ppf( (1+self.limit)/2 ) )**2
+           if not self._check_random_var( varest, -1 ) : 
+              self.distribution="conf_lim"
+              self.output_component = "upper confidence limit from the "
+              return(False)
+           self.distribution="conf_lim" 
+           return(True)
+        else : 
+            if hasattr(self.expectation, "__len__"):
+                if len(val) != len(self.expectation):
+                    self.diagnosis = "number"
                     return(False)
-            return(True)
-        else:
-            return self._check_random_var(val, -1)
+                for n, v in enumerate(val):
+                    if not self._check_random_var(v, n):
+                        return(False)
+                return(True)
+            else:
+                return self._check_random_var(val, -1)
 
     def _check_random_var(self, val, num):
         """check that a value is consistent with one of the specified distributions
@@ -204,8 +234,19 @@ and {str(self.upper)} with expectation {str(self.expectation)}"
 
                 return(True)
             else:
+                # Check on expectation
+                mean = sum(val)/len(val)
                 stat = self._get_statistic(
-                    sum(val)/len(val),  self.expectation,
+                    mean, self.expectation,
+                    self.variance, len(val))
+                if not self._hypo_check(stat) :
+                     return(False)
+                # Now check on variance
+                self.distribution, S2, self.dof = "chi2", 0, len(val) - 1
+                for v in val : S2 = S2 + v*v 
+                var = ( len(val) / self.dof )*( S2 / len(val) - mean*mean )
+                stat = self._get_statistic( 
+                    var, self.expectation, 
                     self.variance, len(val))
                 return self._hypo_check(stat)
         else:
@@ -245,7 +286,7 @@ and {str(self.upper)} with expectation {str(self.expectation)}"
                 error_message += f"""\n The random variable should be between
  {self.lower} and {self.upper}"""
         elif self.diagnosis == "hypothesis":
-            error_message = f"""The {obj} appear to be sampled from the wrong distribution
+            error_message = f"""The {self.output_component}{obj} appear to be sampled from the wrong distribution
             To test if you generating a random variable from the correct
             distribution the test code performs a hypothesis test.  The null
             hypothesis in this test is that you are sampling from the desired
@@ -262,5 +303,11 @@ and {str(self.upper)} with expectation {str(self.expectation)}"
             error_message = f"""The {obj} is not generating the correct number of random variables
             You should be generating a vector that contains multiple random
             variables in this object
+            """
+        elif self.diagnosis == "conf_number":
+            error_message = f"""The {obj} is not generating the correct number of random variables.
+            {obj} should return three random variables.  The first of these is the lower bound for the
+            confident limit.  The second is the sample mean and the third is the upper bound for the confidence
+            limit
             """
         return(error_message)
