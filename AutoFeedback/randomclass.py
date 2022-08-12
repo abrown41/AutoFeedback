@@ -118,8 +118,12 @@ and {str(self.upper)} with expectation {str(self.expectation)}"
             from math import sqrt
             return (value - expectation) / sqrt(variance/number)
         elif self.distribution == "chi2":
-            if self.dof<=0 : raise RuntimeError("if runnign chi2 test the number of degrees of freedom needs to be set")  
-            return self.dof*value / variance
+            if self.dof<=0 : raise RuntimeError("if runnign chi2 test the number of degrees of freedom needs to be set") 
+            var = value
+            if self.limit>0 :
+               from scipy.stats import norm 
+               var = ( value / norm.ppf( (1+self.limit)/2) )**2 
+            return self.dof*var / variance
         return 1
 
     def _hypo_check(self, stat ):
@@ -174,15 +178,12 @@ and {str(self.upper)} with expectation {str(self.expectation)}"
               self.output_component = "mean from the "
               return(False)
            # Now check the limits
-           from scipy.stats import norm
            self.distribution="chi2" 
-           varest = ( (val[0]-val[1]) / norm.ppf( (1+self.limit)/2) )**2
-           if not self._check_random_var( varest, -1 ) :
+           if not self._check_random_var( val[1]-val[0], -1 ) :
               self.distribution="conf_lim"
               self.output_component = "lower confidence limit from the " 
               return(False)
-           varest = ( (val[2]-val[1]) / norm.ppf( (1+self.limit)/2 ) )**2
-           if not self._check_random_var( varest, -1 ) : 
+           if not self._check_random_var( val[2]-val[1], -1 ) : 
               self.distribution="conf_lim"
               self.output_component = "upper confidence limit from the "
               return(False)
