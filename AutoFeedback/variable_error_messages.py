@@ -72,7 +72,10 @@ def print_error_message(error, varname, exp, res):
         elif (str(error) == "size"):
             emsg = _size_error(varname)
         elif (str(error) == "value"):
-            emsg = _value_error(varname, exp, res)
+            if hasattr(exp, "get_error") and callable(exp.get_error):
+                emsg = exp.get_error(f"variable {varname}")
+            else :
+                emsg = _value_error(varname, exp, res)
         elif (str(error) == "import"):
             emsg = _import_error()
         else:
