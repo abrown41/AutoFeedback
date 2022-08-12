@@ -9,7 +9,7 @@ class randomvar:
     expectation : float/list/np.array
         the expectation/s for your random variable/s
     dist : str
-        type of distribution to use in hypothesis testing can be normal/chi2/conf_lim
+        type of distribution to use in hypothesis testing can be normal/chi2/conf_lim/uncertainty
     variance : float/list/np.array
         the variance/s for your random variable/s 
     vmin : float/list/np.array
@@ -189,6 +189,25 @@ and {str(self.upper)} with expectation {str(self.expectation)}"
               return(False)
            self.distribution="conf_lim" 
            return(True)
+        elif self.distribution=="uncertainty" : 
+           if self.limit<=0 : raise RuntimeError("if running uncertainty test the limit needs to be set")
+           if len(val)!=2 : 
+              self.diagnosis = "uncertainty_number"
+              return(False)
+           # Check the mean 
+           self.distribution="normal"
+           if not self._check_random_var( val[0], -1 ) :
+              self.distribution="uncertainty"
+              self.output_component = "mean from the "
+              return(False)
+           # Now check the uncertainty
+           self.distribution="chi2" 
+           if not self._check_random_var( val[1], -1 ) :
+              self.distribution="uncertainty"
+              self.output_component = "uncertainty from the "
+              return(False)
+           self.distribution="uncertainty" 
+           return(True)
         else : 
             if hasattr(self.expectation, "__len__"):
                 if len(val) != len(self.expectation):
@@ -310,5 +329,10 @@ and {str(self.upper)} with expectation {str(self.expectation)}"
             {obj} should return three random variables.  The first of these is the lower bound for the
             confident limit.  The second is the sample mean and the third is the upper bound for the confidence
             limit
+            """
+        elif self.diagnosis == "uncertainty_number":
+            error_message = f"""The {obj} is not generating the correct number of random variables.
+            {obj} should return two random variables.  The first of these is the sample mean and the second
+            is the width of the error bar for the specified confidence interval around the sample mean
             """
         return(error_message)
