@@ -212,6 +212,20 @@ variables.append( randomvar( 0.0, variance=1, dist="chi2", dof=99, limit=0.90 ) 
 assert( check_func( 'confidence_limit', inputs, variables ) )
 ```
 
+The test above works because we set the `transform` property oof the randomvar class equal to the following function:
+
+```python
+def _confToVariance(self, value) :
+    from scipy.stats import norm
+    return ( value / norm.ppf( (1+self.limit)/2) )**2
+```
+
+This function inverts the transformation on the variance that was done in the last line of student code above.  The confidence 
+interval that the student provides is thus converted back into the variance.  We can then do the usual hypothesis test on the variance.
+Notice that when setting up a randomvar object you can pass a function to the variable `transform`.  This feature is useful if you have 
+asked the student to calculate a function of a sample mean or sample variance as you can pass a code for applying the inverse function to 
+the student output and then use AutoFeedback to do a hypothesis test on the sample mean or sample variance that the student transformed.
+
 ## Plotting random variables
 
 Getting students to complete computer programming exercises is a good way of getting them to generate plots that illustrate the 
@@ -314,8 +328,7 @@ The code above checks:
 ### Investigating convergence II: Sample variance
 
 There are numerous estimators for statistical quantities and you can ask students to calculate and plot graphs of these quantities like the graphs they 
-produced for the sample mean in the previous section.  It would be straightforward to extend AutoFeedback to test the student codes for examining 
-the convergence of these quantities.  At the moment, however, AutoFeedback can only really look at the convergence of the sample mean and the sample variance.
+produced for the sample mean in the previous section.  For example you might want students to look at the behaviour of the sample variance. 
 To draw a convergence graph for the sample variance students would write a code like this one:
 
 ```python

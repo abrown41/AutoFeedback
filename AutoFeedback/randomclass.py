@@ -25,10 +25,11 @@ class randomvar:
     dof : number of degrees of freedom to use when calculating test statistic with 
         chi2 distribution
     limit : size of confidence limit to use when checking confidence limits
+    transform : a function to transform the student's output to a random variable we can do a hypothesis test on
     """
 
     def __init__(self, expectation, dist="normal", variance=0, vmin="unset",
-                 vmax="unset", isinteger=False, meanconv=False, dof=-1, limit=-1):
+                 vmax="unset", isinteger=False, meanconv=False, dof=-1, limit=-1, transform=None ):
         self.expectation = expectation
         self.variance = variance
         self.distribution = dist
@@ -40,6 +41,10 @@ class randomvar:
         self.output_component = ""
         self.dof = dof
         self.limit = limit
+        self.transform=transform
+        if limit>0 and dist=="chi2" :
+           if self.transform is not None : raise RuntimeError("cannot set transform if you are using confidence limit") 
+           self.transform = self._confToVariance
 
     def __str__(self):
         """ This is what is printed if the print method is executed on an
@@ -100,6 +105,18 @@ and {str(self.upper)} with expectation {str(self.expectation)}"
             return(False)
         return(True)
 
+    def _confToVariance(self, value) :
+        """convert a confidence interval into a variance
+        
+        Parameters
+        ==========
+        value : float
+                value of confidence interval
+        """ 
+        from scipy.stats import norm 
+        if self.limit<=0 : raise RuntimeError("limit needs to be to do this task set")
+        return ( value / norm.ppf( (1+self.limit)/2) )**2  
+
     def _get_statistic(self, value, expectation, variance, number):
         """calculate the test statistic
 
@@ -116,14 +133,11 @@ and {str(self.upper)} with expectation {str(self.expectation)}"
         """
         if self.distribution == "normal":
             from math import sqrt
+            if variance<0 : RuntimeError("invalid")
             return (value - expectation) / sqrt(variance/number)
         elif self.distribution == "chi2":
             if self.dof<=0 : raise RuntimeError("if runnign chi2 test the number of degrees of freedom needs to be set") 
-            var = value
-            if self.limit>0 :
-               from scipy.stats import norm 
-               var = ( value / norm.ppf( (1+self.limit)/2) )**2 
-            return self.dof*var / variance
+            return self.dof*value / variance
         return 1
 
     def _hypo_check(self, stat ):
@@ -167,7 +181,6 @@ and {str(self.upper)} with expectation {str(self.expectation)}"
               values to check if they are from specified distribution/s
         """
         if self.distribution=="conf_lim" : 
-           if self.limit<=0 : raise RuntimeError("if running conf_lim test the limit needs to be set")
            if len(val)!=3 : 
               self.diagnosis = "conf_number"
               return(False)
@@ -179,18 +192,17 @@ and {str(self.upper)} with expectation {str(self.expectation)}"
               return(False)
            # Now check the limits
            self.distribution="chi2" 
-           if not self._check_random_var( val[1]-val[0], -1 ) :
+           if not self._check_random_var( self._confToVariance(val[1]-val[0]), -1 ) :
               self.distribution="conf_lim"
               self.output_component = "lower confidence limit from the " 
               return(False)
-           if not self._check_random_var( val[2]-val[1], -1 ) : 
+           if not self._check_random_var( self._confToVariance(val[2]-val[1]), -1 ) : 
               self.distribution="conf_lim"
               self.output_component = "upper confidence limit from the "
               return(False)
            self.distribution="conf_lim" 
            return(True)
         elif self.distribution=="uncertainty" : 
-           if self.limit<=0 : raise RuntimeError("if running uncertainty test the limit needs to be set")
            if len(val)!=2 : 
               self.diagnosis = "uncertainty_number"
               return(False)
@@ -202,7 +214,7 @@ and {str(self.upper)} with expectation {str(self.expectation)}"
               return(False)
            # Now check the uncertainty
            self.distribution="chi2" 
-           if not self._check_random_var( val[1], -1 ) :
+           if not self._check_random_var( self._confToVariance(val[1]), -1 ) :
               self.distribution="uncertainty"
               self.output_component = "uncertainty from the "
               return(False)
@@ -233,12 +245,17 @@ and {str(self.upper)} with expectation {str(self.expectation)}"
         """
         if hasattr(val, "__len__"):
             for v in val:
-                if not self._check_for_bad_value(v, num):
+                vv = v
+                if self.transform is not None : vv = self.transform(v)
+                if not self._check_for_bad_value(vv, num):
                     return(False)
-        elif not self._check_for_bad_value(val, num):
-            return(False)
+        else :
+           vv = val 
+           if self.transform is not None : vv = self.transform(val)
+           if not self._check_for_bad_value(vv, num):
+               return(False)
         if hasattr(val, "__len__"):
-            if num!=-1 : raise RuntimeError("This function should never be called this way")
+            if num!=-1 or self.transform is not None : raise RuntimeError("This function should never be called this way")
             if self.meanconv:
                 from math import floor
                 nn, stride = 0, int(floor(len(val) / 30))
@@ -274,12 +291,15 @@ and {str(self.upper)} with expectation {str(self.expectation)}"
                 self.distribution = "normal"  
                 return(True) 
         else:
+            vv = val
+            if self.transform is not None : vv = self.transform(val)
+
             if num < 0:
                 stat = self._get_statistic(
-                    val,  self.expectation, self.variance, 1)
+                    vv,  self.expectation, self.variance, 1)
             else:
                 stat = self._get_statistic(
-                    val,  self.expectation[num], self.variance[num], 1)
+                    vv,  self.expectation[num], self.variance[num], 1)
 
         return self._hypo_check(stat)
 

@@ -163,6 +163,13 @@ class VarErrorTests(unittest.TestCase):
         vals3 = [scipy.stats.chi2.ppf(0.02,10)/10,scipy.stats.chi2.ppf(0.02,10)/10,scipy.stats.chi2.ppf(0.998,10)/10]
         assert( r.check_value( vals1 ) and not r.check_value( vals2 ) and not r.check_value( vals3 ) )
 
+    def test_single_conf(self):
+        r, pref = rv(expectation=0, variance=1, dist="chi2", dof=5, limit=0.5), scipy.stats.norm.ppf(0.75)
+        goodvar1, goodvar2 = scipy.stats.chi2.ppf(0.02, 5)/5, scipy.stats.chi2.ppf(0.98, 5)/5
+        badvar1, badvar2 = scipy.stats.chi2.ppf(0.005, 5)/5, scipy.stats.chi2.ppf(0.998, 5)/5
+        assert( r.check_value( pref*np.sqrt(goodvar1) ) and not r.check_value( pref*np.sqrt(badvar1) ) and
+                r.check_value( pref*np.sqrt(goodvar2) ) and not r.check_value( pref*np.sqrt(badvar2) ) )
+
     def test_conflim(self) :
         r, pref = rv( expectation=0, variance=1, dist="conf_lim", dof=9, limit=0.90 ), scipy.stats.norm.ppf(0.95) 
         goodmean1, goodmean2 = scipy.stats.norm.ppf(0.02), scipy.stats.norm.ppf(0.98)
