@@ -268,7 +268,11 @@ and {str(self.upper)} with expectation {str(self.expectation)}"
                 stat = self._get_statistic( 
                     var, self.expectation, 
                     self.variance, len(val))
-                return self._hypo_check(stat)
+                if not self._hypo_check(stat) :
+                     self.distribution = "normal"
+                     return(False)
+                self.distribution = "normal"  
+                return(True) 
         else:
             if num < 0:
                 stat = self._get_statistic(
