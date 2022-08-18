@@ -34,6 +34,8 @@ How to use AutoFeedback
 
 AutoFeedback can be installed via pip
 
+.. code:: shell
+
     pip install AutoFeedback
 
 The suite provides three basic checkers: one each for checking variables,
@@ -45,6 +47,9 @@ Installing a local version of AutoFeedback
 
 If you want to develop AutoFeedback you can install a local version of the code. 
 
+.. code:: shell
+
     cd <path to AutoFeedback>
     pip install -r requirements-dev.txt -r requirements.txt
     pip install -e .
+

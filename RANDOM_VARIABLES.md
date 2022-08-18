@@ -1,15 +1,19 @@
 # Checking random variables
 
-AutoFeedback can be used to provide feedback on student code that generates random variables.
-To get AutoFeedback to test student code for generating random variables you must provide information
-on the distribution that the student is supposed to sample from.  AutoFeedback then uses this information
-to perform various two-tailed hypothesis tests on the numbers that the student's codes generates.  The null hypothesis
-for these tests is that the student's code is generating these random variables correctly.  The alternative 
-hypothesis is that the student code is not correctly sampling from the distribution.  When using these sorts of tests 
-__there is a finite probablity that the student is told that their code is incorrect even when it is correct__  This fact
-is clearly explained to students in the feedback they receive so these tests can be used if you are asking students complete a
-formative assessesment task.  If you are using AutoFeedback for summative assessment it is probably best not to rely on the 
-marks it gives if your tasks involve random variables.
+AutoFeedback can be used to provide feedback on student code that generates
+random variables. To get AutoFeedback to test student code for generating random
+variables you must provide information on the distribution that the student is
+supposed to sample from.  AutoFeedback then uses this information to perform
+various two-tailed hypothesis tests on the numbers that the student's codes
+generates.  The null hypothesis for these tests is that the student's code is
+generating these random variables correctly.  The alternative hypothesis is that
+the student code is not correctly sampling from the distribution.  When using
+these sorts of tests __there is a finite probablity that the student is told
+that their code is incorrect even when it is correct__  This fact is clearly
+explained to students in the feedback they receive so these tests can be used if
+you are asking students complete a formative assessesment task.  If you are
+using AutoFeedback for summative assessment it is probably best not to rely on
+the marks it gives if your tasks involve random variables.
 
 Two types of hypothesis test are performed.  In the first the test statistic is:
 
