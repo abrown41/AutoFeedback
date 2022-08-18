@@ -8,15 +8,15 @@ def _exists(funcname):
     import inspect
     try:
         testfunc = getattr(__import__('main', fromlist=[funcname]), funcname)
-        return(inspect.isfunction(testfunc))
+        return inspect.isfunction(testfunc)
     except Exception:
-        return (False)
+        return False
 
 
 def _get_func(funcname):
     """import main.funcname (funcname is string)"""
     testfunc = getattr(__import__('main', fromlist=[funcname]), funcname)
-    return(testfunc)
+    return testfunc
 
 
 def _input_vars(func, ins):
@@ -56,7 +56,7 @@ def _returns(func, ins):
             res = list(res)
         return (res is not None)
     except Exception as e:
-        raise(e)
+        raise e
 
 
 def _check_outputs(func, ins, expected):
@@ -72,17 +72,20 @@ def _check_outputs(func, ins, expected):
     inputs = dc(ins)
     try:
         if hasattr(expected, "check_value") and callable(expected.check_value):
-            if not hasattr(expected, "nsamples" ) : raise RuntimeError("there should be an attribute called nsamples in the class you have provided as reference")
+            if not hasattr(expected, "nsamples"):
+                raise RuntimeError("""there should be an attribute called
+nsamples in the class you have provided as reference""")
             res = func(*inputs)
-            if expected.nsamples>1 : 
-               res = expected.nsamples*[0] 
-               for i in range(expected.nsamples) : res[i] = func(*inputs)
+            if expected.nsamples > 1:
+                res = expected.nsamples*[0]
+                for i in range(expected.nsamples):
+                    res[i] = func(*inputs)
             return expected.check_value(res)
         else:
             res = func(*inputs)
             return (check_value(res, expected))
-    except RuntimeError as e :
-        raise e 
+    except RuntimeError as e:
+        raise e
     except Exception:
         return False
 
@@ -134,29 +137,29 @@ def check_func(funcname, inputs, expected, calls=[], output=True):
     outs = expected[0]
     res = -999
     try:
-        assert(_exists(funcname)), "existence"
+        assert (_exists(funcname)), "existence"
         func = _get_func(funcname)
-        assert(_input_vars(func, inputs[0])), "inputs"
+        assert (_input_vars(func, inputs[0])), "inputs"
 
-        assert(_returns(func, inputs[0])), "return"
+        assert (_returns(func, inputs[0])), "return"
         for ins, outs in zip(inputs, expected):
             res = func(*copy(ins))  # ensure the inputs are not overwritten
-            assert(_check_outputs(func, ins, outs)), "outputs"
+            assert (_check_outputs(func, ins, outs)), "outputs"
         for call in calls:
-            assert(_check_calls(func, call)), "calls"
+            assert (_check_calls(func, call)), "calls"
         if output:
             print_error_message("success", funcname)
     except AssertionError as error:
         if output:
             print_error_message(error, funcname, inp=ins,
                                 exp=outs, result=res, callname=call)
-        return(False)
+        return False
     except Exception:
         if output:
             import traceback
             print_error_message("execution", funcname, inp=ins,
                                 exp=outs, result=res, callname=call,
                                 msg=traceback.format_exc().splitlines()[-3:])
-        return(False)
+        return False
 
-    return(True)
+    return True

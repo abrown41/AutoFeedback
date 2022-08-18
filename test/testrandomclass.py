@@ -17,8 +17,8 @@ class VarErrorTests(unittest.TestCase):
     def test_range(self):
         r = rv(expectation=0, vmin=-1, vmax=1)
         r.diagnosis = "range"
-        error_message = """The googlyboo fall outside the allowed range of values for this
- type of random variable"""
+        error_message = """The googlyboo fall outside the allowed range of
+values for this type of random variable"""
         error_message += """\n The random variable should be between
  -1 and 1"""
         assert(error_message == r.get_error("googlyboo"))
@@ -44,7 +44,9 @@ class VarErrorTests(unittest.TestCase):
     def test_hypo(self):
         r = rv(expectation=0)
         r.diagnosis = "hypothesis"
-        error_message = """The googlyboo appear to be sampled from the wrong distribution
+        error_message = """The googlyboo appear to be
+sampled from the wrong distribution
+
             To test if you generating a random variable from the correct
             distribution the test code performs a hypothesis test.  The null
             hypothesis in this test is that you are sampling from the desired
@@ -62,7 +64,9 @@ class VarErrorTests(unittest.TestCase):
     def test_number(self):
         r = rv(expectation=0)
         r.diagnosis = "number"
-        error_message = """The googlyboo is not generating the correct number of random variables
+        error_message = """The googlyboo is not generating the correct number
+of random variables
+
             You should be generating a vector that contains multiple random
             variables in this object
             """
@@ -71,9 +75,12 @@ class VarErrorTests(unittest.TestCase):
     def test_conf_error(self):
         r = rv(expectation=0)
         r.diagnosis = "conf_number"
-        error_message = """The googlyboo is not generating the correct number of random variables.
-            googlyboo should return three random variables.  The first of these is the lower bound for the
-            confident limit.  The second is the sample mean and the third is the upper bound for the confidence
+        error_message = """The googlyboo is not generating the correct number
+of random variables.
+
+            googlyboo should return three random variables.  The first of these
+            is the lower bound for the confidence limit.  The second is the
+            sample mean and the third is the upper bound for the confidence
             limit
             """
         assert(error_message == r.get_error("googlyboo")) 
@@ -81,9 +88,12 @@ class VarErrorTests(unittest.TestCase):
     def test_unc_error(self):
         r = rv(expectation=0)
         r.diagnosis = "uncertainty_number"
-        error_message = """The googlyboo is not generating the correct number of random variables.
-            googlyboo should return two random variables.  The first of these is the sample mean and the second
-            is the width of the error bar for the specified confidence interval around the sample mean
+        error_message = """The googlyboo is not generating the correct number
+of random variables.
+
+            googlyboo should return two random variables.  The first of these
+            is the sample mean and the second is the width of the error bar
+            for the specified confidence interval around the sample mean
             """
         assert(error_message == r.get_error("googlyboo"))  
 

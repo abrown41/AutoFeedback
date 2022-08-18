@@ -10,15 +10,15 @@ def _exists(varname):
     try:
         getattr(__import__('main', fromlist=[varname]), varname)
 #        eval(varstring)
-        return(True)
+        return True
     except AttributeError:
-        return(False)
+        return False
 
 
 def _get_var(varname):
     """import main.varname (varname is string)"""
     imported = getattr(__import__('main', fromlist=[varname]), varname)
-    return(imported)
+    return imported
 
 
 def _check_size(a, b):
@@ -69,10 +69,10 @@ def check_value(a, b):
         try:
             sp.simplify(a)
             sp.simplify(b)
-            return(sp.simplify(a) == sp.simplify(b) or
-                   (sp.factor(a) == sp.factor(b)))
+            return (sp.simplify(a) == sp.simplify(b) or
+                    (sp.factor(a) == sp.factor(b)))
         except Exception:
-            return(a == b)
+            return (a == b)
     else:
         try:  # treat inputs as ndarrays and compare with builtin
             return np.all(np.isclose(a, b))
@@ -80,7 +80,7 @@ def check_value(a, b):
         except Exception:
             try:
                 for x, y in zip(a, b):
-                    if not(x == y):
+                    if not (x == y):
                         return False
                 return True
             except Exception:
@@ -107,17 +107,17 @@ def check_vars(varname, expected, output=True):
     from AutoFeedback.variable_error_messages import print_error_message
     var = -999
     try:
-        assert(_exists(varname)), "existence"
+        assert (_exists(varname)), "existence"
         var = _get_var(varname)
-        assert(_check_size(var, expected)), "size"
-        assert(check_value(var, expected)), "value"
+        assert (_check_size(var, expected)), "size"
+        assert (check_value(var, expected)), "value"
         if output:
             print_error_message("success", varname, expected, var)
     except AssertionError as error:
         if output:
             print_error_message(error, varname, expected, var)
-        return(False)
-    return(True)
+        return False
+    return True
 
 
 def check_output(expected):

@@ -77,22 +77,23 @@ def _extract_plot_elements(fighand, lines=True, patches=False,
 
 
 def _check_linestyle(line, expected):
-    """check whether the linestyle of line (matplotlib.lines.Line2D) matches any of
-    expected (list of strings, e.g. ['-', '--', '-.'])"""
+    """check whether the linestyle of line (matplotlib.lines.Line2D) matches
+    any of expected (list of strings, e.g. ['-', '--', '-.'])"""
     style = line.get_linestyle()
     return (style in expected)
 
 
 def _check_marker(line, expected):
-    """check whether the marker of line (matplotlib.lines.Line2D) matches any of
-    expected (list of strings, e.g. ['.', ',', 'o'])"""
+    """check whether the marker of line (matplotlib.lines.Line2D) matches any
+    of expected (list of strings, e.g. ['.', ',', 'o'])"""
     style = line.get_marker()
     return (style in expected)
 
 
 def _check_colour(line, expected):
-    """check whether the colour of line (matplotlib.lines.Line2D) matches any of
-    expected (list of colour identifiers, e.g. ['r','red',(1.0,0.0,0.0,1)])"""
+    """check whether the colour of line (matplotlib.lines.Line2D) matches any
+    of expected (list of colour identifiers, e.g. ['r','red',(1.0,0.0,0.0,1)])
+    """
     color = line.get_color()
     return (color in expected)
 
@@ -128,12 +129,12 @@ def _check_legend(legend_data, expected):
     """check whether the data in legend_data (list) matches with
     expected (list)
     """
-    return(legend_data and check_value(legend_data, expected))
+    return legend_data and check_value(legend_data, expected)
 
 
 def _check_axes(l1, l2):
     """check whether axis limits (l1) match expected (l2)"""
-    return(check_value(l1, l2))
+    return check_value(l1, l2)
 
 
 def _reorder(a, b):
@@ -160,7 +161,6 @@ def _e_string(error, label):
 
 def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
                explegend=False, output=False, check_partial=False):
-
     """given information on a plot which the student has been asked to
     produce, check whether it has been done correctly, and provide feedback
 
@@ -217,41 +217,41 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
                     assert (_check_linedata(line, expline)), _e_string(
                         "_data", expline.label)
                     if expline.linestyle:
-                        assert(_check_linestyle(line, expline.linestyle)
-                               ), _e_string("_linestyle", expline.label)
+                        assert (_check_linestyle(line, expline.linestyle)
+                                ), _e_string("_linestyle", expline.label)
                     if expline.marker:
-                        assert(_check_marker(line, expline.marker)
-                               ), _e_string("_marker", expline.label)
+                        assert (_check_marker(line, expline.marker)
+                                ), _e_string("_marker", expline.label)
                     if expline.colour:
-                        assert(_check_colour(line, expline.colour)
-                               ), _e_string("_colour", expline.label)
+                        assert (_check_colour(line, expline.colour)
+                                ), _e_string("_colour", expline.label)
                     if expline.label and explegend:
                         if line.get_label()[0] != "_":
-                            assert(_check_legend(line.get_label(),
-                                                 expline.label)), "_legend"
+                            assert (_check_legend(line.get_label(),
+                                                  expline.label)), "_legend"
                         else:
-                            assert(_check_legend(legend, expline.label)),\
+                            assert (_check_legend(legend, expline.label)),\
                                 "_legend"
                     if output:
                         print_error_message(
                             _e_string("_partial", expline.label), expline)
         if (exppatch):
             expline = exppatch
-            assert(_check_patchdata(patch, exppatch)), _e_string("_data", "")
+            assert (_check_patchdata(patch, exppatch)), _e_string("_data", "")
             if output:
                 print_error_message(_e_string("_partial", ""), exppatch)
         if not explines and not exppatch:
-            assert(False), "_data"
+            assert (False), "_data"
         if explabels:
             if len(explabels) == 2:
                 explabels.append("")
-            assert(_check_axes(labels, explabels)), "_labels"
+            assert (_check_axes(labels, explabels)), "_labels"
         if expaxes:
-            assert(_check_axes(axes, expaxes)), "_axes"
+            assert (_check_axes(axes, expaxes)), "_axes"
         if output:
             print_error_message("_success", expline)
-        return(True)
+        return True
     except AssertionError as error:
         if output:
             print_error_message(error, expline)
-        return(False)
+        return False

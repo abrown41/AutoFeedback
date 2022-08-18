@@ -2,8 +2,8 @@
 
 
 def check_module(modname):
-    """ check if modname is installed, and if not, attempt to use pip to install
-    it"""
+    """ check if modname is installed, and if not, attempt to use pip to
+    install it"""
     from importlib.util import find_spec
     installed = find_spec(modname) is not None
     if not installed:
