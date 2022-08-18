@@ -275,11 +275,17 @@ and {str(self.upper)} with expectation {str(self.expectation)}"
             else:
                 # Check on expectation
                 mean = sum(val)/len(val)
+                var = self.variance 
+                if self.variance==0 : 
+                   S2 = 0 
+                   for v in val : S2 = S2 + v*v 
+                   var = (len(val)/(len(val)-1))*( S2/len(val) - mean*mean )
                 stat = self._get_statistic(
                     mean, self.expectation,
-                    self.variance, len(val))
+                    var, len(val))
                 if not self._hypo_check(stat) :
                      return(False)
+                if self.variance==0 : return(True)
                 # Now check on variance
                 self.distribution, S2, self.dof = "chi2", 0, len(val) - 1
                 for v in val : S2 = S2 + v*v 
