@@ -26,10 +26,11 @@ class randomvar:
         chi2 distribution
     limit : size of confidence limit to use when checking confidence limits
     transform : a function to transform the student's output to a random variable we can do a hypothesis test on
+    nsamples : when testing function the size of the sample to take in order to test the students code
     """
 
     def __init__(self, expectation, dist="normal", variance=0, vmin="unset",
-                 vmax="unset", isinteger=False, meanconv=False, dof=-1, limit=-1, transform=None ):
+                 vmax="unset", isinteger=False, meanconv=False, dof=-1, limit=-1, transform=None, nsamples=1 ):
         self.expectation = expectation
         self.variance = variance
         self.distribution = dist
@@ -41,7 +42,8 @@ class randomvar:
         self.output_component = ""
         self.dof = dof
         self.limit = limit
-        self.transform=transform
+        self.transform = transform
+        self.nsamples = nsamples
         if limit>0 and dist=="chi2" :
            if self.transform is not None : raise RuntimeError("cannot set transform if you are using confidence limit") 
            self.transform = self._confToVariance

@@ -117,9 +117,29 @@ assert( check_func( 'bernoulli', inputs, variables ) )
 
 When the test above is run a hypothesis test is also performed on the value of the random variable that was generated as was described in the previous section.  
 This test is likely to pass as long as the student's function returns a zero or one though.  In other words, there is quite a high probablity of a false positive 
-result in the hypothesis test.  One way to reduce the likelihood of getting a false positive is to ask the students to write a function to generate a sample mean.
-The simplest function for generating a sample mean that you might ask a student to write is:
+result in the hypothesis test.  To reduce the likelihood of a false positive test you can add set `nsamples` when you define the `randomvar` object as shown below:
 
+```python
+from AutoFeedback.funcchecks import check_func
+from AutoFeedback.randomclass import randomvar
+
+# We will test the students code by generating a Bernoulli random variable with p=0.5
+# Notice that inputs and variables are lists here.  If the inputs list and variables list
+# have more than one element then the function is called and tested for each set of input
+# parameters.
+inputs, variables = [(0.5,)], []
+# Create a random variable object using what we know about the Expectation and variance of
+# a Bernoulli random variable with p=0.5.  Notice that we have set isinteger=True so as to
+# ensure that AutoFeedback checks that the random variable is 0 or 1.
+variables.append( randomvar( 0.5, variance=0.25, vmin=0, vmax=1, isinteger=True, nsamples=100 ) )
+assert( check_func( 'bernoulli', inputs, variables ) )
+```  
+
+This code calls the student's code 100 times so a sample of 100 Bernoulli random variables is generated.  AutoFeedback will then perform a hypothesis test on the mean and 
+variance of these 100 random variables in the manner discussed in the section below on testing codes for plotting samples of random variables.
+
+It is worth using these exercises to get students to think about the fact that the sample mean and the sample variance are random variables.  To get students to think about 
+the sample mean you can ask them to write a function similar to the one shown below.
 
 ```python
 import numpy as np
