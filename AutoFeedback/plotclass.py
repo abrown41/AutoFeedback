@@ -12,7 +12,7 @@ class line:
     generic class for data plotted in a figure
 
     Attributes
-    ==========
+    ----------
     xdata : list/np.array
         x-values for xydata/patch
     ydata : list/np.array
@@ -48,7 +48,7 @@ class line:
         """determine whether the xy data matches the expected data
 
         Parameters
-        ==========
+        ----------
         x : list or np.array
             expected x data
         y : list or np.array
@@ -57,7 +57,7 @@ class line:
             if True then don't provide any feedback on the comparison.
 
         Returns
-        =======
+        -------
         bool : True if data matches expected, False otherwise
         """
         goodx, goody = False, False
@@ -95,8 +95,9 @@ class line:
 
     def get_error(self, label):
         """determine the error message to be printed, based on the diagnosis
+
         Parameters
-        ==========
+        ----------
         label : str
             label for the data set to be plotted
         """
