@@ -73,8 +73,10 @@ def _check_outputs(func, ins, expected):
     try:
         if hasattr(expected, "check_value") and callable(expected.check_value):
             if not hasattr(expected, "nsamples" ) : raise RuntimeError("there should be an attribute called nsamples in the class you have provided as reference")
-            res = expected.nsamples*[0] 
-            for i in range(expected.nsamples) : res[i] = func(*inputs)
+            res = func(*inputs)
+            if expected.nsamples>1 : 
+               res = expected.nsamples*[0] 
+               for i in range(expected.nsamples) : res[i] = func(*inputs)
             return expected.check_value(res)
         else:
             res = func(*inputs)
