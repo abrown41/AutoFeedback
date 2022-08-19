@@ -53,3 +53,8 @@ If you want to develop AutoFeedback you can install a local version of the code.
     pip install -r requirements-dev.txt -r requirements.txt
     pip install -e .
 
+
+=====
+Usage
+=====
+Full usage instructions can be found :ref:`here<Usage>`
