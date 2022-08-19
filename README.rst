@@ -57,4 +57,4 @@ If you want to develop AutoFeedback you can install a local version of the code.
 =====
 Usage
 =====
-Full usage instructions can be found :ref:`here<Usage>`
+Full usage instructions can be found `here. <https://abrown41.github.io/AutoFeedback/usage.html>`_
