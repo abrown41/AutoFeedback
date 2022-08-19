@@ -36,3 +36,6 @@ jobs:
         name: html_docs
         path: docs/build/html
         retention-days: 7
+    - name: Sphinx to GitHub Pages
+      uses: sphinx-notes/pages@2.1
+
