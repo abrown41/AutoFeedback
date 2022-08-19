@@ -12,6 +12,5 @@ AutoFeedback Documentation
    :maxdepth: 2
 
    usage
-   release-history
    min_versions
    autoapi/index
