@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoFeedback.variable_error_messages &mdash; AutoFeedback 0.post113+g3d2f546 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> AutoFeedback
+          </a>
+              <div class="version">
+                0.post113+g3d2f546
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../min_versions.html">Minimum Version of Python and NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AutoFeedback</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+          <li><a href="../AutoFeedback.html">AutoFeedback</a> &raquo;</li>
+      <li>AutoFeedback.variable_error_messages</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for AutoFeedback.variable_error_messages</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Feedback strings for variable-based exercises</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+
+<span class="k">def</span> <span class="nf">_existence_error</span><span class="p">(</span><span class="n">varname</span><span class="p">):</span>
+    <span class="n">error_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;The variable </span><span class="si">{</span><span class="n">varname</span><span class="si">}</span><span class="s2"> does not exist.</span>
+<span class="s2">    Ensure you have named the variable properly,</span>
+<span class="s2">    bearing in mind that capital letters matter.</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">error_message</span>
+
+
+<span class="k">def</span> <span class="nf">_size_error</span><span class="p">(</span><span class="n">varname</span><span class="p">):</span>
+    <span class="n">error_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;The variable </span><span class="si">{</span><span class="n">varname</span><span class="si">}</span><span class="s2"> is the wrong size.</span>
+<span class="s2">    Try using len(</span><span class="si">{</span><span class="n">varname</span><span class="si">}</span><span class="s2">) to determine the size of the array, or</span>
+<span class="s2">    print(</span><span class="si">{</span><span class="n">varname</span><span class="si">}</span><span class="s2"> to check the values look as you expect them to.</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">error_message</span>
+
+
+<span class="k">def</span> <span class="nf">_value_error</span><span class="p">(</span><span class="n">varname</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
+    <span class="n">error_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;The variable </span><span class="si">{</span><span class="n">varname</span><span class="si">}</span><span class="s2"> has the wrong value(s)</span><span class="se">\n</span><span class="s2"></span>
+<span class="s2">        We expected the output:</span>
+<span class="s2">        </span><span class="si">{</span><span class="n">exp</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">        but instead we got:</span>
+<span class="s2">        </span><span class="si">{</span><span class="n">res</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">        Try using print(</span><span class="si">{</span><span class="n">varname</span><span class="si">}</span><span class="s2">) to check the values look as you expect them</span>
+<span class="s2">        to and ensure the expression used to calculate the variable</span>
+<span class="s2">        is correct.</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">error_message</span>
+
+
+<span class="k">def</span> <span class="nf">_import_error</span><span class="p">():</span>
+    <span class="n">error_message</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Your code fails to execute.</span>
+<span class="s2">    Please refer to the error messages printed in the terminal to resolve</span>
+<span class="s2">    any errors in your code.</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">error_message</span>
+
+
+<div class="viewcode-block" id="print_error_message"><a class="viewcode-back" href="../../autoapi/AutoFeedback/variable_error_messages/index.html#AutoFeedback.variable_error_messages.print_error_message">[docs]</a><span class="k">def</span> <span class="nf">print_error_message</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">varname</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;given information on the variable, display meaningful feedback in the</span>
+<span class="sd">    terminal as to why the submitted code has failed (or passed).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    error : str</span>
+<span class="sd">        Possible error strings are:</span>
+<span class="sd">            - &#39;success&#39; : variable is defined correctly</span>
+<span class="sd">            - &#39;existence&#39; : variable has not been defined</span>
+<span class="sd">            - &#39;size&#39; : variable is the wrong size (e.g. wrong length of array)</span>
+<span class="sd">            - &#39;import&#39; : main.py cannot be imported</span>
+<span class="sd">    varname : str</span>
+<span class="sd">        name of the variable under investigation</span>
+<span class="sd">    exp : any</span>
+<span class="sd">        expected value of varname</span>
+<span class="sd">    res : any</span>
+<span class="sd">        actual value of varname</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">AutoFeedback.bcolors</span> <span class="kn">import</span> <span class="n">bcolors</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;success&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">bcolors</span><span class="o">.</span><span class="n">OKGREEN</span><span class="si">}</span><span class="s2">Variable </span><span class="si">{</span><span class="n">varname</span><span class="si">}</span><span class="s2"> is correct!</span><span class="se">\</span>
+<span class="s2">              </span><span class="se">\n</span><span class="si">{</span><span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;existence&quot;</span><span class="p">):</span>
+            <span class="n">emsg</span> <span class="o">=</span> <span class="n">_existence_error</span><span class="p">(</span><span class="n">varname</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;size&quot;</span><span class="p">):</span>
+            <span class="n">emsg</span> <span class="o">=</span> <span class="n">_size_error</span><span class="p">(</span><span class="n">varname</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;value&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="s2">&quot;get_error&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">callable</span><span class="p">(</span><span class="n">exp</span><span class="o">.</span><span class="n">get_error</span><span class="p">):</span>
+                <span class="n">emsg</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">get_error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;variable </span><span class="si">{</span><span class="n">varname</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">emsg</span> <span class="o">=</span> <span class="n">_value_error</span><span class="p">(</span><span class="n">varname</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;import&quot;</span><span class="p">):</span>
+            <span class="n">emsg</span> <span class="o">=</span> <span class="n">_import_error</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">emsg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;something not right with </span><span class="si">{</span><span class="n">varname</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">bcolors</span><span class="o">.</span><span class="n">FAIL</span><span class="si">}{</span><span class="n">emsg</span><span class="si">}{</span><span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">bcolors</span><span class="o">.</span><span class="n">WARNING</span><span class="si">}{</span><span class="mi">30</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="output_check"><a class="viewcode-back" href="../../autoapi/AutoFeedback/variable_error_messages/index.html#AutoFeedback.variable_error_messages.output_check">[docs]</a><span class="k">def</span> <span class="nf">output_check</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="s2">&quot;main.py&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Check whether printed information matches expected</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    expected : str</span>
+<span class="sd">        The expected contents of stdout</span>
+<span class="sd">    executable : str</span>
+<span class="sd">        name of the python executable which when executed should print</span>
+<span class="sd">        `expected` to screen</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    =======</span>
+<span class="sd">    check : bool</span>
+<span class="sd">        True if stdout is expected, False otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">subprocess</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="kn">from</span> <span class="nn">AutoFeedback.bcolors</span> <span class="kn">import</span> <span class="n">bcolors</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">):</span>
+        <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span>
+                                <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                                <span class="p">)</span>
+        <span class="n">stdout</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">stdout</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">run</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="n">executable</span><span class="p">])</span>
+    <span class="n">screen_out</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">check</span> <span class="o">=</span> <span class="n">screen_out</span> <span class="o">==</span> <span class="n">expected</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">n&quot;</span>
+
+    <span class="n">errmsg</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;The text printed to screen is not correct. Ensure you have</span>
+<span class="s2">        printed the correct variables, in the correct order,</span>
+<span class="s2">        and that nothing else is printed.&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">check</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">bcolors</span><span class="o">.</span><span class="n">FAIL</span><span class="si">}</span><span class="s2">test_output has failed. </span><span class="se">\n</span><span class="si">{</span><span class="n">errmsg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">bcolors</span><span class="o">.</span><span class="n">OKGREEN</span><span class="si">}</span><span class="s2">Printing is correct!</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">bcolors</span><span class="o">.</span><span class="n">WARNING</span><span class="si">}{</span><span class="mi">30</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">check</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Andrew Brown.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

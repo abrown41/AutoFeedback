@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoFeedback.function_error_messages &mdash; AutoFeedback 0.post113+g3d2f546 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> AutoFeedback
+          </a>
+              <div class="version">
+                0.post113+g3d2f546
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../min_versions.html">Minimum Version of Python and NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AutoFeedback</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+          <li><a href="../AutoFeedback.html">AutoFeedback</a> &raquo;</li>
+      <li>AutoFeedback.function_error_messages</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for AutoFeedback.function_error_messages</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Feedback strings for function-based exercises</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+
+<span class="k">def</span> <span class="nf">_existence_error</span><span class="p">(</span><span class="n">funcname</span><span class="p">):</span>
+    <span class="n">e_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;The function </span><span class="si">{</span><span class="n">funcname</span><span class="si">}</span><span class="s2"> does not exist.</span>
+<span class="s2">    Ensure you have named the function properly, bearing in mind that capital</span>
+<span class="s2">    letters matter. Also ensure that you have used the proper syntax for the</span>
+<span class="s2">    definition of a function, i.e.</span>
+<span class="s2">        def </span><span class="si">{</span><span class="n">funcname</span><span class="si">}</span><span class="s2">(inputs):</span>
+<span class="s2">            ...</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">e_message</span>
+
+
+<span class="k">def</span> <span class="nf">_input_error</span><span class="p">(</span><span class="n">funcname</span><span class="p">,</span> <span class="n">numargs</span><span class="p">):</span>
+    <span class="n">e_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;The function </span><span class="si">{</span><span class="n">funcname</span><span class="si">}</span><span class="s2"> does not accept input correctly.</span>
+<span class="s2">    The function is supposed to accept </span><span class="si">{</span><span class="n">numargs</span><span class="si">}</span><span class="s2"> input argument(s).</span>
+<span class="s2">    Ensure you have specified the input arguments in the function definition.</span>
+<span class="s2">    i.e.</span>
+<span class="s2">        def </span><span class="si">{</span><span class="n">funcname</span><span class="si">}</span><span class="s2">(input_1, input_2, ...):</span>
+<span class="s2">            ...</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">e_message</span>
+
+
+<span class="k">def</span> <span class="nf">_value_error</span><span class="p">(</span><span class="n">funcname</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span>  <span class="n">exp</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
+    <span class="n">e_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;The function </span><span class="si">{</span><span class="n">funcname</span><span class="si">}</span><span class="s2"> returns the wrong value(s).</span>
+<span class="s2">    When executed with the input(s), </span><span class="si">{</span><span class="n">inp</span><span class="si">}</span><span class="s2">, we expected the output, </span><span class="si">{</span><span class="n">exp</span><span class="si">}</span><span class="s2">, but</span>
+<span class="s2">    instead we got </span><span class="si">{</span><span class="n">res</span><span class="si">}</span><span class="s2">.</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">e_message</span>
+
+
+<span class="k">def</span> <span class="nf">_return_error</span><span class="p">(</span><span class="n">funcname</span><span class="p">):</span>
+    <span class="n">e_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;The function </span><span class="si">{</span><span class="n">funcname</span><span class="si">}</span><span class="s2"> does not return a value.</span>
+<span class="s2">    Ensure that the function uses the correct syntax for a return statement.</span>
+<span class="s2">    i.e.</span>
+<span class="s2">        def </span><span class="si">{</span><span class="n">funcname</span><span class="si">}</span><span class="s2">(input):</span>
+<span class="s2">            ...</span>
+<span class="s2">            return (answer)</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">e_message</span>
+
+
+<span class="k">def</span> <span class="nf">_call_error</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">cname</span><span class="p">):</span>
+    <span class="n">e_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;The function </span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="s2"> does not call the function </span><span class="si">{</span><span class="n">cname</span><span class="si">}</span><span class="s2">.</span>
+<span class="s2">    Make sure that rather than repeating lines of code, your function passes</span>
+<span class="s2">    input to the previously defined function, e.g.</span>
+
+<span class="s2">        def </span><span class="si">{</span><span class="n">cname</span><span class="si">}</span><span class="s2">(input):</span>
+<span class="s2">            ...</span>
+<span class="s2">            return (answer)</span>
+<span class="s2">        def </span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="s2">(input):</span>
+<span class="s2">            ...</span>
+<span class="s2">            new_answer = some_operation + </span><span class="si">{</span><span class="n">cname</span><span class="si">}</span><span class="s2">(input)</span>
+<span class="s2">            return(new_answer)</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">e_message</span>
+
+
+<span class="k">def</span> <span class="nf">_execution_error</span><span class="p">(</span><span class="n">funcname</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]):</span>
+    <span class="n">e_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;The function </span><span class="si">{</span><span class="n">funcname</span><span class="si">}</span><span class="s2"> does not execute correctly.</span>
+<span class="s2">    Test it by adding a function call, e.g.</span>
+<span class="s2">        print(</span><span class="si">{</span><span class="n">funcname</span><span class="si">}{</span><span class="n">inp</span><span class="si">}</span><span class="s2">)</span>
+
+<span class="s2">Error reported:</span>
+<span class="s2">    </span><span class="si">{</span><span class="n">msg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">    </span><span class="si">{</span><span class="n">msg</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">    </span><span class="si">{</span><span class="n">msg</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">        &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">e_message</span>
+
+
+<div class="viewcode-block" id="print_error_message"><a class="viewcode-back" href="../../autoapi/AutoFeedback/function_error_messages/index.html#AutoFeedback.function_error_messages.print_error_message">[docs]</a><span class="k">def</span> <span class="nf">print_error_message</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">funcname</span><span class="p">,</span> <span class="n">inp</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="n">exp</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">result</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                        <span class="n">callname</span><span class="o">=</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot; given information on the execution of the function, display meaningfull</span>
+<span class="sd">    feedback in the terminal as to why the submitted code has failed (or</span>
+<span class="sd">    passed).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    error : str</span>
+<span class="sd">        Possible error strings are</span>
+<span class="sd">            - &#39;success&#39; (function works as expected)</span>
+<span class="sd">            - &#39;existence&#39; (function has not been defined)</span>
+<span class="sd">            - &#39;inputs&#39; (function does not accept input as expected)</span>
+<span class="sd">            - &#39;outputs&#39; (function does not produce correct output)</span>
+<span class="sd">            - &#39;return&#39; (function does not return a value/returns None)</span>
+<span class="sd">            - &#39;calls&#39; (function does not call other functions as required)</span>
+<span class="sd">            - &#39;execution&#39; (other error in the execution of the function)</span>
+<span class="sd">    funcname : str</span>
+<span class="sd">        name of the function under investigation</span>
+<span class="sd">    inp : tuple</span>
+<span class="sd">        input values for the function</span>
+<span class="sd">    exp: any</span>
+<span class="sd">        expected output of the function</span>
+<span class="sd">    result : any</span>
+<span class="sd">        actual output of the function</span>
+<span class="sd">    callname : str</span>
+<span class="sd">        name of the function that was supposed to be called within funcname</span>
+<span class="sd">    msg : Exception</span>
+<span class="sd">        Exception raised by the execution of funcname</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">AutoFeedback.bcolors</span> <span class="kn">import</span> <span class="n">bcolors</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;success&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">bcolors</span><span class="o">.</span><span class="n">OKGREEN</span><span class="si">}</span><span class="s2">Function, </span><span class="si">{</span><span class="n">funcname</span><span class="si">}</span><span class="s2"> is correct!</span><span class="se">\</span>
+<span class="s2">              </span><span class="se">\n</span><span class="si">{</span><span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;existence&quot;</span><span class="p">):</span>
+            <span class="n">emsg</span> <span class="o">=</span> <span class="n">_existence_error</span><span class="p">(</span><span class="n">funcname</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;inputs&quot;</span><span class="p">):</span>
+            <span class="n">emsg</span> <span class="o">=</span> <span class="n">_input_error</span><span class="p">(</span><span class="n">funcname</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">inp</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;outputs&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="s2">&quot;get_error&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">callable</span><span class="p">(</span><span class="n">exp</span><span class="o">.</span><span class="n">get_error</span><span class="p">):</span>
+                <span class="n">emsg</span> <span class="o">=</span> <span class="n">exp</span><span class="o">.</span><span class="n">get_error</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;values returned from the function </span><span class="si">{</span><span class="n">funcname</span><span class="si">}</span><span class="s2"> with input</span><span class="se">\</span>
+<span class="s2">                    parameters </span><span class="si">{</span><span class="n">inp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">emsg</span> <span class="o">=</span> <span class="n">_value_error</span><span class="p">(</span><span class="n">funcname</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;return&quot;</span><span class="p">):</span>
+            <span class="n">emsg</span> <span class="o">=</span> <span class="n">_return_error</span><span class="p">(</span><span class="n">funcname</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;calls&quot;</span><span class="p">):</span>
+            <span class="n">emsg</span> <span class="o">=</span> <span class="n">_call_error</span><span class="p">(</span><span class="n">funcname</span><span class="p">,</span> <span class="n">callname</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;execution&quot;</span><span class="p">):</span>
+            <span class="n">emsg</span> <span class="o">=</span> <span class="n">_execution_error</span><span class="p">(</span><span class="n">funcname</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">emsg</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;something not right with </span><span class="si">{</span><span class="n">funcname</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">bcolors</span><span class="o">.</span><span class="n">FAIL</span><span class="si">}{</span><span class="n">emsg</span><span class="si">}{</span><span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">bcolors</span><span class="o">.</span><span class="n">WARNING</span><span class="si">}{</span><span class="mi">30</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">bcolors</span><span class="o">.</span><span class="n">ENDC</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Andrew Brown.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+:py:mod:`AutoFeedback.funcchecks`
+=================================
+
+.. py:module:: AutoFeedback.funcchecks
+
+.. autoapi-nested-parse::
+
+   Check a students' function works as expected, and provide feedback
+
+   ..
+       !! processed by numpydoc !!
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   AutoFeedback.funcchecks.check_func
+
+
+
+.. py:function:: check_func(funcname, inputs, expected, calls=[], output=True)
+
+   
+   given information on a function which the student has been asked to
+   define, check whether it has been defined correctly, and provide feedback
+
+
+   :Parameters:
+
+       **funcname** : str
+           name of function to be investigated
+
+       **inputs** : list of tuples
+           inputs with which to test funcname
+
+       **expected** : list
+           expected outputs of [funcname(inp) for inp in inputs]
+
+       **calls** : list of strings
+           names of any functions which funcname should call
+
+       **output** : bool
+           if True, print output to screen. otherwise execute quietly
+
+   :Returns:
+
+       bool: True if function works as expected, False otherwise.
+           ..
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+

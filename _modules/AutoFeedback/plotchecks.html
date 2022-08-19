@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoFeedback.plotchecks &mdash; AutoFeedback 0.post113+g3d2f546 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> AutoFeedback
+          </a>
+              <div class="version">
+                0.post113+g3d2f546
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../min_versions.html">Minimum Version of Python and NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AutoFeedback</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+          <li><a href="../AutoFeedback.html">AutoFeedback</a> &raquo;</li>
+      <li>AutoFeedback.plotchecks</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for AutoFeedback.plotchecks</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Check a student-defined plot matches expected, and provide feedback</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.varchecks</span> <span class="kn">import</span> <span class="n">check_value</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+
+<span class="k">def</span> <span class="nf">_grab_figure</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; get figure handle for plot to be investigated</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    =======</span>
+<span class="sd">    fighand : matplotlib.pyplot figure handle</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fighand</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>  <span class="c1"># make any show commands non-blocking</span>
+        <span class="nb">__import__</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">)</span>
+        <span class="n">fighand</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+        <span class="c1"># plt.close() # close any open figures</span>
+    <span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">sys</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">fighand</span>
+
+
+<span class="k">def</span> <span class="nf">_extract_plot_elements</span><span class="p">(</span><span class="n">fighand</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">patches</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                           <span class="n">axislabels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get all relevant attributes of the plot under investigation</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    fighand : matplotlib.pyplot figure handle</span>
+<span class="sd">        handle for figure under investigation</span>
+<span class="sd">    lines : bool</span>
+<span class="sd">        If True, extract any xy-plotted lines in the figure</span>
+<span class="sd">    patches : bool</span>
+<span class="sd">        If True, extract any patches in the figure (e.g. for histrograms)</span>
+<span class="sd">    axislabels : bool</span>
+<span class="sd">        If True, extract the axis labels</span>
+<span class="sd">    axes : bool</span>
+<span class="sd">        If True, extract the axis limits</span>
+<span class="sd">    legend : bool</span>
+<span class="sd">        If True, extract the legend data</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    =======</span>
+<span class="sd">    line_data, patch_data, axes_data, labels, legend_data</span>
+<span class="sd">        these are lists or None, depending on what has been extracted.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">line_data</span><span class="p">,</span> <span class="n">patch_data</span><span class="p">,</span> <span class="n">axes_data</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">legend_data</span> <span class="o">=</span>\
+        <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="n">line_data</span> <span class="o">=</span> <span class="n">fighand</span><span class="o">.</span><span class="n">get_lines</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">patches</span><span class="p">:</span>
+        <span class="n">patch_data</span> <span class="o">=</span> <span class="n">fighand</span><span class="o">.</span><span class="n">patches</span>
+
+    <span class="k">if</span> <span class="n">axes</span><span class="p">:</span>
+        <span class="n">axes_data</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">fighand</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">(),</span> <span class="o">*</span><span class="n">fighand</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()]</span>
+
+    <span class="k">if</span> <span class="n">axislabels</span><span class="p">:</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">fighand</span><span class="o">.</span><span class="n">get_xlabel</span><span class="p">(),</span> <span class="n">fighand</span><span class="o">.</span><span class="n">get_ylabel</span><span class="p">(),</span>
+                  <span class="n">fighand</span><span class="o">.</span><span class="n">get_title</span><span class="p">()]</span>
+
+    <span class="k">if</span> <span class="n">legend</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">legend_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
+                           <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">fighand</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span><span class="o">.</span><span class="n">get_texts</span><span class="p">()]</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="n">legend_data</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">return</span> <span class="n">line_data</span><span class="p">,</span> <span class="n">patch_data</span><span class="p">,</span> <span class="n">axes_data</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">legend_data</span>
+
+
+<span class="k">def</span> <span class="nf">_check_linestyle</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;check whether the linestyle of line (matplotlib.lines.Line2D) matches</span>
+<span class="sd">    any of expected (list of strings, e.g. [&#39;-&#39;, &#39;--&#39;, &#39;-.&#39;])&quot;&quot;&quot;</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">get_linestyle</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">style</span> <span class="ow">in</span> <span class="n">expected</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_check_marker</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;check whether the marker of line (matplotlib.lines.Line2D) matches any</span>
+<span class="sd">    of expected (list of strings, e.g. [&#39;.&#39;, &#39;,&#39;, &#39;o&#39;])&quot;&quot;&quot;</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">get_marker</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">style</span> <span class="ow">in</span> <span class="n">expected</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_check_colour</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;check whether the colour of line (matplotlib.lines.Line2D) matches any</span>
+<span class="sd">    of expected (list of colour identifiers, e.g. [&#39;r&#39;,&#39;red&#39;,(1.0,0.0,0.0,1)])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">get_color</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">color</span> <span class="ow">in</span> <span class="n">expected</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_check_linedata</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">expline</span><span class="p">,</span> <span class="n">no_diagnose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;check whether the data in line (matplotlib.lines.Line2D) matches with</span>
+<span class="sd">    expline (plotclass.line)</span>
+
+<span class="sd">    optionally, if no_diagnose==True, then don&#39;t provide any feedback on the</span>
+<span class="sd">    comparison. This is necessary for sorting the lines into the correct order</span>
+<span class="sd">    if there are multiple lines, we must check repeatedly if the lines match,</span>
+<span class="sd">    and only want to provide feedback once we are sure we&#39;re comparing the</span>
+<span class="sd">    correct lines.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">line</span><span class="o">.</span><span class="n">get_xydata</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">expline</span><span class="o">.</span><span class="n">check_linedata</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">no_diagnose</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_check_patchdata</span><span class="p">(</span><span class="n">patch</span><span class="p">,</span> <span class="n">exppatch</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;check whether the data in patch (matplotlib.patches.Patch) matches with</span>
+<span class="sd">    exppatch (plotclass.line)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">patch</span><span class="p">:</span>
+        <span class="n">xd</span><span class="p">,</span> <span class="n">yd</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_xy</span><span class="p">()</span>
+        <span class="n">yd</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+        <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xd</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">p</span><span class="o">.</span><span class="n">get_width</span><span class="p">())</span>
+        <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yd</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">exppatch</span><span class="o">.</span><span class="n">check_linedata</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_check_legend</span><span class="p">(</span><span class="n">legend_data</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;check whether the data in legend_data (list) matches with</span>
+<span class="sd">    expected (list)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">legend_data</span> <span class="ow">and</span> <span class="n">check_value</span><span class="p">(</span><span class="n">legend_data</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_check_axes</span><span class="p">(</span><span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;check whether axis limits (l1) match expected (l2)&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">check_value</span><span class="p">(</span><span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_reorder</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;given two lists of lines, a and b, reorder a until it matches b, or we</span>
+<span class="sd">    fail to find a match. This way, if students plot data sets in a different</span>
+<span class="sd">    order than expected, we can still check the data&quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">permutations</span>
+    <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="n">permutations</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">all</span><span class="p">([</span><span class="n">_check_linedata</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">no_diagnose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                 <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">perm</span><span class="p">,</span> <span class="n">a</span><span class="p">)])):</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">perm</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">b</span>
+
+
+<span class="k">def</span> <span class="nf">_e_string</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; construct an error string comprising the specific fault with the plot</span>
+<span class="sd">    and the label of the object at fault. E.G data_(&#39;xyline&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">label</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">error</span><span class="o">+</span><span class="s1">&#39;(&quot;&#39;</span><span class="o">+</span><span class="n">label</span><span class="o">+</span><span class="s1">&#39;&quot;)&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">error</span><span class="o">+</span><span class="s2">&quot;(&#39;&#39;)&quot;</span>
+
+
+<div class="viewcode-block" id="check_plot"><a class="viewcode-back" href="../../autoapi/AutoFeedback/plotchecks/index.html#AutoFeedback.plotchecks.check_plot">[docs]</a><span class="k">def</span> <span class="nf">check_plot</span><span class="p">(</span><span class="n">explines</span><span class="p">,</span> <span class="n">exppatch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">explabels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">expaxes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">explegend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">check_partial</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;given information on a plot which the student has been asked to</span>
+<span class="sd">    produce, check whether it has been done correctly, and provide feedback</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    explines : list of plotclass.line</span>
+<span class="sd">        the lines we expect to be plotted in the figure</span>
+<span class="sd">    exppatch : list of plotclass.line  or None</span>
+<span class="sd">        any patches we expect to be plotted in the figure</span>
+<span class="sd">        (e.g. for histrograms)</span>
+<span class="sd">    explabels : list or None</span>
+<span class="sd">        expected axis labels [x-label, y-label, title]</span>
+<span class="sd">    expaxes : list or None</span>
+<span class="sd">        expected axis limits [x_low, x_high, y_low, y_high]</span>
+<span class="sd">    explegend : list or None</span>
+<span class="sd">        expected legend entries</span>
+<span class="sd">    output : bool</span>
+<span class="sd">        if True, print output to screen. otherwise execute quietly</span>
+<span class="sd">    check_partial : bool</span>
+<span class="sd">        if more than one line is to be plotted, check only whether at least one</span>
+<span class="sd">        has been plotted</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    =======</span>
+<span class="sd">    bool: True if plot looks as expected (or partially if check_partial),</span>
+<span class="sd">    False otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">AutoFeedback.plot_error_messages</span> <span class="kn">import</span> <span class="n">print_error_message</span>
+    <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">zip_longest</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">fighand</span> <span class="o">=</span> <span class="n">_grab_figure</span><span class="p">()</span>
+        <span class="n">lines</span><span class="p">,</span> <span class="n">patch</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">legends</span> <span class="o">=</span>\
+            <span class="n">_extract_plot_elements</span><span class="p">(</span><span class="n">fighand</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">explines</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">),</span>
+                                   <span class="n">patches</span><span class="o">=</span><span class="n">exppatch</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">expaxes</span><span class="p">),</span>
+                                   <span class="n">axislabels</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">explabels</span><span class="p">),</span>
+                                   <span class="n">legend</span><span class="o">=</span><span class="n">explegend</span><span class="p">)</span>
+        <span class="n">explegends</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">label</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">explines</span>
+                      <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+        <span class="n">expline</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">check_partial</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">explines</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">explines</span><span class="p">)),</span> <span class="s2">&quot;_datasets&quot;</span>
+            <span class="k">if</span> <span class="n">explegend</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">legends</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">explegends</span><span class="p">)),</span> <span class="s2">&quot;_legend&quot;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">explines</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">lines</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="p">(</span><span class="kc">False</span><span class="p">),</span> <span class="s2">&quot;_datasets&quot;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">explines</span><span class="p">):</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">_reorder</span><span class="p">(</span><span class="n">explines</span><span class="p">,</span> <span class="n">lines</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">line</span><span class="p">,</span> <span class="n">expline</span><span class="p">,</span> <span class="n">legend</span> <span class="ow">in</span> <span class="n">zip_longest</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">explines</span><span class="p">,</span> <span class="n">legends</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">expline</span><span class="p">:</span>
+                    <span class="k">assert</span> <span class="p">(</span><span class="n">_check_linedata</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">expline</span><span class="p">)),</span> <span class="n">_e_string</span><span class="p">(</span>
+                        <span class="s2">&quot;_data&quot;</span><span class="p">,</span> <span class="n">expline</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">expline</span><span class="o">.</span><span class="n">linestyle</span><span class="p">:</span>
+                        <span class="k">assert</span> <span class="p">(</span><span class="n">_check_linestyle</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">expline</span><span class="o">.</span><span class="n">linestyle</span><span class="p">)</span>
+                                <span class="p">),</span> <span class="n">_e_string</span><span class="p">(</span><span class="s2">&quot;_linestyle&quot;</span><span class="p">,</span> <span class="n">expline</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">expline</span><span class="o">.</span><span class="n">marker</span><span class="p">:</span>
+                        <span class="k">assert</span> <span class="p">(</span><span class="n">_check_marker</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">expline</span><span class="o">.</span><span class="n">marker</span><span class="p">)</span>
+                                <span class="p">),</span> <span class="n">_e_string</span><span class="p">(</span><span class="s2">&quot;_marker&quot;</span><span class="p">,</span> <span class="n">expline</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">expline</span><span class="o">.</span><span class="n">colour</span><span class="p">:</span>
+                        <span class="k">assert</span> <span class="p">(</span><span class="n">_check_colour</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">expline</span><span class="o">.</span><span class="n">colour</span><span class="p">)</span>
+                                <span class="p">),</span> <span class="n">_e_string</span><span class="p">(</span><span class="s2">&quot;_colour&quot;</span><span class="p">,</span> <span class="n">expline</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">expline</span><span class="o">.</span><span class="n">label</span> <span class="ow">and</span> <span class="n">explegend</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">get_label</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;_&quot;</span><span class="p">:</span>
+                            <span class="k">assert</span> <span class="p">(</span><span class="n">_check_legend</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">get_label</span><span class="p">(),</span>
+                                                  <span class="n">expline</span><span class="o">.</span><span class="n">label</span><span class="p">)),</span> <span class="s2">&quot;_legend&quot;</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">assert</span> <span class="p">(</span><span class="n">_check_legend</span><span class="p">(</span><span class="n">legend</span><span class="p">,</span> <span class="n">expline</span><span class="o">.</span><span class="n">label</span><span class="p">)),</span>\
+                                <span class="s2">&quot;_legend&quot;</span>
+                    <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
+                        <span class="n">print_error_message</span><span class="p">(</span>
+                            <span class="n">_e_string</span><span class="p">(</span><span class="s2">&quot;_partial&quot;</span><span class="p">,</span> <span class="n">expline</span><span class="o">.</span><span class="n">label</span><span class="p">),</span> <span class="n">expline</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">exppatch</span><span class="p">):</span>
+            <span class="n">expline</span> <span class="o">=</span> <span class="n">exppatch</span>
+            <span class="k">assert</span> <span class="p">(</span><span class="n">_check_patchdata</span><span class="p">(</span><span class="n">patch</span><span class="p">,</span> <span class="n">exppatch</span><span class="p">)),</span> <span class="n">_e_string</span><span class="p">(</span><span class="s2">&quot;_data&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
+                <span class="n">print_error_message</span><span class="p">(</span><span class="n">_e_string</span><span class="p">(</span><span class="s2">&quot;_partial&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="n">exppatch</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">explines</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">exppatch</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="p">(</span><span class="kc">False</span><span class="p">),</span> <span class="s2">&quot;_data&quot;</span>
+        <span class="k">if</span> <span class="n">explabels</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">explabels</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">explabels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="p">(</span><span class="n">_check_axes</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">explabels</span><span class="p">)),</span> <span class="s2">&quot;_labels&quot;</span>
+        <span class="k">if</span> <span class="n">expaxes</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="p">(</span><span class="n">_check_axes</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">expaxes</span><span class="p">)),</span> <span class="s2">&quot;_axes&quot;</span>
+        <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
+            <span class="n">print_error_message</span><span class="p">(</span><span class="s2">&quot;_success&quot;</span><span class="p">,</span> <span class="n">expline</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">AssertionError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
+            <span class="n">print_error_message</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">expline</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Andrew Brown.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+:py:mod:`AutoFeedback`
+======================
+
+.. py:module:: AutoFeedback
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   bcolors/index.rst
+   funcchecks/index.rst
+   function_error_messages/index.rst
+   plot_error_messages/index.rst
+   plotchecks/index.rst
+   plotclass/index.rst
+   randomclass/index.rst
+   utils/index.rst
+   varchecks/index.rst
+   variable_error_messages/index.rst
+
+
+Package Contents
+----------------
+
+.. py:data:: __version__
+   
+
+   
+

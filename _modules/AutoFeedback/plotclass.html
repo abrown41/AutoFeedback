@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoFeedback.plotclass &mdash; AutoFeedback 0.post113+g3d2f546 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> AutoFeedback
+          </a>
+              <div class="version">
+                0.post113+g3d2f546
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../min_versions.html">Minimum Version of Python and NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AutoFeedback</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+          <li><a href="../AutoFeedback.html">AutoFeedback</a> &raquo;</li>
+      <li>AutoFeedback.plotclass</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for AutoFeedback.plotclass</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Define objects for comparison to matplotlib objects. I.E create something with</span>
+<span class="sd">attributes comparable with matplotlib lines, axes etc. without having to create</span>
+<span class="sd">a figure.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.varchecks</span> <span class="kn">import</span> <span class="n">check_value</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback</span> <span class="kn">import</span> <span class="n">plot_error_messages</span>
+
+
+<div class="viewcode-block" id="line"><a class="viewcode-back" href="../../autoapi/AutoFeedback/plotclass/index.html#AutoFeedback.plotclass.line">[docs]</a><span class="k">class</span> <span class="nc">line</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    generic class for data plotted in a figure</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    xdata : list/np.array</span>
+<span class="sd">        x-values for xydata/patch</span>
+<span class="sd">    ydata : list/np.array</span>
+<span class="sd">        y-values for xydata/patch</span>
+<span class="sd">    linestyle : list of strings or None</span>
+<span class="sd">        linestyles that will be accepted as correct, e.g. [&#39;-&#39;, &#39;--&#39;, &#39;-.&#39;]</span>
+<span class="sd">    colour : list of colour identifiers or None</span>
+<span class="sd">       colours that will be accepted as correct</span>
+<span class="sd">       e.g. [&#39;r&#39;,&#39;red&#39;,(1.0,0.0,0.0,1)])</span>
+<span class="sd">    label : str</span>
+<span class="sd">        label attached to data (for legend entry for instance)</span>
+<span class="sd">    marker : list of strings or None</span>
+<span class="sd">        markers that will be accepted as correct, e.g. [&#39;.&#39;, &#39;,&#39;, &#39;o&#39;]</span>
+<span class="sd">    diagnosis : str</span>
+<span class="sd">        diagnosis of what is incorrect about the line</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xdata</span> <span class="o">=</span> <span class="n">xdata</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ydata</span> <span class="o">=</span> <span class="n">ydata</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linestyle</span> <span class="o">=</span> <span class="n">linestyle</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">colour</span> <span class="o">=</span> <span class="n">colour</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">marker</span> <span class="o">=</span> <span class="n">marker</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">=</span> <span class="s2">&quot;ok&quot;</span>
+
+<div class="viewcode-block" id="line.get_xydata"><a class="viewcode-back" href="../../autoapi/AutoFeedback/plotclass/index.html#AutoFeedback.plotclass.line.get_xydata">[docs]</a>    <span class="k">def</span> <span class="nf">get_xydata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;mimic matplotlib.axes.get_xydata()&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">xdata</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ydata</span></div>
+
+<div class="viewcode-block" id="line.check_linedata"><a class="viewcode-back" href="../../autoapi/AutoFeedback/plotclass/index.html#AutoFeedback.plotclass.line.check_linedata">[docs]</a>    <span class="k">def</span> <span class="nf">check_linedata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">no_diagnose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;determine whether the xy data matches the expected data</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : list or np.array</span>
+<span class="sd">            expected x data</span>
+<span class="sd">        y : list or np.array</span>
+<span class="sd">            expected y data</span>
+<span class="sd">        no_diagnose : bool</span>
+<span class="sd">            if True then don&#39;t provide any feedback on the comparison.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool : True if data matches expected, False otherwise</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">goodx</span><span class="p">,</span> <span class="n">goody</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xdata</span><span class="p">,</span> <span class="s2">&quot;check_value&quot;</span><span class="p">)</span> <span class="ow">and</span>\
+                <span class="n">callable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xdata</span><span class="o">.</span><span class="n">check_value</span><span class="p">):</span>
+            <span class="n">goodx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xdata</span><span class="o">.</span><span class="n">check_value</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">goodx</span> <span class="o">=</span> <span class="n">check_value</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">xdata</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ydata</span><span class="p">,</span> <span class="s2">&quot;check_value&quot;</span><span class="p">)</span> <span class="ow">and</span>\
+                <span class="n">callable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ydata</span><span class="o">.</span><span class="n">check_value</span><span class="p">):</span>
+            <span class="n">goody</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ydata</span><span class="o">.</span><span class="n">check_value</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">goody</span> <span class="o">=</span> <span class="n">check_value</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ydata</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">goodx</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">goody</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">=</span> <span class="s2">&quot;badxy&quot;</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">goodx</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">=</span> <span class="s2">&quot;badx&quot;</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">goody</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">=</span> <span class="s2">&quot;bady&quot;</span>
+        <span class="k">if</span> <span class="n">no_diagnose</span><span class="p">:</span>
+            <span class="c1"># reset self.diagnose if we are just running check_linedata</span>
+            <span class="c1"># to get the lines in the right order</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">=</span> <span class="s2">&quot;ok&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">goodx</span> <span class="ow">and</span> <span class="n">goody</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="line.generic_error"><a class="viewcode-back" href="../../autoapi/AutoFeedback/plotclass/index.html#AutoFeedback.plotclass.line.generic_error">[docs]</a>    <span class="k">def</span> <span class="nf">generic_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Generic error message for incorrect data in plot&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;The </span><span class="si">{</span><span class="n">axis</span><span class="si">}</span><span class="s2">-coordinates of the points in the data set</span>
+<span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2"> are incorrect</span>
+
+<span class="s2">       The instructions in the README file explain the specific values</span>
+<span class="s2">       for the coordinates of the points in your graph.</span>
+<span class="s2">       Make sure you have read those instructions carefully and that you</span>
+<span class="s2">       know what the coordinates of the points in your graph should be&quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="line.get_error"><a class="viewcode-back" href="../../autoapi/AutoFeedback/plotclass/index.html#AutoFeedback.plotclass.line.get_error">[docs]</a>    <span class="k">def</span> <span class="nf">get_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;determine the error message to be printed, based on the diagnosis</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        label : str</span>
+<span class="sd">            label for the data set to be plotted</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">==</span> <span class="s2">&quot;badxy&quot;</span><span class="p">:</span>
+            <span class="n">error_message</span> <span class="o">=</span> <span class="n">plot_error_messages</span><span class="o">.</span><span class="n">error_message</span><span class="o">.</span><span class="n">_data</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">==</span> <span class="s2">&quot;badx&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xdata</span><span class="p">,</span> <span class="s2">&quot;get_error&quot;</span><span class="p">)</span> <span class="ow">and</span>\
+                    <span class="n">callable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xdata</span><span class="o">.</span><span class="n">get_error</span><span class="p">):</span>
+                <span class="n">error_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xdata</span><span class="o">.</span><span class="n">get_error</span><span class="p">(</span>
+                    <span class="s2">&quot;x coordinates of the data series in the graph labelled &quot;</span>
+                    <span class="o">+</span> <span class="n">label</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">error_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generic_error</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">==</span> <span class="s2">&quot;bady&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ydata</span><span class="p">,</span> <span class="s2">&quot;get_error&quot;</span><span class="p">)</span> <span class="ow">and</span>\
+                    <span class="n">callable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ydata</span><span class="o">.</span><span class="n">get_error</span><span class="p">):</span>
+                <span class="n">error_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ydata</span><span class="o">.</span><span class="n">get_error</span><span class="p">(</span>
+                    <span class="s2">&quot;y coordinates of the data series in the graph labelled &quot;</span>
+                    <span class="o">+</span> <span class="n">label</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">error_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generic_error</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">error_message</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Andrew Brown.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

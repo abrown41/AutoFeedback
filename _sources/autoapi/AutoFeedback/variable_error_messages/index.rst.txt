@@ -1,0 +1,103 @@
+:py:mod:`AutoFeedback.variable_error_messages`
+==============================================
+
+.. py:module:: AutoFeedback.variable_error_messages
+
+.. autoapi-nested-parse::
+
+   Feedback strings for variable-based exercises
+
+   ..
+       !! processed by numpydoc !!
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   AutoFeedback.variable_error_messages.print_error_message
+   AutoFeedback.variable_error_messages.output_check
+
+
+
+.. py:function:: print_error_message(error, varname, exp, res)
+
+   
+   given information on the variable, display meaningful feedback in the
+   terminal as to why the submitted code has failed (or passed).
+
+
+   :Parameters:
+
+       **error** : str
+           Possible error strings are:
+               - 'success' : variable is defined correctly
+               - 'existence' : variable has not been defined
+               - 'size' : variable is the wrong size (e.g. wrong length of array)
+               - 'import' : main.py cannot be imported
+
+       **varname** : str
+           name of the variable under investigation
+
+       **exp** : any
+           expected value of varname
+
+       **res** : any
+           actual value of varname
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:function:: output_check(expected, executable='main.py')
+
+   
+   Check whether printed information matches expected
+
+
+   :Parameters:
+
+       **expected** : str
+           The expected contents of stdout
+
+       **executable** : str
+           name of the python executable which when executed should print
+           `expected` to screen
+
+   :Returns:
+
+       **check** : bool
+           True if stdout is expected, False otherwise
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+

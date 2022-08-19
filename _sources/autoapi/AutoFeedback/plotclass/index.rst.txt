@@ -1,0 +1,184 @@
+:py:mod:`AutoFeedback.plotclass`
+================================
+
+.. py:module:: AutoFeedback.plotclass
+
+.. autoapi-nested-parse::
+
+   Define objects for comparison to matplotlib objects. I.E create something with
+   attributes comparable with matplotlib lines, axes etc. without having to create
+   a figure.
+
+   ..
+       !! processed by numpydoc !!
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   AutoFeedback.plotclass.line
+
+
+
+
+.. py:class:: line(xdata, ydata, linestyle=None, colour=None, label=None, marker=None)
+
+   
+   generic class for data plotted in a figure
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   :Attributes:
+
+       **xdata** : list/np.array
+           x-values for xydata/patch
+
+       **ydata** : list/np.array
+           y-values for xydata/patch
+
+       **linestyle** : list of strings or None
+           linestyles that will be accepted as correct, e.g. ['-', '--', '-.']
+
+       **colour** : list of colour identifiers or None
+           colours that will be accepted as correct
+           e.g. ['r','red',(1.0,0.0,0.0,1)])
+
+       **label** : str
+           label attached to data (for legend entry for instance)
+
+       **marker** : list of strings or None
+           markers that will be accepted as correct, e.g. ['.', ',', 'o']
+
+       **diagnosis** : str
+           diagnosis of what is incorrect about the line
+
+
+   ..
+       !! processed by numpydoc !!
+   .. py:method:: get_xydata()
+
+      
+      mimic matplotlib.axes.get_xydata()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+   .. py:method:: check_linedata(x, y, no_diagnose=False)
+
+      
+      determine whether the xy data matches the expected data
+
+
+      :Parameters:
+
+          **x** : list or np.array
+              expected x data
+
+          **y** : list or np.array
+              expected y data
+
+          **no_diagnose** : bool
+              if True then don't provide any feedback on the comparison.
+
+      :Returns:
+
+          **bool** : True if data matches expected, False otherwise
+              ..
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+   .. py:method:: generic_error(label, axis)
+
+      
+      Generic error message for incorrect data in plot
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+   .. py:method:: get_error(label)
+
+      
+      determine the error message to be printed, based on the diagnosis
+
+
+      :Parameters:
+
+          **label** : str
+              label for the data set to be plotted
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+

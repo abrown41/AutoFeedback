@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoFeedback.funcchecks &mdash; AutoFeedback 0.post113+g3d2f546 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> AutoFeedback
+          </a>
+              <div class="version">
+                0.post113+g3d2f546
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../min_versions.html">Minimum Version of Python and NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AutoFeedback</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+          <li><a href="../AutoFeedback.html">AutoFeedback</a> &raquo;</li>
+      <li>AutoFeedback.funcchecks</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for AutoFeedback.funcchecks</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Check a students&#39; function works as expected, and provide feedback</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">_exists</span><span class="p">(</span><span class="n">funcname</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Check that main.funcname exists (funcname is string)&quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">inspect</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">testfunc</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">__import__</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">fromlist</span><span class="o">=</span><span class="p">[</span><span class="n">funcname</span><span class="p">]),</span> <span class="n">funcname</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isfunction</span><span class="p">(</span><span class="n">testfunc</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+
+<span class="k">def</span> <span class="nf">_get_func</span><span class="p">(</span><span class="n">funcname</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;import main.funcname (funcname is string)&quot;&quot;&quot;</span>
+    <span class="n">testfunc</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">__import__</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">fromlist</span><span class="o">=</span><span class="p">[</span><span class="n">funcname</span><span class="p">]),</span> <span class="n">funcname</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">testfunc</span>
+
+
+<span class="k">def</span> <span class="nf">_input_vars</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">ins</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;check that func accepts input as expected</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    func : function handle for function to be checked</span>
+<span class="sd">    ins : tuple containing sample inputs</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span> <span class="k">as</span> <span class="n">dc</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">dc</span><span class="p">(</span><span class="n">ins</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="s2">&quot;__len__&quot;</span><span class="p">):</span>
+            <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">func</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="s1">&#39;positional&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_returns</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">ins</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;check that func returns a value</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    func : function handle for function to be checked</span>
+<span class="sd">    ins : tuple containing sample inputs</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span> <span class="k">as</span> <span class="n">dc</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">dc</span><span class="p">(</span><span class="n">ins</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="s2">&quot;__len__&quot;</span><span class="p">):</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="s2">&quot;__len__&quot;</span><span class="p">):</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">e</span>
+
+
+<span class="k">def</span> <span class="nf">_check_outputs</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">ins</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;check that func(ins) returns the expected value</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    func : function handle for function to be checked</span>
+<span class="sd">    ins : tuple containing sample inputs</span>
+<span class="sd">    expected : expected return value of func(ins)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">AutoFeedback.varchecks</span> <span class="kn">import</span> <span class="n">check_value</span>
+    <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span> <span class="k">as</span> <span class="n">dc</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">dc</span><span class="p">(</span><span class="n">ins</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="s2">&quot;check_value&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">callable</span><span class="p">(</span><span class="n">expected</span><span class="o">.</span><span class="n">check_value</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="s2">&quot;nsamples&quot;</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;there should be an attribute called</span>
+<span class="s2">nsamples in the class you have provided as reference&quot;&quot;&quot;</span><span class="p">)</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">inputs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">expected</span><span class="o">.</span><span class="n">nsamples</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="n">expected</span><span class="o">.</span><span class="n">nsamples</span><span class="o">*</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">expected</span><span class="o">.</span><span class="n">nsamples</span><span class="p">):</span>
+                    <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">inputs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">expected</span><span class="o">.</span><span class="n">check_value</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">inputs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">check_value</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">expected</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">e</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+
+<span class="k">def</span> <span class="nf">_check_calls</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">call</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;check that func calls another function called &#39;call&#39;</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    func : function handle for function to be checked</span>
+<span class="sd">    call : str, name of other function to be called</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">inspect</span>
+    <span class="kn">import</span> <span class="nn">ast</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">all_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">func</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span>
+            <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">func</span><span class="p">)))</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">Call</span><span class="p">)]</span>
+        <span class="n">call_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">all_names</span> <span class="k">if</span>
+                      <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">Name</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">call</span> <span class="ow">in</span> <span class="n">call_names</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+
+<div class="viewcode-block" id="check_func"><a class="viewcode-back" href="../../autoapi/AutoFeedback/funcchecks/index.html#AutoFeedback.funcchecks.check_func">[docs]</a><span class="k">def</span> <span class="nf">check_func</span><span class="p">(</span><span class="n">funcname</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">expected</span><span class="p">,</span> <span class="n">calls</span><span class="o">=</span><span class="p">[],</span> <span class="n">output</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;given information on a function which the student has been asked to</span>
+<span class="sd">    define, check whether it has been defined correctly, and provide feedback</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    funcname : str</span>
+<span class="sd">        name of function to be investigated</span>
+<span class="sd">    inputs : list of tuples</span>
+<span class="sd">        inputs with which to test funcname</span>
+<span class="sd">    expected : list</span>
+<span class="sd">        expected outputs of [funcname(inp) for inp in inputs]</span>
+<span class="sd">    calls : list of strings</span>
+<span class="sd">        names of any functions which funcname should call</span>
+<span class="sd">    output : bool</span>
+<span class="sd">        if True, print output to screen. otherwise execute quietly</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    =======</span>
+<span class="sd">    bool: True if function works as expected, False otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">AutoFeedback.function_error_messages</span> <span class="kn">import</span> <span class="n">print_error_message</span>
+    <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span> <span class="k">as</span> <span class="n">copy</span>
+    <span class="n">call</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ins</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">outs</span> <span class="o">=</span> <span class="n">expected</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="o">-</span><span class="mi">999</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="n">_exists</span><span class="p">(</span><span class="n">funcname</span><span class="p">)),</span> <span class="s2">&quot;existence&quot;</span>
+        <span class="n">func</span> <span class="o">=</span> <span class="n">_get_func</span><span class="p">(</span><span class="n">funcname</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="n">_input_vars</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="s2">&quot;inputs&quot;</span>
+
+        <span class="k">assert</span> <span class="p">(</span><span class="n">_returns</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="s2">&quot;return&quot;</span>
+        <span class="k">for</span> <span class="n">ins</span><span class="p">,</span> <span class="n">outs</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">copy</span><span class="p">(</span><span class="n">ins</span><span class="p">))</span>  <span class="c1"># ensure the inputs are not overwritten</span>
+            <span class="k">assert</span> <span class="p">(</span><span class="n">_check_outputs</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">ins</span><span class="p">,</span> <span class="n">outs</span><span class="p">)),</span> <span class="s2">&quot;outputs&quot;</span>
+        <span class="k">for</span> <span class="n">call</span> <span class="ow">in</span> <span class="n">calls</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="p">(</span><span class="n">_check_calls</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">call</span><span class="p">)),</span> <span class="s2">&quot;calls&quot;</span>
+        <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
+            <span class="n">print_error_message</span><span class="p">(</span><span class="s2">&quot;success&quot;</span><span class="p">,</span> <span class="n">funcname</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">AssertionError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
+            <span class="n">print_error_message</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">funcname</span><span class="p">,</span> <span class="n">inp</span><span class="o">=</span><span class="n">ins</span><span class="p">,</span>
+                                <span class="n">exp</span><span class="o">=</span><span class="n">outs</span><span class="p">,</span> <span class="n">result</span><span class="o">=</span><span class="n">res</span><span class="p">,</span> <span class="n">callname</span><span class="o">=</span><span class="n">call</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">output</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">traceback</span>
+            <span class="n">print_error_message</span><span class="p">(</span><span class="s2">&quot;execution&quot;</span><span class="p">,</span> <span class="n">funcname</span><span class="p">,</span> <span class="n">inp</span><span class="o">=</span><span class="n">ins</span><span class="p">,</span>
+                                <span class="n">exp</span><span class="o">=</span><span class="n">outs</span><span class="p">,</span> <span class="n">result</span><span class="o">=</span><span class="n">res</span><span class="p">,</span> <span class="n">callname</span><span class="o">=</span><span class="n">call</span><span class="p">,</span>
+                                <span class="n">msg</span><span class="o">=</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="o">-</span><span class="mi">3</span><span class="p">:])</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="kc">True</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Andrew Brown.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

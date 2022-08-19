@@ -1,0 +1,80 @@
+:py:mod:`AutoFeedback.function_error_messages`
+==============================================
+
+.. py:module:: AutoFeedback.function_error_messages
+
+.. autoapi-nested-parse::
+
+   Feedback strings for function-based exercises
+
+   ..
+       !! processed by numpydoc !!
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   AutoFeedback.function_error_messages.print_error_message
+
+
+
+.. py:function:: print_error_message(error, funcname, inp=(0, ), exp=7, result=0, callname='print', msg=[None, None, None])
+
+   
+   given information on the execution of the function, display meaningfull
+   feedback in the terminal as to why the submitted code has failed (or
+   passed).
+
+
+   :Parameters:
+
+       **error** : str
+           Possible error strings are
+               - 'success' (function works as expected)
+               - 'existence' (function has not been defined)
+               - 'inputs' (function does not accept input as expected)
+               - 'outputs' (function does not produce correct output)
+               - 'return' (function does not return a value/returns None)
+               - 'calls' (function does not call other functions as required)
+               - 'execution' (other error in the execution of the function)
+
+       **funcname** : str
+           name of the function under investigation
+
+       **inp** : tuple
+           input values for the function
+
+       **exp: any**
+           expected output of the function
+
+       **result** : any
+           actual output of the function
+
+       **callname** : str
+           name of the function that was supposed to be called within funcname
+
+       **msg** : Exception
+           Exception raised by the execution of funcname
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+

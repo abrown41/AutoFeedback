@@ -1,0 +1,50 @@
+:py:mod:`AutoFeedback.utils`
+============================
+
+.. py:module:: AutoFeedback.utils
+
+.. autoapi-nested-parse::
+
+   utilities for ensuring modules are installed
+
+   ..
+       !! processed by numpydoc !!
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   AutoFeedback.utils.check_module
+
+
+
+.. py:function:: check_module(modname)
+
+   
+   check if modname is installed, and if not, attempt to use pip to
+   install it
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+

@@ -1,0 +1,116 @@
+:py:mod:`AutoFeedback.varchecks`
+================================
+
+.. py:module:: AutoFeedback.varchecks
+
+.. autoapi-nested-parse::
+
+   Check a student-defined variable has expected value, and provide feedback
+
+   ..
+       !! processed by numpydoc !!
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   AutoFeedback.varchecks.check_value
+   AutoFeedback.varchecks.check_vars
+   AutoFeedback.varchecks.check_output
+
+
+
+.. py:function:: check_value(a, b)
+
+   
+   check that variable a has the same value as b
+
+   Note that this has been tested for strings, integers, floats, numpy arrays,
+   lists, tuples and sympy objects. In the case of sympy objects, the
+   expressions are simplified to make sure that they are compared correctly,
+   so that x*x == x**2 for instance.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:function:: check_vars(varname, expected, output=True)
+
+   
+   given information on a variable which the student has been asked to
+   define, check whether it has been defined correctly, and provide feedback
+
+
+   :Parameters:
+
+       **varname** : str
+           name of the variable to be investigated
+
+       **expected** : any
+           expected value of varname
+
+       **output** : bool
+           if True, print output to screen. otherwise execute quietly
+
+   :Returns:
+
+       bool: True if function works as expected, False otherwise.
+           ..
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:function:: check_output(expected)
+
+   
+   Check that information printed to screen matches expected (str)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+

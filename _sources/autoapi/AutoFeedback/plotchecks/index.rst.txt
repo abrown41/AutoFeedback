@@ -1,0 +1,81 @@
+:py:mod:`AutoFeedback.plotchecks`
+=================================
+
+.. py:module:: AutoFeedback.plotchecks
+
+.. autoapi-nested-parse::
+
+   Check a student-defined plot matches expected, and provide feedback
+
+   ..
+       !! processed by numpydoc !!
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   AutoFeedback.plotchecks.check_plot
+
+
+
+.. py:function:: check_plot(explines, exppatch=None, explabels=None, expaxes=None, explegend=False, output=False, check_partial=False)
+
+   
+   given information on a plot which the student has been asked to
+   produce, check whether it has been done correctly, and provide feedback
+
+
+   :Parameters:
+
+       **explines** : list of plotclass.line
+           the lines we expect to be plotted in the figure
+
+       **exppatch** : list of plotclass.line  or None
+           any patches we expect to be plotted in the figure
+           (e.g. for histrograms)
+
+       **explabels** : list or None
+           expected axis labels [x-label, y-label, title]
+
+       **expaxes** : list or None
+           expected axis limits [x_low, x_high, y_low, y_high]
+
+       **explegend** : list or None
+           expected legend entries
+
+       **output** : bool
+           if True, print output to screen. otherwise execute quietly
+
+       **check_partial** : bool
+           if more than one line is to be plotted, check only whether at least one
+           has been plotted
+
+   :Returns:
+
+       bool: True if plot looks as expected (or partially if check_partial),
+           ..
+
+       False otherwise.
+           ..
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+

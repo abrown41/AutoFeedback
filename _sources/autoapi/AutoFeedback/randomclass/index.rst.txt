@@ -1,0 +1,188 @@
+:py:mod:`AutoFeedback.randomclass`
+==================================
+
+.. py:module:: AutoFeedback.randomclass
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   AutoFeedback.randomclass.randomvar
+
+
+
+
+.. py:class:: randomvar(expectation, dist='normal', variance=0, vmin='unset', vmax='unset', isinteger=False, meanconv=False, dof=-1, limit=-1, transform=None, nsamples=1)
+
+   
+   generic class for random variables.
+   allows you to test if students are sampling
+   from a distribution.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   :Attributes:
+
+       **expectation** : float/list/np.array
+           the expectation/s for your random variable/s
+
+       **dist** : str
+           type of distribution to use in hypothesis testing can be normal/chi2/
+           conf_lim/uncertainty
+
+       **variance** : float/list/np.array
+           the variance/s for your random variable/s
+
+       **vmin** : float/list/np.array
+           the lowest value the random variable can take
+
+       **vmax** : float/list/np.array
+           the highest value the random variable can take
+
+       **isinteger** : bool/list of bools
+           True if the random variable must take an integer value
+
+       **meanconv** : bool
+           True if the input value you are testing is a list containing
+           sample means calculated from progressively larger and larger numbers
+           of identical random variables
+
+       **dof** : int
+           number of degrees of freedom to use when calculating test statistic
+           with chi2 distribution
+
+       **limit** : size of confidence limit to use when checking confidence limits
+           ..
+
+       **transform** : a function to transform the student's output to a
+           random variable we can do a hypothesis test on
+
+       **nsamples** : when testing function the size of the sample to take in
+           order to test the students code
+
+
+   ..
+       !! processed by numpydoc !!
+   .. py:method:: __str__()
+
+      
+      This is what is printed if the print method is executed on an
+      instance of randomclass: it's defined as it is so that when
+      AutoFeedback prints out the expected value of a given variable we get
+      something other than '<AutoFeedback.randomclass.randomvar>'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+   .. py:method:: __len__()
+
+      
+      This is what is returned if the len method is executed on an
+      instance of randomclass. The expected length is equal to the number
+      of expectation values that have been provided
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+   .. py:method:: check_value(val)
+
+      
+      check that the value is consistent with the specified distribution
+
+
+      :Parameters:
+
+          **val** : float/list/nparray
+              values to check if they are from specified distribution/s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+   .. py:method:: get_error(obj)
+
+      
+      get the error message when the check fails
+
+
+      :Parameters:
+
+          **obj** : str
+              description of object that is not producing correct random
+              variables
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+

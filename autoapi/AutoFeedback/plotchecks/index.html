@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoFeedback.plotchecks &mdash; AutoFeedback 0.post113+g3d2f546 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="AutoFeedback.plotclass" href="../plotclass/index.html" />
+    <link rel="prev" title="AutoFeedback.plot_error_messages" href="../plot_error_messages/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> AutoFeedback
+          </a>
+              <div class="version">
+                0.post113+g3d2f546
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../min_versions.html">Minimum Version of Python and NumPy</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">AutoFeedback</span></code></a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../bcolors/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">AutoFeedback.bcolors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../funcchecks/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">AutoFeedback.funcchecks</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../function_error_messages/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">AutoFeedback.function_error_messages</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../plot_error_messages/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">AutoFeedback.plot_error_messages</span></code></a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">AutoFeedback.plotchecks</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../plotclass/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">AutoFeedback.plotclass</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../randomclass/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">AutoFeedback.randomclass</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">AutoFeedback.utils</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../varchecks/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">AutoFeedback.varchecks</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../variable_error_messages/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">AutoFeedback.variable_error_messages</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#package-contents">Package Contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">AutoFeedback</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">API Reference</a> &raquo;</li>
+          <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">AutoFeedback</span></code></a> &raquo;</li>
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">AutoFeedback.plotchecks</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/autoapi/AutoFeedback/plotchecks/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="module-AutoFeedback.plotchecks">
+<span id="autofeedback-plotchecks"></span><h1><a class="reference internal" href="#module-AutoFeedback.plotchecks" title="AutoFeedback.plotchecks"><code class="xref py py-mod docutils literal notranslate"><span class="pre">AutoFeedback.plotchecks</span></code></a><a class="headerlink" href="#module-AutoFeedback.plotchecks" title="Permalink to this heading">¶</a></h1>
+<p>Check a student-defined plot matches expected, and provide feedback</p>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#AutoFeedback.plotchecks.check_plot" title="AutoFeedback.plotchecks.check_plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_plot</span></code></a>(explines[, exppatch, explabels, expaxes, ...])</p></td>
+<td><p>given information on a plot which the student has been asked to</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt class="sig sig-object py" id="AutoFeedback.plotchecks.check_plot">
+<span class="sig-prename descclassname"><span class="pre">AutoFeedback.plotchecks.</span></span><span class="sig-name descname"><span class="pre">check_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">explines</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exppatch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">explabels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expaxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">explegend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_partial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/AutoFeedback/plotchecks.html#check_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#AutoFeedback.plotchecks.check_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>given information on a plot which the student has been asked to
+produce, check whether it has been done correctly, and provide feedback</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>explines</strong><span class="classifier">list of plotclass.line</span></dt><dd><p>the lines we expect to be plotted in the figure</p>
+</dd>
+<dt><strong>exppatch</strong><span class="classifier">list of plotclass.line  or None</span></dt><dd><p>any patches we expect to be plotted in the figure
+(e.g. for histrograms)</p>
+</dd>
+<dt><strong>explabels</strong><span class="classifier">list or None</span></dt><dd><p>expected axis labels [x-label, y-label, title]</p>
+</dd>
+<dt><strong>expaxes</strong><span class="classifier">list or None</span></dt><dd><p>expected axis limits [x_low, x_high, y_low, y_high]</p>
+</dd>
+<dt><strong>explegend</strong><span class="classifier">list or None</span></dt><dd><p>expected legend entries</p>
+</dd>
+<dt><strong>output</strong><span class="classifier">bool</span></dt><dd><p>if True, print output to screen. otherwise execute quietly</p>
+</dd>
+<dt><strong>check_partial</strong><span class="classifier">bool</span></dt><dd><p>if more than one line is to be plotted, check only whether at least one
+has been plotted</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>bool: True if plot looks as expected (or partially if check_partial),</dt><dd></dd>
+<dt>False otherwise.</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../plot_error_messages/index.html" class="btn btn-neutral float-left" title="AutoFeedback.plot_error_messages" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../plotclass/index.html" class="btn btn-neutral float-right" title="AutoFeedback.plotclass" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Andrew Brown.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

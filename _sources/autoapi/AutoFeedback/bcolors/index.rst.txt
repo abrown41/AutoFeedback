@@ -1,0 +1,74 @@
+:py:mod:`AutoFeedback.bcolors`
+==============================
+
+.. py:module:: AutoFeedback.bcolors
+
+.. autoapi-nested-parse::
+
+   Colors used for printing messages to terminal
+
+   ..
+       !! processed by numpydoc !!
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   AutoFeedback.bcolors.bcolors
+
+
+
+
+.. py:class:: bcolors
+
+   .. py:attribute:: HEADER
+      :annotation: = [95m
+
+      
+
+   .. py:attribute:: OKBLUE
+      :annotation: = [94m
+
+      
+
+   .. py:attribute:: OKCYAN
+      :annotation: = [96m
+
+      
+
+   .. py:attribute:: OKGREEN
+      :annotation: = [92m
+
+      
+
+   .. py:attribute:: WARNING
+      :annotation: = [93m
+
+      
+
+   .. py:attribute:: FAIL
+      :annotation: = [91m
+
+      
+
+   .. py:attribute:: ENDC
+      :annotation: = [0m
+
+      
+
+   .. py:attribute:: BOLD
+      :annotation: = [1m
+
+      
+
+   .. py:attribute:: UNDERLINE
+      :annotation: = [4m
+
+      
+
+

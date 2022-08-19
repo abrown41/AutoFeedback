@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usage &mdash; AutoFeedback 0.post113+g3d2f546 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Minimum Version of Python and NumPy" href="min_versions.html" />
+    <link rel="prev" title="AutoFeedback Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> AutoFeedback
+          </a>
+              <div class="version">
+                0.post113+g3d2f546
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#checking-variables">Checking Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#checking-functions">Checking Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#checking-plots">Checking Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#checking-random-variables">Checking random variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#single-random-variable">Single random variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fuctions-for-generating-random-variables">Fuctions for generating random variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plotting-random-variables">Plotting random variables</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#plotting-a-sample-of-random-variables">Plotting a sample of random variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#investigating-convergence-i-sample-mean">Investigating convergence I: Sample mean</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#investigating-convergence-ii-sample-variance">Investigating convergence II: Sample variance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#quoting-the-mean">Quoting the mean</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#calculating-a-confidence-limit">Calculating a confidence limit</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#generating-a-histogram">Generating a histogram</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">AutoFeedback</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Usage</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="usage">
+<span id="id1"></span><h1>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h1>
+<p>Start by importing AutoFeedback.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">AutoFeedback</span>
+</pre></div>
+</div>
+<p>Then use one of the three high level functions available for checking student
+code.</p>
+<div class="section" id="checking-variables">
+<h2>Checking Variables<a class="headerlink" href="#checking-variables" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference internal" href="autoapi/AutoFeedback/varchecks/index.html#AutoFeedback.varchecks.check_vars" title="AutoFeedback.varchecks.check_vars"><code class="xref py py-meth docutils literal notranslate"><span class="pre">AutoFeedback.varchecks.check_vars()</span></code></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.varchecks</span> <span class="kn">import</span> <span class="n">check_vars</span>
+<span class="k">assert</span> <span class="n">check_vars</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>will check whether the student has defined a variable <cite>x</cite> in main.py to be equal to 3 and
+print feedback to the screen.</p>
+</div>
+<div class="section" id="checking-functions">
+<h2>Checking Functions<a class="headerlink" href="#checking-functions" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference internal" href="autoapi/AutoFeedback/funcchecks/index.html#AutoFeedback.funcchecks.check_func" title="AutoFeedback.funcchecks.check_func"><code class="xref py py-meth docutils literal notranslate"><span class="pre">AutoFeedback.funcchecks.check_func()</span></code></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.func_checks</span> <span class="kn">import</span> <span class="n">check_funcs</span>
+<span class="k">assert</span> <span class="n">check_func</span><span class="p">(</span><span class="s1">&#39;addup&#39;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="p">[(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)],</span> <span class="n">expected</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>will check whether the student has defined a function named addup <cite>addup</cite> in main.py which takes two input arguments, adds them and returns the result.</p>
+<p>To check whether functions call other named functions, use the <cite>calls</cite> optional
+argument:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">check_func</span><span class="p">(</span><span class="s1">&#39;addAndMult&#39;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="p">[(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)],</span> <span class="n">expected</span><span class="o">=</span><span class="p">[</span><span class="mi">84</span><span class="p">],</span> <span class="n">calls</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;addup&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>which checks whether the function <cite>addAndMult</cite> calls the function <cite>addup</cite> during
+its execution.</p>
+</div>
+<div class="section" id="checking-plots">
+<h2>Checking Plots<a class="headerlink" href="#checking-plots" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference internal" href="autoapi/AutoFeedback/plotchecks/index.html#AutoFeedback.plotchecks.check_plot" title="AutoFeedback.plotchecks.check_plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">AutoFeedback.plotchecks.check_plot()</span></code></a></p>
+<p>To check a student’s plot object you must first define the ‘lines’ you expect to
+see in the plot. The lines are of type <a class="reference internal" href="autoapi/AutoFeedback/plotclass/index.html#AutoFeedback.plotclass.line" title="AutoFeedback.plotclass.line"><code class="xref py py-meth docutils literal notranslate"><span class="pre">AutoFeedback.plotclass.line()</span></code></a>
+and are defined and tested as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.plotclass</span> <span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.plotchecks</span> <span class="kn">import</span> <span class="n">check_plot</span>
+<span class="n">line1</span> <span class="o">=</span> <span class="n">line</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">9</span><span class="p">],</span>
+             <span class="n">linestyle</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;solid&#39;</span><span class="p">],</span>
+             <span class="n">colour</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mi">1</span><span class="p">)],</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;squares&#39;</span><span class="p">)</span>
+<span class="n">line2</span> <span class="o">=</span> <span class="n">line</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">27</span><span class="p">],</span>
+             <span class="n">linestyle</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="s1">&#39;dashed&#39;</span><span class="p">],</span>
+             <span class="n">colour</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mi">1</span><span class="p">)],</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;cubes&#39;</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">check_plot</span><span class="p">([</span><span class="n">line1</span><span class="p">,</span> <span class="n">line2</span><span class="p">],</span> <span class="n">expaxes</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">27</span><span class="p">],</span>
+                  <span class="n">explabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;Plot of squares and cubes&#39;</span><span class="p">]</span>
+                  <span class="n">explegend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>which checks to ensure that both the squared and cubed values are plotted with
+the correct colour and linestyle, that the legend is shown with the correct
+labels, and that the axis limits, labels and figure title are set correctly.</p>
+</div>
+<div class="section" id="checking-random-variables">
+<h2>Checking random variables<a class="headerlink" href="#checking-random-variables" title="Permalink to this heading">¶</a></h2>
+<p>AutoFeedback can be used to provide feedback on student code that generates
+random variables. To get AutoFeedback to test student code for generating random
+variables you must provide information on the distribution that the student is
+supposed to sample from. AutoFeedback then uses this information to perform
+various two-tailed hypothesis tests on the numbers that the student’s codes
+generates. The null hypothesis for these tests is that the student’s code is
+generating these random variables correctly. The alternative hypothesis is that
+the student code is not correctly sampling from the distribution. When using
+these sorts of tests <strong>there is a finite probablity that the student is told
+that their code is incorrect even when it is correct</strong> This fact is clearly
+explained to students in the feedback they receive so these tests can be used if
+you are asking students complete a formative assessesment task. If you are using
+AutoFeedback for summative assessment it is probably best not to rely on the
+marks it gives if your tasks involve random variables.</p>
+<p>Two types of hypothesis test are performed. In the first the test statistic is:</p>
+<div class="math notranslate nohighlight">
+\[T = \frac{ \overline{X} - \mu }{ \sqrt{\sigma^2 / n} }\]</div>
+<p>where <span class="math notranslate nohighlight">\(\overline{X}\)</span> is a sample mean computed from <span class="math notranslate nohighlight">\(n\)</span>
+identical random variables. <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span>, meanwhile,
+are the expectation and variance of the sampled random variables. Under
+the null hypothesis (that the student’s code is correct) the test
+statistic above should be a sample from a standard normal distribution.</p>
+<p>The second type of hypothesis test uses the following test statistic:</p>
+<div class="math notranslate nohighlight">
+\[U = \frac{(n-1)S^2}{\sigma^2}\]</div>
+<p>where <span class="math notranslate nohighlight">\(S^2\)</span> is a sample variance computed from <span class="math notranslate nohighlight">\(n\)</span> identical
+and independent random variables. <span class="math notranslate nohighlight">\(\sigma^2\)</span> is then the variance
+of the sampled random variables. Under the null hypothesis the test
+statistic above should be a sample from a chi2 distribution with
+<span class="math notranslate nohighlight">\((n-1)\)</span> degrees of freedom.</p>
+<p>The examples that follow illustrate how AutoFeedback can be used a range
+of tasks that you might ask students to perform as part of an elementary
+course in statistics.</p>
+<div class="section" id="single-random-variable">
+<h3>Single random variable<a class="headerlink" href="#single-random-variable" title="Permalink to this heading">¶</a></h3>
+<p>Suppose you want students to write a code to set a variable called
+<code class="docutils literal notranslate"><span class="pre">var</span></code> so that is a sample from a standard normal random variable. The
+correct student code would look like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can test this code using <code class="docutils literal notranslate"><span class="pre">check_vars</span></code> and <code class="docutils literal notranslate"><span class="pre">randomclass</span></code> as
+follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.varchecks</span> <span class="kn">import</span> <span class="n">check_vars</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
+
+<span class="c1"># Create a random variable object with expectation 0 and variance 1 to test the student variable against</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">randomvar</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="mi">1</span> <span class="p">)</span>
+<span class="c1"># Use check_vars to test the student variable var against the random variable you created</span>
+<span class="k">assert</span><span class="p">(</span> <span class="n">check_vars</span><span class="p">(</span> <span class="s2">&quot;var&quot;</span><span class="p">,</span> <span class="n">r</span> <span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">check_var</span></code> here calculates the test statistic <span class="math notranslate nohighlight">\(T\)</span> that was
+defined earlier using the value the student has given to the variable
+named <code class="docutils literal notranslate"><span class="pre">var</span></code> in place of <span class="math notranslate nohighlight">\(\overline{X}\)</span>. As the student has
+calculated only a single random variable <span class="math notranslate nohighlight">\(n\)</span> is set equal to 1.</p>
+<p>By a similar logic, if the student is supposed to set the variable <code class="docutils literal notranslate"><span class="pre">U</span></code>
+equal to a uniform continuous random variable that lies between 0 and 1
+by using program like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>you can test this code using <code class="docutils literal notranslate"><span class="pre">check_vars</span></code> and <code class="docutils literal notranslate"><span class="pre">randomclass</span></code> as
+follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.varchecks</span> <span class="kn">import</span> <span class="n">check_vars</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
+
+<span class="c1"># Create a random variable object with expectation 0.5 and variance 1/12 to test the student variable against</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">randomvar</span><span class="p">(</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span> <span class="p">)</span>
+<span class="c1"># Use check_vars to test the student variable U against the random variable you created</span>
+<span class="k">assert</span><span class="p">(</span> <span class="n">check_vars</span><span class="p">(</span> <span class="s2">&quot;U&quot;</span><span class="p">,</span> <span class="n">r</span> <span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, because <code class="docutils literal notranslate"><span class="pre">vmin</span></code> and <code class="docutils literal notranslate"><span class="pre">vmax</span></code> were set when the random variable was
+setup, AutoFeedback checks that <code class="docutils literal notranslate"><span class="pre">U</span></code> is between 0 and 1 before
+performing the hypothesis test that was performed on the normal random
+variable.</p>
+</div>
+<div class="section" id="fuctions-for-generating-random-variables">
+<h3>Fuctions for generating random variables<a class="headerlink" href="#fuctions-for-generating-random-variables" title="Permalink to this heading">¶</a></h3>
+<p>Lets suppose you have set students the task of writing a function for
+generating a Bernoulli random variable. A correct solution to this
+problem will look something like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">bernoulli</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="p">:</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">&lt;</span><span class="n">p</span> <span class="p">:</span> <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>If this function is working correctly it should only ever return 0 or 1.
+We can use AutoFeedback to test that this is case by including the
+following assert statement in a test:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.funcchecks</span> <span class="kn">import</span> <span class="n">check_func</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
+
+<span class="c1"># We will test the students code by generating a Bernoulli random variable with p=0.5</span>
+<span class="c1"># Notice that inputs and variables are lists here.  If the inputs list and variables list</span>
+<span class="c1"># have more than one element then the function is called and tested for each set of input</span>
+<span class="c1"># parameters.</span>
+<span class="n">inputs</span><span class="p">,</span> <span class="n">variables</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">0.5</span><span class="p">,)],</span> <span class="p">[]</span>
+<span class="c1"># Create a random variable object using what we know about the Expectation and variance of</span>
+<span class="c1"># a Bernoulli random variable with p=0.5.  Notice that we have set isinteger=True so as to</span>
+<span class="c1"># ensure that AutoFeedback checks that the random variable is 0 or 1.</span>
+<span class="n">variables</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">randomvar</span><span class="p">(</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">isinteger</span><span class="o">=</span><span class="kc">True</span> <span class="p">)</span> <span class="p">)</span>
+<span class="k">assert</span><span class="p">(</span> <span class="n">check_func</span><span class="p">(</span> <span class="s1">&#39;bernoulli&#39;</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">variables</span> <span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">When the test above is run a hypothesis test is also performed on the
+value of the random variable that was generated as was described in
+the previous section.</div>
+<div class="line">This test is likely to pass as long as the student’s function returns
+a zero or one though. In other words, there is quite a high probablity
+of a false positive result in the hypothesis test. To reduce the
+likelihood of a false positive test you can add set <code class="docutils literal notranslate"><span class="pre">nsamples</span></code> when
+you define the <code class="docutils literal notranslate"><span class="pre">randomvar</span></code> object as shown below:</div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.funcchecks</span> <span class="kn">import</span> <span class="n">check_func</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
+
+<span class="c1"># We will test the students code by generating a Bernoulli random variable with p=0.5</span>
+<span class="c1"># Notice that inputs and variables are lists here.  If the inputs list and variables list</span>
+<span class="c1"># have more than one element then the function is called and tested for each set of input</span>
+<span class="c1"># parameters.</span>
+<span class="n">inputs</span><span class="p">,</span> <span class="n">variables</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">0.5</span><span class="p">,)],</span> <span class="p">[]</span>
+<span class="c1"># Create a random variable object using what we know about the Expectation and variance of</span>
+<span class="c1"># a Bernoulli random variable with p=0.5.  Notice that we have set isinteger=True so as to</span>
+<span class="c1"># ensure that AutoFeedback checks that the random variable is 0 or 1.</span>
+<span class="n">variables</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">randomvar</span><span class="p">(</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">isinteger</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nsamples</span><span class="o">=</span><span class="mi">100</span> <span class="p">)</span> <span class="p">)</span>
+<span class="k">assert</span><span class="p">(</span> <span class="n">check_func</span><span class="p">(</span> <span class="s1">&#39;bernoulli&#39;</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">variables</span> <span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>This code calls the student’s code 100 times so a sample of 100
+Bernoulli random variables is generated. AutoFeedback will then perform
+a hypothesis test on the mean and variance of these 100 random variables
+in the manner discussed in the section below on testing codes for
+plotting samples of random variables.</p>
+<p>It is worth using these exercises to get students to think about the
+fact that the sample mean and the sample variance are random variables.
+To get students to think about the sample mean you can ask them to write
+a function similar to the one shown below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">sample_mean</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">:</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">:</span> <span class="n">mean</span> <span class="o">=</span> <span class="n">mean</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mean</span><span class="o">/</span><span class="n">n</span>
+</pre></div>
+</div>
+<p>The function above generates a sample mean by adding together <span class="math notranslate nohighlight">\(n\)</span>
+identical and independent normal random variables. The mean and variance
+for the random variable the function outputs are thus 0 and <span class="math notranslate nohighlight">\(1/n\)</span>.
+We can thus use AutoFeedback to test the students code by writing:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.funcchecks</span> <span class="kn">import</span> <span class="n">check_func</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
+
+<span class="c1"># We are going to test for a sample mean computed from 100 normal random variables here</span>
+<span class="n">inputs</span><span class="p">,</span> <span class="n">variables</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">100</span><span class="p">,)],</span> <span class="p">[]</span>
+<span class="c1"># We provide information on the expected random variable here</span>
+<span class="n">variables</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">randomvar</span><span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mi">100</span> <span class="p">)</span> <span class="p">)</span>
+<span class="c1"># And test by calling check_func</span>
+<span class="k">assert</span><span class="p">(</span> <span class="n">check_func</span><span class="p">(</span> <span class="s1">&#39;sample_mean&#39;</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">variables</span> <span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>We might also be interested in getting students to write a function for
+calulating a sample variance like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">sample_variance</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">:</span>
+    <span class="n">S2</span><span class="p">,</span> <span class="n">mean</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">:</span>
+        <span class="n">rv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">mean</span><span class="p">,</span> <span class="n">S2</span> <span class="o">=</span> <span class="n">mean</span> <span class="o">+</span> <span class="n">rv</span><span class="p">,</span> <span class="n">S2</span> <span class="o">+</span> <span class="n">rv</span><span class="o">*</span><span class="n">rv</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">mean</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="p">(</span> <span class="n">S2</span> <span class="o">/</span> <span class="n">n</span> <span class="o">-</span> <span class="n">mean</span><span class="o">*</span><span class="n">mean</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>This code can be tested by calculating the test statistic I called
+<span class="math notranslate nohighlight">\(U\)</span> earlier. This statistic should be a sample from a chi2
+distribution with <span class="math notranslate nohighlight">\(n-1\)</span> degrees of freedom if the function is
+correct. To complete such a test using AutoFeedback you would write the
+following code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.funcchecks</span> <span class="kn">import</span> <span class="n">check_func</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
+
+<span class="c1"># We are going to test for a sample mean computed from 100 normal random variables here</span>
+<span class="n">inputs</span><span class="p">,</span> <span class="n">variables</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">100</span><span class="p">,)],</span> <span class="p">[]</span>
+<span class="c1"># Notice that we have to specify dist=&quot;chi2&quot; here.  This tells AutoFeedback to do the comparison of variance test rathar than</span>
+<span class="c1"># that the test on the expectation (the expectation is not used during testing here).  Notice, furthermore, that the variable</span>
+<span class="c1"># dof must be set equal to n-1 (the number of degrees of freedom)</span>
+<span class="n">variables</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">randomvar</span><span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="s2">&quot;chi2&quot;</span><span class="p">,</span> <span class="n">dof</span><span class="o">=</span><span class="mi">99</span> <span class="p">)</span> <span class="p">)</span>
+<span class="c1"># And test by calling check_func</span>
+<span class="k">assert</span><span class="p">(</span> <span class="n">check_func</span><span class="p">(</span> <span class="s1">&#39;sample_variance&#39;</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">variables</span> <span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>I like to emphasize that, if we are given the variance, we can estimate
+any percentile of the distribution. I will thus often ask students to
+write functions to estimate percentiles. I might for instance, ask
+students to calculate the 56th percentile, which then can do by writing
+the following function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">confidence_limit</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">:</span>
+    <span class="n">S2</span><span class="p">,</span> <span class="n">mean</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">:</span>
+        <span class="n">rv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">mean</span><span class="p">,</span> <span class="n">S2</span> <span class="o">=</span> <span class="n">mean</span> <span class="o">+</span> <span class="n">rv</span><span class="p">,</span> <span class="n">S2</span> <span class="o">+</span> <span class="n">rv</span><span class="o">*</span><span class="n">rv</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">mean</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="n">var</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="p">(</span> <span class="n">S2</span> <span class="o">/</span> <span class="n">n</span> <span class="o">-</span> <span class="n">mean</span><span class="o">*</span><span class="n">mean</span> <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span><span class="p">)</span><span class="o">*</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.95</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To make it easy to test such codes I have provided an additional option
+<code class="docutils literal notranslate"><span class="pre">limit</span></code> for the chi2 test that converts the confidence interval that
+is returned by such functions into a variance on which I can peform a
+chi2 test. To test the function above you can thus write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.funcchecks</span> <span class="kn">import</span> <span class="n">check_func</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
+
+<span class="c1"># We are going to test for a sample mean computed from 100 normal random variables here</span>
+<span class="n">inputs</span><span class="p">,</span> <span class="n">variables</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">100</span><span class="p">,)],</span> <span class="p">[]</span>
+<span class="c1"># This is once again doing the chi2 test but now the value returned from the function has to be converted from a confidence</span>
+<span class="c1"># interval to a variance by doing the inverse of what is done in the final line of the example function above.  To do this</span>
+<span class="c1"># tranformation you use the limit option as shown below.</span>
+<span class="n">variables</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">randomvar</span><span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="s2">&quot;chi2&quot;</span><span class="p">,</span> <span class="n">dof</span><span class="o">=</span><span class="mi">99</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mf">0.90</span> <span class="p">)</span> <span class="p">)</span>
+<span class="c1"># And test by calling check_func</span>
+<span class="k">assert</span><span class="p">(</span> <span class="n">check_func</span><span class="p">(</span> <span class="s1">&#39;confidence_limit&#39;</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">variables</span> <span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>The test above works because we set the <code class="docutils literal notranslate"><span class="pre">transform</span></code> property oof the
+randomvar class equal to the following function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_confToVariance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+    <span class="k">return</span> <span class="p">(</span> <span class="n">value</span> <span class="o">/</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">limit</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>This function inverts the transformation on the variance that was done
+in the last line of student code above. The confidence interval that the
+student provides is thus converted back into the variance. We can then
+do the usual hypothesis test on the variance. Notice that when setting
+up a randomvar object you can pass a function to the variable
+<code class="docutils literal notranslate"><span class="pre">transform</span></code>. This feature is useful if you have asked the student to
+calculate a function of a sample mean or sample variance as you can pass
+a code for applying the inverse function to the student output and then
+use AutoFeedback to do a hypothesis test on the sample mean or sample
+variance that the student transformed.</p>
+</div>
+<div class="section" id="plotting-random-variables">
+<h3>Plotting random variables<a class="headerlink" href="#plotting-random-variables" title="Permalink to this heading">¶</a></h3>
+<p>Getting students to complete computer programming exercises is a good
+way of getting them to generate plots that illustrate the behaviour of
+mathematical objects. If students have a visual sense of what a concept
+like convergence means it gives them a tool for making sense of the
+formal, abstract definition when it is expressed symbolically. Much of
+the functionality in AutoFeedback is thus geared towards testing the
+plots that students produce.</p>
+<p>In this section we thus illustrate how to test three plotting tasks that
+we might ask students to complete:</p>
+<div class="section" id="plotting-a-sample-of-random-variables">
+<h4>Plotting a sample of random variables<a class="headerlink" href="#plotting-a-sample-of-random-variables" title="Permalink to this heading">¶</a></h4>
+<p>Lets suppose that we want students to generate and plot a sample of
+identical random variables using code something like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="p">:</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span> <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Index&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;random variable&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">showfig</span><span class="p">(</span><span class="s2">&quot;myvariables.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can test this code by using AutoFeedback as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.plotchecks</span> <span class="kn">import</span> <span class="n">check_plot</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.plotclass</span> <span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
+
+<span class="n">x</span><span class="p">,</span> <span class="n">axislabels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span> <span class="p">[</span><span class="s2">&quot;Index&quot;</span><span class="p">,</span> <span class="s2">&quot;random variable&quot;</span><span class="p">]</span>
+<span class="c1"># Create a randomvar object using information on the distribution that was sampled</span>
+<span class="n">var</span> <span class="o">=</span> <span class="n">randomvar</span><span class="p">(</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span> <span class="p">)</span>
+<span class="c1"># Now create a line object using plotclass and the random variable object that</span>
+<span class="c1"># we just created</span>
+<span class="n">line1</span><span class="o">=</span><span class="n">line</span><span class="p">(</span> <span class="n">x</span><span class="p">,</span> <span class="n">var</span> <span class="p">)</span>
+
+<span class="c1"># And check the students plot using check_plot</span>
+<span class="k">assert</span><span class="p">(</span> <span class="n">check_plot</span><span class="p">([</span><span class="n">line1</span><span class="p">],</span><span class="n">explabels</span><span class="o">=</span><span class="n">axislabels</span><span class="p">,</span><span class="n">explegend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>The call to <code class="docutils literal notranslate"><span class="pre">check_plot</span></code> above checks the following things about the
+student’s graph:</p>
+<ul class="simple">
+<li><p>That the x coordinates of the points are the integers from 1 to 100.</p></li>
+<li><p>That the y coordinates are all between 0 and 1.</p></li>
+<li><p>That the x-axis label is “Index” and the y-axis label is “random
+variable”</p></li>
+<li><p>(hypothesis test) That the sample mean of the 100 y coordinates is a
+sample from a normal distribution with <span class="math notranslate nohighlight">\(\mathbb{E}(X)=0.5\)</span> and
+<span class="math notranslate nohighlight">\(\textrm{var}(X)=1/1200\)</span></p></li>
+<li><p>(hypothesis test) That the sample variance of the 100 y coordinates
+is equal to 1/12.</p></li>
+</ul>
+<p>Notice that if you are generating a discrete random variable you can
+also use <code class="docutils literal notranslate"><span class="pre">isinteger</span></code>. Adding this flag tells AutoFeedback to check
+that all the y-coordinates should be integers.</p>
+</div>
+<div class="section" id="investigating-convergence-i-sample-mean">
+<h4>Investigating convergence I: Sample mean<a class="headerlink" href="#investigating-convergence-i-sample-mean" title="Permalink to this heading">¶</a></h4>
+<p>Once students can plot a sample of random variables the next obvious
+thing to ask them to plot is a graph showing how the sample mean depends
+on the sample size. The code to generate this plot is as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">S</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">S</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span> <span class="o">/</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Sample mean&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">showfig</span><span class="p">(</span><span class="s2">&quot;mymean.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To test this student code you can use the <code class="docutils literal notranslate"><span class="pre">meanconv</span></code> option in
+AutoFeedback as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.plotchecks</span> <span class="kn">import</span> <span class="n">check_plot</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.plotclass</span> <span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
+
+<span class="n">x</span><span class="p">,</span> <span class="n">axislabels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span> <span class="p">[</span><span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="s2">&quot;Sample mean&quot;</span><span class="p">]</span>
+<span class="c1"># Create a randomvar object with meancov enabled</span>
+<span class="n">var</span> <span class="o">=</span> <span class="n">randomvar</span><span class="p">(</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">meancov</span><span class="o">=</span><span class="kc">True</span> <span class="p">)</span>
+<span class="c1"># Now create a line object using plotclass and the random variable object that</span>
+<span class="c1"># we just created</span>
+<span class="n">line1</span><span class="o">=</span><span class="n">line</span><span class="p">(</span> <span class="n">x</span><span class="p">,</span> <span class="n">var</span> <span class="p">)</span>
+
+<span class="c1"># And check the students plot using check_plot</span>
+<span class="k">assert</span><span class="p">(</span> <span class="n">check_plot</span><span class="p">([</span><span class="n">line1</span><span class="p">],</span><span class="n">explabels</span><span class="o">=</span><span class="n">axislabels</span><span class="p">,</span><span class="n">explegend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>The code above checks:</p>
+<ul class="simple">
+<li><p>That the x coordinates of the points are the integers from 1 to 100.</p></li>
+<li><p>That the y coordinates are all between 0 and 1.</p></li>
+<li><p>That the x-axis label is “n” and the y-axis label is “Sample mean”</p></li>
+<li><p>(hypothesis test) That a subset of the y coordinates in the graph are
+samples from a normal random variable with <span class="math notranslate nohighlight">\(\mathbb{E}(X)=0.5\)</span>
+and <span class="math notranslate nohighlight">\(1/12/x\)</span> as would be expected. (We use a subset of the y
+coordinates here and not all of them because the likelihood of the
+test failing is high if we test all 100 coordinates)</p></li>
+</ul>
+</div>
+<div class="section" id="investigating-convergence-ii-sample-variance">
+<h4>Investigating convergence II: Sample variance<a class="headerlink" href="#investigating-convergence-ii-sample-variance" title="Permalink to this heading">¶</a></h4>
+<p>There are numerous estimators for statistical quantities and you can ask
+students to calculate and plot graphs of these quantities like the
+graphs they produced for the sample mean in the previous section. For
+example you might want students to look at the behaviour of the sample
+variance. To draw a convergence graph for the sample variance students
+would write a code like this one:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">S</span><span class="p">,</span> <span class="n">S2</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">var</span><span class="p">,</span> <span class="n">var</span><span class="o">*</span><span class="n">var</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">101</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="p">:</span>
+    <span class="n">var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">S</span><span class="p">,</span> <span class="n">S2</span> <span class="o">=</span> <span class="n">S</span> <span class="o">+</span> <span class="n">var</span><span class="p">,</span> <span class="n">S2</span> <span class="o">+</span> <span class="n">var</span><span class="o">*</span><span class="n">var</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">S</span> <span class="o">/</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">)</span><span class="o">*</span><span class="p">(</span> <span class="n">S2</span><span class="o">/</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">mean</span><span class="o">*</span><span class="n">mean</span> <span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span> <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Sample variance&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">showfig</span><span class="p">(</span><span class="s2">&quot;mymean.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To then test this code you can use the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.plotchecks</span> <span class="kn">import</span> <span class="n">check_plot</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.plotclass</span> <span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
+
+<span class="n">x</span><span class="p">,</span> <span class="n">axislabels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">101</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span> <span class="p">[</span><span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="s2">&quot;Sample varaiance&quot;</span><span class="p">]</span>
+<span class="c1"># Create a randomvar object with meancov enabled.  Notice that we are testing the variance here so we use dist=&quot;chi2&quot;</span>
+<span class="n">var</span> <span class="o">=</span> <span class="n">randomvar</span><span class="p">(</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="s2">&quot;chi2&quot;</span><span class="p">,</span> <span class="n">meancov</span><span class="o">=</span><span class="kc">True</span> <span class="p">)</span>
+<span class="c1"># Now create a line object using plotclass and the random variable object that</span>
+<span class="c1"># we just created</span>
+<span class="n">line1</span><span class="o">=</span><span class="n">line</span><span class="p">(</span> <span class="n">x</span><span class="p">,</span> <span class="n">var</span> <span class="p">)</span>
+
+<span class="c1"># And check the students plot using check_plot</span>
+<span class="k">assert</span><span class="p">(</span> <span class="n">check_plot</span><span class="p">([</span><span class="n">line1</span><span class="p">],</span><span class="n">explabels</span><span class="o">=</span><span class="n">axislabels</span><span class="p">,</span><span class="n">explegend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Here AutoFeedback checks:</p>
+<ul class="simple">
+<li><p>That the x coordinates of the points are the integers from 2 to 101.</p></li>
+<li><p>That the x-axis label is “n” and the y-axis label is “Sample
+variance”</p></li>
+<li><p>(hypothesis test) That when the test statistic <span class="math notranslate nohighlight">\(U\)</span> is
+calculated for a subet of the y coordinates the resulting random
+variables are samples from a chi2 distribution with <span class="math notranslate nohighlight">\(x-1\)</span>
+degrees of freedom.</p></li>
+</ul>
+</div>
+<div class="section" id="quoting-the-mean">
+<h4>Quoting the mean<a class="headerlink" href="#quoting-the-mean" title="Permalink to this heading">¶</a></h4>
+<p>One of the key ideas that I want students to understand from my
+statistics course is that when we are doing experiments we are
+generating random variables. To make our experiments reproducible we
+thus need to provide information on the distribution that we sampled. We
+cannot just provide information on the results that were obtained. A
+researcher testing if their results are the same as ours needs to be
+able to determine the likelihood that his/her data are samples from the
+statistical distribution that we obtained. I thus set students a number
+of exercises that involve calculating confidence intervals or the widths
+of error bars. In this section I will give examples of how you can test
+student code for completing these tasks.</p>
+</div>
+<div class="section" id="calculating-a-confidence-limit">
+<h4>Calculating a confidence limit<a class="headerlink" href="#calculating-a-confidence-limit" title="Permalink to this heading">¶</a></h4>
+<p>Consider the function below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">conf_lim</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">:</span>
+    <span class="n">mean</span><span class="p">,</span> <span class="n">S2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">:</span>
+        <span class="n">rv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">mean</span><span class="p">,</span> <span class="n">S2</span> <span class="o">=</span> <span class="n">mean</span> <span class="o">+</span> <span class="n">rv</span><span class="p">,</span> <span class="n">S2</span> <span class="o">+</span> <span class="n">rv</span><span class="o">*</span><span class="n">rv</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">mean</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="n">var</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="p">(</span> <span class="n">S2</span><span class="o">/</span><span class="n">n</span> <span class="o">-</span> <span class="n">mean</span><span class="o">*</span><span class="n">mean</span> <span class="p">)</span>
+    <span class="k">return</span> <span class="n">mean</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="o">*</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.25</span><span class="p">),</span> <span class="n">mean</span><span class="p">,</span> <span class="n">mean</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="o">*</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This function estimates the sample mean and the sample variance for
+<span class="math notranslate nohighlight">\(n\)</span> random variables. This information is then used to calculate
+estimates for the lower and upper quartiles for the distribution of the
+mean. In addition, to returning the mean we can thus also quote an
+interval and note that there is a 50% probability that the true mean
+lies inside this range. Getting students to write code like this is
+useful in terms of getting them to think about what confidence intervals
+are.</p>
+<p>To test the code above using AutoFeedback you would write something like
+this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.funcchecks</span> <span class="kn">import</span> <span class="n">check_func</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
+
+<span class="c1"># We are using 100 random variables to calculate our sample mean here</span>
+<span class="n">inputs</span><span class="p">,</span> <span class="n">variables</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">100</span><span class="p">,)],</span> <span class="p">[]</span>
+<span class="c1"># We now create our randomvar object using the option dist=&quot;conf_lim&quot; to specify that we are expecting the</span>
+<span class="c1"># students function to return three numbers much as we have done in the previous code.  Notice that we need to</span>
+<span class="c1"># use dof to specify the number of degrees of freedom there are in the calculation of the variance and limit to</span>
+<span class="c1"># specify what confidence limit we are quoting.</span>
+<span class="n">variables</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">randomvar</span><span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">100</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="s2">&quot;conf_lim&quot;</span><span class="p">,</span> <span class="n">dof</span><span class="o">=</span><span class="mi">99</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mf">0.50</span> <span class="p">)</span> <span class="p">)</span>
+<span class="c1"># And test the function</span>
+<span class="k">assert</span><span class="p">(</span> <span class="n">check_func</span><span class="p">(</span> <span class="s1">&#39;conf_lim&#39;</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">variables</span> <span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>The code above performs three hypothesis checks on the students code.</p>
+<ul class="simple">
+<li><p>The test statistic <span class="math notranslate nohighlight">\(T\)</span> is calculated from the second return
+value. This random variable should be a sample from a standard normal
+distribution.</p></li>
+<li><p>The sample variance is computed from the first return value. The test
+statistic <span class="math notranslate nohighlight">\(U\)</span> is then calculated from the sample variance. This
+random variable should be a sample from a chi2 distribution with 99
+degrees of freeom.</p></li>
+<li><p>The sample variance is computed from the third return value. The test
+statistic <span class="math notranslate nohighlight">\(U\)</span> is then calculated from the sample variance. This
+random variable should be a sample from a chi2 distribution with 9 9
+degrees of freeom.</p></li>
+</ul>
+<p>### Quoting a mean and uncertainty</p>
+<p>Instead of asking students to state a confidence interval explicitly as
+they did in the previous task, we might as them to write a code like the
+following one. This function returns the mean and a statistical
+uncertainty for an 80% confidence interval.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">uncertainty</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">:</span>
+    <span class="n">mean</span><span class="p">,</span> <span class="n">S2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">:</span>
+        <span class="n">rv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">mean</span><span class="p">,</span> <span class="n">S2</span> <span class="o">=</span> <span class="n">mean</span> <span class="o">+</span> <span class="n">rv</span><span class="p">,</span> <span class="n">S2</span> <span class="o">+</span> <span class="n">rv</span><span class="o">*</span><span class="n">rv</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">mean</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="n">var</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="p">(</span> <span class="n">S2</span><span class="o">/</span><span class="n">n</span> <span class="o">-</span> <span class="n">mean</span><span class="o">*</span><span class="n">mean</span> <span class="p">)</span>
+    <span class="k">return</span> <span class="n">mean</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="o">*</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.9</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To test this function using AutoFeedback you would write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.funcchecks</span> <span class="kn">import</span> <span class="n">check_func</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
+
+<span class="c1"># We are using 100 random variables to calculate our sample mean here</span>
+<span class="n">inputs</span><span class="p">,</span> <span class="n">variables</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">100</span><span class="p">,)],</span> <span class="p">[]</span>
+<span class="c1"># We now create our randomvar object using the option dist=&quot;uncertainty&quot; to specify that we are expecting the</span>
+<span class="c1"># students function to return three numbers much as we have done in the previous code.  Notice that we need to</span>
+<span class="c1"># use dof to specify the number of degrees of freedom there are in the calculation of the variance and limit to</span>
+<span class="c1"># specify what confidence limit we are quoting.</span>
+<span class="n">variables</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">randomvar</span><span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">100</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="s2">&quot;uncertainty&quot;</span><span class="p">,</span> <span class="n">dof</span><span class="o">=</span><span class="mi">99</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mf">0.80</span> <span class="p">)</span> <span class="p">)</span>
+<span class="k">assert</span><span class="p">(</span> <span class="n">check_func</span><span class="p">(</span> <span class="s1">&#39;uncertainty&#39;</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">variables</span> <span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>As in the previous section AutoFeedback will perform hypothesis tests on
+the mean and variance that the student is quoting here.</p>
+</div>
+</div>
+<div class="section" id="generating-a-histogram">
+<h3>Generating a histogram<a class="headerlink" href="#generating-a-histogram" title="Permalink to this heading">¶</a></h3>
+<p>A final task that we might ask students to complete is to estimate a
+histogram. The following code snippet indicates how this task is
+achieved by repeatedly sampling from a binomial distribution:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">nsamples</span> <span class="o">=</span> <span class="mi">1000000</span>
+<span class="n">xvals</span><span class="p">,</span> <span class="n">yvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nsamples</span><span class="p">)</span> <span class="p">:</span>
+    <span class="n">xbin</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.5</span> <span class="p">)</span> <span class="p">)</span>
+    <span class="n">yvals</span><span class="p">[</span><span class="n">xbin</span><span class="p">]</span> <span class="o">=</span> <span class="n">yvals</span><span class="p">[</span><span class="n">xbin</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="n">yvals</span> <span class="o">=</span> <span class="n">yvals</span> <span class="o">/</span> <span class="n">nsamples</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span> <span class="n">xvals</span><span class="p">,</span> <span class="n">yvals</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.1</span> <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Random variable&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Fraction of occurances&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;histo.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The height of each bars in the histogram is an estimator for the
+expectation of a Bernoulli random variable. Importantly, however, each
+of these Bernoulli random variables has a different <span class="math notranslate nohighlight">\(p\)</span> parameter.
+When testing the code, we thus use a feature of AutoFeedback that we
+have not used before. We use the fact that we can specify <span class="math notranslate nohighlight">\(n\)</span>
+dimensional vectors of expectations, variances and so on. If an
+<span class="math notranslate nohighlight">\(n\)</span>-dimensional vector of expectations is provided then
+AutoFeedback expects to receive an <span class="math notranslate nohighlight">\(n\)</span>-dimensional vector of
+random variables from the student code. Any tests performed use the
+first expectation to test the first value in the student’s vector, the
+second expectation to test the second value and so on.</p>
+<p>The code to test the program above would look like the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.plotchecks</span> <span class="kn">import</span> <span class="n">check_plot</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.plotclass</span> <span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
+
+<span class="c1"># Create lists to hold the x values, the expectations,</span>
+<span class="c1"># the variances, the lower bounds, the upper bounds and</span>
+<span class="c1"># a bool to indicate that the expected values are not</span>
+<span class="c1"># integers</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">bmin</span><span class="p">,</span> <span class="n">bmax</span><span class="p">,</span> <span class="n">isi</span>  <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="p">:</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">pval</span> <span class="o">=</span> <span class="n">binom</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">e</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pval</span><span class="p">)</span>
+    <span class="n">var</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pval</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">pval</span><span class="p">)</span><span class="o">/</span><span class="n">nsamples</span><span class="p">)</span>
+    <span class="n">bmin</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">bmax</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">isi</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Specify the axis labels</span>
+<span class="n">axislabels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Random variable&quot;</span><span class="p">,</span><span class="s2">&quot;Fraction of occurances&quot;</span><span class="p">]</span>
+<span class="c1"># Use the information on the distribution that you have just included in</span>
+<span class="c1"># the lists to create a randomvar object</span>
+<span class="n">var</span> <span class="o">=</span> <span class="n">randomvar</span><span class="p">(</span> <span class="n">e</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="n">var</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">bmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">bmax</span><span class="p">,</span> <span class="n">isinteger</span><span class="o">=</span><span class="n">isi</span> <span class="p">)</span>
+<span class="c1"># Now create the line object</span>
+<span class="n">line1</span><span class="o">=</span><span class="n">line</span><span class="p">(</span> <span class="n">x</span><span class="p">,</span> <span class="n">var</span> <span class="p">)</span>
+<span class="c1"># And test using check_plot</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">check_plot</span><span class="p">([],</span><span class="n">exppatch</span><span class="o">=</span><span class="n">line1</span><span class="p">,</span><span class="n">explabels</span><span class="o">=</span><span class="n">axislabels</span><span class="p">,</span><span class="n">explegend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">output</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The code above check the bars in the histograms the students have
+produced. It checks that:</p>
+<ul class="simple">
+<li><p>The x-coordinates of the bars are the numbers from 0 up to 10.</p></li>
+<li><p>That the y-coordinates of the bars are between 0 and 1</p></li>
+<li><p>(hypothesis tests) That the y-coordinates of the bars are consistent
+with being samples from a normal random variable with
+<span class="math notranslate nohighlight">\(\mathbb{E}(X)=P(X=x)\)</span> and
+<span class="math notranslate nohighlight">\(\mathbb{E}(X)=P(X=x)(1-P(X=x)) / n\)</span> where <span class="math notranslate nohighlight">\(P(X=x)\)</span> is
+the probability mass function for the binomial random variable and
+<span class="math notranslate nohighlight">\(n\)</span> is the number of samples.</p></li>
+</ul>
+<p>Notice, last of all, that the feature we have used here to test the
+histograms can be used when testing codes other than histograms. Anytime
+that you are asking the students to produce a vector of non-identical
+random variables you can test student code using the feature that has
+been introduced in this last section. For example, you could also use
+this feature to test code students are writing for looking at how the
+variance of a sample mean that is computed from <span class="math notranslate nohighlight">\(n\)</span> random
+variables depends on the value of <span class="math notranslate nohighlight">\(n\)</span>.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="AutoFeedback Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="min_versions.html" class="btn btn-neutral float-right" title="Minimum Version of Python and NumPy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Andrew Brown.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

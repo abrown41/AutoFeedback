@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoFeedback Documentation &mdash; AutoFeedback 0.post113+g3d2f546 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> AutoFeedback
+          </a>
+              <div class="version">
+                0.post113+g3d2f546
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">AutoFeedback</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>AutoFeedback Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="autofeedback-documentation">
+<h1>AutoFeedback Documentation<a class="headerlink" href="#autofeedback-documentation" title="Permalink to this heading">¶</a></h1>
+<div class="section" id="autofeedback-assignment-checker">
+<h2>AutoFeedback: Assignment Checker<a class="headerlink" href="#autofeedback-assignment-checker" title="Permalink to this heading">¶</a></h2>
+<a class="reference external image-reference" href="https://github.com/abrown41/AutoFeedback/actions/workflows/"><img alt="https://github.com/abrown41/AutoFeedback/actions/workflows/build_test.yml/badge.svg" src="https://github.com/abrown41/AutoFeedback/actions/workflows/build_test.yml/badge.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/abrown41/AutoFeedback/actions/workflows/"><img alt="https://github.com/abrown41/AutoFeedback/actions/workflows/build_docs.yml/badge.svg" src="https://github.com/abrown41/AutoFeedback/actions/workflows/build_docs.yml/badge.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/abrown41/AutoFeedback/actions/workflows/"><img alt="https://github.com/abrown41/AutoFeedback/actions/workflows/install.yml/badge.svg" src="https://github.com/abrown41/AutoFeedback/actions/workflows/install.yml/badge.svg" /></a>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/AutoFeedback"><img alt="https://img.shields.io/pypi/v/AutoFeedback.svg" src="https://img.shields.io/pypi/v/AutoFeedback.svg" /></a>
+<a class="reference external image-reference" href="https://codecov.io/gh/abrown41/AutoFeedback"><img alt="https://codecov.io/gh/abrown41/AutoFeedback/branch/master/graph/badge.svg?token=R2Z5SI6T71" src="https://codecov.io/gh/abrown41/AutoFeedback/branch/master/graph/badge.svg?token=R2Z5SI6T71" /></a>
+<a class="reference external image-reference" href="https://lgtm.com/projects/g/abrown41/AutoFeedback/context:python"><img alt="https://img.shields.io/lgtm/grade/python/g/abrown41/AutoFeedback.svg?logo=lgtm&amp;logoWidth=18" src="https://img.shields.io/lgtm/grade/python/g/abrown41/AutoFeedback.svg?logo=lgtm&amp;logoWidth=18" /></a>
+<p>Check basic python exercises and provide pretty feedback</p>
+<ul class="simple">
+<li><p>Free software: 3-clause BSD license</p></li>
+</ul>
+</div>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
+<p>AutoFeedback is a suite of python utilities for testing and providing usable feedback introductory python assignments, specifically relevant to mathematics and the use of numpy and matplotlib.</p>
+</div>
+<div class="section" id="how-to-use-autofeedback">
+<h2>How to use AutoFeedback<a class="headerlink" href="#how-to-use-autofeedback" title="Permalink to this heading">¶</a></h2>
+<p>AutoFeedback can be installed via pip</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install AutoFeedback
+</pre></div>
+</div>
+<p>The suite provides three basic checkers: one each for checking variables,
+functions and matplotlib.pyplot figures.</p>
+</div>
+<div class="section" id="installing-a-local-version-of-autofeedback">
+<h2>Installing a local version of AutoFeedback<a class="headerlink" href="#installing-a-local-version-of-autofeedback" title="Permalink to this heading">¶</a></h2>
+<p>If you want to develop AutoFeedback you can install a local version of the code.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> &lt;path to AutoFeedback&gt;
+pip install -r requirements-dev.txt -r requirements.txt
+pip install -e .
+</pre></div>
+</div>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
+<p>Full usage instructions can be found <a class="reference internal" href="usage.html#usage"><span class="std std-ref">here</span></a></p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#checking-variables">Checking Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#checking-functions">Checking Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#checking-plots">Checking Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#checking-random-variables">Checking random variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="autoapi/AutoFeedback/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">AutoFeedback</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Andrew Brown.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoFeedback.randomclass &mdash; AutoFeedback 0.post113+g3d2f546 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> AutoFeedback
+          </a>
+              <div class="version">
+                0.post113+g3d2f546
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../min_versions.html">Minimum Version of Python and NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AutoFeedback</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+          <li><a href="../AutoFeedback.html">AutoFeedback</a> &raquo;</li>
+      <li>AutoFeedback.randomclass</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for AutoFeedback.randomclass</h1><div class="highlight"><pre>
+<div class="viewcode-block" id="randomvar"><a class="viewcode-back" href="../../autoapi/AutoFeedback/randomclass/index.html#AutoFeedback.randomclass.randomvar">[docs]</a><span></span><span class="k">class</span> <span class="nc">randomvar</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    generic class for random variables.</span>
+<span class="sd">    allows you to test if students are sampling</span>
+<span class="sd">    from a distribution.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ==========</span>
+<span class="sd">    expectation : float/list/np.array</span>
+<span class="sd">        the expectation/s for your random variable/s</span>
+<span class="sd">    dist : str</span>
+<span class="sd">        type of distribution to use in hypothesis testing can be normal/chi2/</span>
+<span class="sd">        conf_lim/uncertainty</span>
+<span class="sd">    variance : float/list/np.array</span>
+<span class="sd">        the variance/s for your random variable/s</span>
+<span class="sd">    vmin : float/list/np.array</span>
+<span class="sd">        the lowest value the random variable can take</span>
+<span class="sd">    vmax : float/list/np.array</span>
+<span class="sd">        the highest value the random variable can take</span>
+<span class="sd">    isinteger : bool/list of bools</span>
+<span class="sd">        True if the random variable must take an integer value</span>
+<span class="sd">    meanconv : bool</span>
+<span class="sd">        True if the input value you are testing is a list containing</span>
+<span class="sd">        sample means calculated from progressively larger and larger numbers</span>
+<span class="sd">        of identical random variables</span>
+<span class="sd">    dof : int</span>
+<span class="sd">        number of degrees of freedom to use when calculating test statistic</span>
+<span class="sd">        with chi2 distribution</span>
+<span class="sd">    limit : size of confidence limit to use when checking confidence limits</span>
+<span class="sd">    transform : a function to transform the student&#39;s output to a</span>
+<span class="sd">                random variable we can do a hypothesis test on</span>
+<span class="sd">    nsamples : when testing function the size of the sample to take in</span>
+<span class="sd">               order to test the students code</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expectation</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="s2">&quot;unset&quot;</span><span class="p">,</span>
+                 <span class="n">vmax</span><span class="o">=</span><span class="s2">&quot;unset&quot;</span><span class="p">,</span> <span class="n">isinteger</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">meanconv</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dof</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+                 <span class="n">limit</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nsamples</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">expectation</span> <span class="o">=</span> <span class="n">expectation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">variance</span> <span class="o">=</span> <span class="n">variance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">=</span> <span class="n">dist</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">isinteger</span> <span class="o">=</span> <span class="n">isinteger</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meanconv</span> <span class="o">=</span> <span class="n">meanconv</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lower</span> <span class="o">=</span> <span class="n">vmin</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">upper</span> <span class="o">=</span> <span class="n">vmax</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">=</span> <span class="s2">&quot;ok&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_component</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dof</span> <span class="o">=</span> <span class="n">dof</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">limit</span> <span class="o">=</span> <span class="n">limit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">transform</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nsamples</span> <span class="o">=</span> <span class="n">nsamples</span>
+        <span class="k">if</span> <span class="n">limit</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">dist</span> <span class="o">==</span> <span class="s2">&quot;chi2&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="s2">&quot;cannot set transform if you are using confidence limit&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_confToVariance</span>
+
+<div class="viewcode-block" id="randomvar.__str__"><a class="viewcode-back" href="../../autoapi/AutoFeedback/randomclass/index.html#AutoFeedback.randomclass.randomvar.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This is what is printed if the print method is executed on an</span>
+<span class="sd">        instance of randomclass: it&#39;s defined as it is so that when</span>
+<span class="sd">        AutoFeedback prints out the expected value of a given variable we get</span>
+<span class="sd">        something other than &#39;&lt;AutoFeedback.randomclass.randomvar&gt;&#39;&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="si">}</span><span class="s2"> random variable between </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="p">)</span><span class="si">}</span><span class="se">\</span>
+<span class="s2"> and </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span><span class="si">}</span><span class="s2"> with expectation </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expectation</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
+<div class="viewcode-block" id="randomvar.__len__"><a class="viewcode-back" href="../../autoapi/AutoFeedback/randomclass/index.html#AutoFeedback.randomclass.randomvar.__len__">[docs]</a>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This is what is returned if the len method is executed on an</span>
+<span class="sd">        instance of randomclass. The expected length is equal to the number</span>
+<span class="sd">        of expectation values that have been provided&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expectation</span><span class="p">,</span> <span class="s2">&quot;__len__&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expectation</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span></div>
+
+    <span class="k">def</span> <span class="nf">_check_for_bad_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;check if the value is within the allowed range for the random</span>
+<span class="sd">        variable and (if relevant) it is an integer</span>
+
+<span class="sd">           Parameters</span>
+<span class="sd">           ==========</span>
+<span class="sd">           val : float/list/np.array</span>
+<span class="sd">                 value/s of random variable generated by student</span>
+<span class="sd">           num : int</span>
+<span class="sd">                 index of random variable from expectation array or -1 if only</span>
+<span class="sd">                 one expectation specificd</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">num</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">isint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">isinteger</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">isint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">isinteger</span><span class="p">[</span><span class="n">num</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">isint</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">isclose</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">isclose</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">val</span><span class="p">),</span> <span class="n">abs_tol</span><span class="o">=</span><span class="mi">10</span><span class="o">**-</span><span class="mi">7</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">=</span> <span class="s2">&quot;integer&quot;</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower</span> <span class="o">==</span> <span class="s2">&quot;unset&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper</span> <span class="o">==</span> <span class="s2">&quot;unset&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="n">low</span><span class="p">,</span> <span class="n">up</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower</span> <span class="o">!=</span> <span class="s2">&quot;unset&quot;</span> <span class="ow">and</span> <span class="n">num</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">low</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="p">[</span><span class="n">num</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper</span> <span class="o">!=</span> <span class="s2">&quot;unset&quot;</span> <span class="ow">and</span> <span class="n">num</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">up</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper</span><span class="p">[</span><span class="n">num</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower</span> <span class="o">==</span> <span class="s2">&quot;unset&quot;</span> <span class="ow">and</span> <span class="n">val</span> <span class="o">&gt;</span> <span class="n">up</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">=</span> <span class="s2">&quot;range&quot;</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower</span> <span class="o">==</span> <span class="s2">&quot;unset&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="n">low</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper</span> <span class="o">==</span> <span class="s2">&quot;unset&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">=</span> <span class="s2">&quot;range&quot;</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper</span> <span class="o">==</span> <span class="s2">&quot;unset&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="n">low</span> <span class="ow">or</span> <span class="n">val</span> <span class="o">&gt;</span> <span class="n">up</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">=</span> <span class="s2">&quot;range&quot;</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">_confToVariance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;convert a confidence interval into a variance</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        value : float</span>
+<span class="sd">                value of confidence interval</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">limit</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;limit needs to be to do this task set&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">value</span> <span class="o">/</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">limit</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="k">def</span> <span class="nf">_get_statistic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">expectation</span><span class="p">,</span> <span class="n">variance</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;calculate the test statistic</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        value : float</span>
+<span class="sd">                value of random variable</span>
+<span class="sd">        expectation : float</span>
+<span class="sd">                      expectation of random variable</span>
+<span class="sd">        variance : float</span>
+<span class="sd">                   variance of random variable</span>
+<span class="sd">        number : float</span>
+<span class="sd">                 number of random variables that the average was computed from</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">==</span> <span class="s2">&quot;normal&quot;</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+            <span class="k">if</span> <span class="n">variance</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;invalid&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="n">expectation</span><span class="p">)</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">variance</span><span class="o">/</span><span class="n">number</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">==</span> <span class="s2">&quot;chi2&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dof</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="sd">&quot;&quot;&quot;if running chi2 test the number of degrees of</span>
+<span class="sd">freedom needs to be set&quot;&quot;&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dof</span><span class="o">*</span><span class="n">value</span> <span class="o">/</span> <span class="n">variance</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">_hypo_check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stat</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;perform the hypothesis test</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        stat : float</span>
+<span class="sd">               value of test statistic</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">==</span> <span class="s2">&quot;normal&quot;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">==</span> <span class="s2">&quot;chi2&quot;</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">AutoFeedback.utils</span> <span class="kn">import</span> <span class="n">check_module</span>
+            <span class="n">check_module</span><span class="p">(</span><span class="s2">&quot;scipy&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">==</span> <span class="s2">&quot;normal&quot;</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+            <span class="k">if</span> <span class="n">stat</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">pval</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="o">-</span><span class="n">stat</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">pval</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">stat</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">==</span> <span class="s2">&quot;chi2&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dof</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="sd">&quot;&quot;&quot;if runnign chi2 test the number of degrees of freedom</span>
+<span class="sd">needs to be set&quot;&quot;&quot;</span><span class="p">)</span>
+            <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">chi2</span>
+            <span class="n">pval</span> <span class="o">=</span> <span class="n">chi2</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dof</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">pval</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">:</span>
+                <span class="n">pval</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="n">chi2</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dof</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="n">pval</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">=</span> <span class="s2">&quot;hypothesis&quot;</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">=</span> <span class="s2">&quot;ok&quot;</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="randomvar.check_value"><a class="viewcode-back" href="../../autoapi/AutoFeedback/randomclass/index.html#AutoFeedback.randomclass.randomvar.check_value">[docs]</a>    <span class="k">def</span> <span class="nf">check_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;check that the value is consistent with the specified distribution</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        val : float/list/nparray</span>
+<span class="sd">              values to check if they are from specified distribution/s</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">==</span> <span class="s2">&quot;conf_lim&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">=</span> <span class="s2">&quot;conf_number&quot;</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="c1"># Check the mean</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">=</span> <span class="s2">&quot;normal&quot;</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_random_var</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">=</span> <span class="s2">&quot;conf_lim&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">output_component</span> <span class="o">=</span> <span class="s2">&quot;mean from the &quot;</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="c1"># Now check the limits</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">=</span> <span class="s2">&quot;chi2&quot;</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_random_var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_confToVariance</span><span class="p">(</span>
+                    <span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">=</span> <span class="s2">&quot;conf_lim&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">output_component</span> <span class="o">=</span> <span class="s2">&quot;lower confidence limit from the &quot;</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_random_var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_confToVariance</span><span class="p">(</span>
+                    <span class="n">val</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">=</span> <span class="s2">&quot;conf_lim&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">output_component</span> <span class="o">=</span> <span class="s2">&quot;upper confidence limit from the &quot;</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">=</span> <span class="s2">&quot;conf_lim&quot;</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">==</span> <span class="s2">&quot;uncertainty&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">=</span> <span class="s2">&quot;uncertainty_number&quot;</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="c1"># Check the mean</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">=</span> <span class="s2">&quot;normal&quot;</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_random_var</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">=</span> <span class="s2">&quot;uncertainty&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">output_component</span> <span class="o">=</span> <span class="s2">&quot;mean from the &quot;</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="c1"># Now check the uncertainty</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">=</span> <span class="s2">&quot;chi2&quot;</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_random_var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_confToVariance</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">=</span> <span class="s2">&quot;uncertainty&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">output_component</span> <span class="o">=</span> <span class="s2">&quot;uncertainty from the &quot;</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">=</span> <span class="s2">&quot;uncertainty&quot;</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expectation</span><span class="p">,</span> <span class="s2">&quot;__len__&quot;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expectation</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">=</span> <span class="s2">&quot;number&quot;</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+                <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_random_var</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+                        <span class="k">return</span> <span class="kc">False</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_random_var</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_check_random_var</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;check that a value is consistent with one of the specified</span>
+<span class="sd">        distributions</span>
+
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        val : float/list/nparray</span>
+<span class="sd">              values to check if they are from the specified distribution</span>
+<span class="sd">        num : int</span>
+<span class="sd">              index of expectation array that we are using when testing if this</span>
+<span class="sd">              is from correct distribution</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="s2">&quot;__len__&quot;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">val</span><span class="p">:</span>
+                <span class="n">vv</span> <span class="o">=</span> <span class="n">v</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">vv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_for_bad_value</span><span class="p">(</span><span class="n">vv</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">vv</span> <span class="o">=</span> <span class="n">val</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">vv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_for_bad_value</span><span class="p">(</span><span class="n">vv</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="s2">&quot;__len__&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">num</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="s2">&quot;This function should never be called this way&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">meanconv</span><span class="p">:</span>
+                <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">floor</span>
+                <span class="n">nn</span><span class="p">,</span> <span class="n">stride</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">floor</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">/</span> <span class="mi">30</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">vv</span> <span class="ow">in</span> <span class="n">val</span><span class="p">:</span>
+                    <span class="n">nn</span> <span class="o">=</span> <span class="n">nn</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">nn</span> <span class="o">%</span> <span class="n">stride</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">dof</span> <span class="o">=</span> <span class="n">nn</span>
+                    <span class="n">stat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_statistic</span><span class="p">(</span>
+                        <span class="n">vv</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">expectation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">variance</span><span class="p">,</span> <span class="n">nn</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hypo_check</span><span class="p">(</span><span class="n">stat</span><span class="p">):</span>
+                        <span class="k">return</span> <span class="kc">False</span>
+
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Check on expectation</span>
+                <span class="n">mean</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                <span class="n">var</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">variance</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">variance</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">S2</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">val</span><span class="p">:</span>
+                        <span class="n">S2</span> <span class="o">=</span> <span class="n">S2</span> <span class="o">+</span> <span class="n">v</span><span class="o">*</span><span class="n">v</span>
+                    <span class="n">var</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="p">(</span><span class="n">S2</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">-</span> <span class="n">mean</span><span class="o">*</span><span class="n">mean</span><span class="p">)</span>
+                <span class="n">stat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_statistic</span><span class="p">(</span>
+                    <span class="n">mean</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">expectation</span><span class="p">,</span>
+                    <span class="n">var</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hypo_check</span><span class="p">(</span><span class="n">stat</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">variance</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+                <span class="c1"># Now check on variance</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="p">,</span> <span class="n">S2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dof</span> <span class="o">=</span> <span class="s2">&quot;chi2&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">val</span><span class="p">:</span>
+                    <span class="n">S2</span> <span class="o">=</span> <span class="n">S2</span> <span class="o">+</span> <span class="n">v</span><span class="o">*</span><span class="n">v</span>
+                <span class="n">var</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">dof</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">S2</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">-</span> <span class="n">mean</span><span class="o">*</span><span class="n">mean</span><span class="p">)</span>
+                <span class="n">stat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_statistic</span><span class="p">(</span>
+                    <span class="n">var</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">expectation</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">variance</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hypo_check</span><span class="p">(</span><span class="n">stat</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">=</span> <span class="s2">&quot;normal&quot;</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">=</span> <span class="s2">&quot;normal&quot;</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">vv</span> <span class="o">=</span> <span class="n">val</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">vv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">num</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">stat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_statistic</span><span class="p">(</span>
+                    <span class="n">vv</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">expectation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">variance</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">stat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_statistic</span><span class="p">(</span>
+                    <span class="n">vv</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">expectation</span><span class="p">[</span><span class="n">num</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">variance</span><span class="p">[</span><span class="n">num</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hypo_check</span><span class="p">(</span><span class="n">stat</span><span class="p">)</span>
+
+<div class="viewcode-block" id="randomvar.get_error"><a class="viewcode-back" href="../../autoapi/AutoFeedback/randomclass/index.html#AutoFeedback.randomclass.randomvar.get_error">[docs]</a>    <span class="k">def</span> <span class="nf">get_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;get the error message when the check fails</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        obj : str</span>
+<span class="sd">              description of object that is not producing correct random</span>
+<span class="sd">              variables</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">error_message</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">==</span> <span class="s2">&quot;integer&quot;</span><span class="p">:</span>
+            <span class="n">error_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;The </span><span class="si">{</span><span class="n">obj</span><span class="si">}</span><span class="s2"> should only take integer values</span>
+<span class="s2">             You should be generating integer valued discrete random variables</span>
+<span class="s2">             Your random variables should thus only ever take integer values</span>
+<span class="s2">             &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">==</span> <span class="s2">&quot;range&quot;</span><span class="p">:</span>
+            <span class="n">error_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;The </span><span class="si">{</span><span class="n">obj</span><span class="si">}</span><span class="s2"> fall outside the allowed range of</span>
+<span class="s2">values for this type of random variable&quot;&quot;&quot;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower</span> <span class="o">==</span> <span class="s2">&quot;unset&quot;</span><span class="p">:</span>
+                <span class="n">error_message</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\n</span><span class="s2"> The random variable should be less</span>
+<span class="s2"> than or equal to  </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">upper</span><span class="si">}</span><span class="s2">&quot;&quot;&quot;</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper</span> <span class="o">==</span> <span class="s2">&quot;unset&quot;</span><span class="p">:</span>
+                <span class="n">error_message</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\n</span><span class="s2"> The random variable should be greater</span>
+<span class="s2"> than or equal to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="si">}</span><span class="s2">&quot;&quot;&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">error_message</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\n</span><span class="s2"> The random variable should be between</span>
+<span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">upper</span><span class="si">}</span><span class="s2">&quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">==</span> <span class="s2">&quot;hypothesis&quot;</span><span class="p">:</span>
+            <span class="n">error_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;The </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">output_component</span><span class="si">}{</span><span class="n">obj</span><span class="si">}</span><span class="s2"> appear to be</span>
+<span class="s2">sampled from the wrong distribution</span>
+
+<span class="s2">            To test if you generating a random variable from the correct</span>
+<span class="s2">            distribution the test code performs a hypothesis test.  The null</span>
+<span class="s2">            hypothesis in this test is that you are sampling from the desired</span>
+<span class="s2">            distribution and the alternative is that you are not sampling the</span>
+<span class="s2">            correct distribution.  The size of the critical region is</span>
+<span class="s2">            determined using a a significance level of 1%.  There is thus a</span>
+<span class="s2">            small probability that you will fail on this test even if your code</span>
+<span class="s2">            is correct. If you see this error only you should thus run the</span>
+<span class="s2">            calculation again to check whether the hypothesis test is giving a</span>
+<span class="s2">            type I error.  If you fail this test twice your code is most likely</span>
+<span class="s2">            wrong.</span>
+<span class="s2">            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">==</span> <span class="s2">&quot;number&quot;</span><span class="p">:</span>
+            <span class="n">error_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;The </span><span class="si">{</span><span class="n">obj</span><span class="si">}</span><span class="s2"> is not generating the correct number</span>
+<span class="s2">of random variables</span>
+
+<span class="s2">            You should be generating a vector that contains multiple random</span>
+<span class="s2">            variables in this object</span>
+<span class="s2">            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">==</span> <span class="s2">&quot;conf_number&quot;</span><span class="p">:</span>
+            <span class="n">error_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;The </span><span class="si">{</span><span class="n">obj</span><span class="si">}</span><span class="s2"> is not generating the correct number</span>
+<span class="s2">of random variables.</span>
+
+<span class="s2">            </span><span class="si">{</span><span class="n">obj</span><span class="si">}</span><span class="s2"> should return three random variables.  The first of these</span>
+<span class="s2">            is the lower bound for the confidence limit.  The second is the</span>
+<span class="s2">            sample mean and the third is the upper bound for the confidence</span>
+<span class="s2">            limit</span>
+<span class="s2">            &quot;&quot;&quot;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">diagnosis</span> <span class="o">==</span> <span class="s2">&quot;uncertainty_number&quot;</span><span class="p">:</span>
+            <span class="n">error_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;The </span><span class="si">{</span><span class="n">obj</span><span class="si">}</span><span class="s2"> is not generating the correct number</span>
+<span class="s2">of random variables.</span>
+
+<span class="s2">            </span><span class="si">{</span><span class="n">obj</span><span class="si">}</span><span class="s2"> should return two random variables.  The first of these</span>
+<span class="s2">            is the sample mean and the second is the width of the error bar</span>
+<span class="s2">            for the specified confidence interval around the sample mean</span>
+<span class="s2">            &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">error_message</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Andrew Brown.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
