@@ -9,7 +9,7 @@ def _existence_error(varname):
     Ensure you have named the variable properly,
     bearing in mind that capital letters matter.
     """
-    return(error_message)
+    return error_message
 
 
 def _size_error(varname):
@@ -17,7 +17,7 @@ def _size_error(varname):
     Try using len({varname}) to determine the size of the array, or
     print({varname} to check the values look as you expect them to.
     """
-    return(error_message)
+    return error_message
 
 
 def _value_error(varname, exp, res):
@@ -30,7 +30,7 @@ def _value_error(varname, exp, res):
         to and ensure the expression used to calculate the variable
         is correct.
         """
-    return(error_message)
+    return error_message
 
 
 def _import_error():
@@ -38,7 +38,7 @@ def _import_error():
     Please refer to the error messages printed in the terminal to resolve
     any errors in your code.
     """
-    return(error_message)
+    return error_message
 
 
 def print_error_message(error, varname, exp, res):
@@ -72,7 +72,10 @@ def print_error_message(error, varname, exp, res):
         elif (str(error) == "size"):
             emsg = _size_error(varname)
         elif (str(error) == "value"):
-            emsg = _value_error(varname, exp, res)
+            if hasattr(exp, "get_error") and callable(exp.get_error):
+                emsg = exp.get_error(f"variable {varname}")
+            else:
+                emsg = _value_error(varname, exp, res)
         elif (str(error) == "import"):
             emsg = _import_error()
         else:

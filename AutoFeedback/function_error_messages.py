@@ -5,64 +5,64 @@ from __future__ import print_function
 
 
 def _existence_error(funcname):
-    error_message = f"""The function {funcname} does not exist.
+    e_message = f"""The function {funcname} does not exist.
     Ensure you have named the function properly, bearing in mind that capital
     letters matter. Also ensure that you have used the proper syntax for the
     definition of a function, i.e.
         def {funcname}(inputs):
             ...
     """
-    return(error_message)
+    return e_message
 
 
 def _input_error(funcname, numargs):
-    error_message = f"""The function {funcname} does not accept input correctly.
+    e_message = f"""The function {funcname} does not accept input correctly.
     The function is supposed to accept {numargs} input argument(s).
     Ensure you have specified the input arguments in the function definition.
     i.e.
         def {funcname}(input_1, input_2, ...):
             ...
     """
-    return(error_message)
+    return e_message
 
 
 def _value_error(funcname, inp,  exp, res):
-    error_message = f"""The function {funcname} returns the wrong value(s).
+    e_message = f"""The function {funcname} returns the wrong value(s).
     When executed with the input(s), {inp}, we expected the output, {exp}, but
     instead we got {res}.
     """
-    return(error_message)
+    return e_message
 
 
 def _return_error(funcname):
-    error_message = f"""The function {funcname} does not return a value.
+    e_message = f"""The function {funcname} does not return a value.
     Ensure that the function uses the correct syntax for a return statement.
     i.e.
         def {funcname}(input):
             ...
             return (answer)
     """
-    return(error_message)
+    return e_message
 
 
-def _call_error(funcname, callname):
-    error_message = f"""The function {funcname} does not call the function {callname}.
+def _call_error(fname, cname):
+    e_message = f"""The function {fname} does not call the function {cname}.
     Make sure that rather than repeating lines of code, your function passes
     input to the previously defined function, e.g.
 
-        def {callname}(input):
+        def {cname}(input):
             ...
             return (answer)
-        def {funcname}(input):
+        def {fname}(input):
             ...
-            new_answer = some_operation + {callname}(input)
+            new_answer = some_operation + {cname}(input)
             return(new_answer)
     """
-    return(error_message)
+    return e_message
 
 
 def _execution_error(funcname, inp, msg=[None, None, None]):
-    error_message = f"""The function {funcname} does not execute correctly.
+    e_message = f"""The function {funcname} does not execute correctly.
     Test it by adding a function call, e.g.
         print({funcname}{inp})
 
@@ -71,7 +71,7 @@ Error reported:
     {msg[1]}
     {msg[2]}
         """
-    return(error_message)
+    return e_message
 
 
 def print_error_message(error, funcname, inp=(0,), exp=7, result=0,

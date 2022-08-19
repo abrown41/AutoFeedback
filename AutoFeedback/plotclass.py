@@ -12,7 +12,7 @@ class line:
     generic class for data plotted in a figure
 
     Attributes
-    ==========
+    ----------
     xdata : list/np.array
         x-values for xydata/patch
     ydata : list/np.array
@@ -42,13 +42,13 @@ class line:
 
     def get_xydata(self):
         """mimic matplotlib.axes.get_xydata()"""
-        return(self.xdata, self.ydata)
+        return self.xdata, self.ydata
 
     def check_linedata(self, x, y, no_diagnose=False):
         """determine whether the xy data matches the expected data
 
         Parameters
-        ==========
+        ----------
         x : list or np.array
             expected x data
         y : list or np.array
@@ -57,7 +57,7 @@ class line:
             if True then don't provide any feedback on the comparison.
 
         Returns
-        =======
+        -------
         bool : True if data matches expected, False otherwise
         """
         goodx, goody = False, False
@@ -81,23 +81,23 @@ class line:
             # reset self.diagnose if we are just running check_linedata
             # to get the lines in the right order
             self.diagnosis = "ok"
-        return(goodx and goody)
+        return (goodx and goody)
 
     def generic_error(self, label, axis):
         """Generic error message for incorrect data in plot"""
-        return(f"The {axis}-coordinates of the points in the data set {label} \
-are incorrect\n" +
-               ("""
+        return f"""The {axis}-coordinates of the points in the data set
+{label} are incorrect
+
        The instructions in the README file explain the specific values
        for the coordinates of the points in your graph.
        Make sure you have read those instructions carefully and that you
-       know what the coordinates of the points in your graph should be
-                """))
+       know what the coordinates of the points in your graph should be"""
 
     def get_error(self, label):
         """determine the error message to be printed, based on the diagnosis
+
         Parameters
-        ==========
+        ----------
         label : str
             label for the data set to be plotted
         """

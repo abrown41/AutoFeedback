@@ -6,10 +6,11 @@
 AutoFeedback Documentation
 ==========================
 
+.. include:: ../../README.rst
+
 .. toctree::
    :maxdepth: 2
 
-   installation
    usage
    release-history
    min_versions
