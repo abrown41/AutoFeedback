@@ -120,7 +120,7 @@ def _check_patchdata(patch, exppatch):
     for p in patch:
         xd, yd = p.get_xy()
         yd = p.get_height()
-        x.append(xd + 0.5*p.get_width())
+        x.append(xd + 0.5 * p.get_width())
         y.append(yd)
     return exppatch.check_linedata(x, y)
 
@@ -154,9 +154,9 @@ def _e_string(error, label):
     and the label of the object at fault. E.G data_('xyline')
     """
     if label:
-        return error+'("'+label+'")'
+        return f'{error}("{label}")'
     else:
-        return error+"('')"
+        return f"{error}('')"
 
 
 def check_plot(explines, exppatch=None, explabels=None, expaxes=None,

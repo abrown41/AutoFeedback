@@ -115,7 +115,7 @@ def output_check(expected, executable="main.py"):
     out = run([sys.executable, executable])
     screen_out = str(out).split("'")[1]
 
-    check = screen_out == expected+"\\n"
+    check = screen_out == expected + "\\n"
 
     errmsg = """The text printed to screen is not correct. Ensure you have
         printed the correct variables, in the correct order,

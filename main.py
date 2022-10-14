@@ -13,6 +13,8 @@ def f1(x):
 def f2(x, y):
     return
 
+def broken_function(x):
+    raise RuntimeError
 
 x = 3
 y = np.linspace(0, 1, 3)

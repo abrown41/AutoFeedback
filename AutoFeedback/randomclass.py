@@ -128,7 +128,7 @@ class randomvar:
         from scipy.stats import norm
         if self.limit <= 0:
             raise RuntimeError("limit needs to be to do this task set")
-        return (value / norm.ppf((1+self.limit)/2))**2
+        return (value / norm.ppf((1 + self.limit) / 2))**2
 
     def _get_statistic(self, value, expectation, variance, number):
         """calculate the test statistic
@@ -148,13 +148,13 @@ class randomvar:
             from math import sqrt
             if variance < 0:
                 RuntimeError("invalid")
-            return (value - expectation) / sqrt(variance/number)
+            return (value - expectation) / sqrt(variance / number)
         elif self.distribution == "chi2":
             if self.dof <= 0:
                 raise RuntimeError(
                     """if running chi2 test the number of degrees of
 freedom needs to be set""")
-            return self.dof*value / variance
+            return self.dof * value / variance
         return 1
 
     def _hypo_check(self, stat):
@@ -171,9 +171,9 @@ freedom needs to be set""")
         if self.distribution == "normal":
             from scipy.stats import norm
             if stat > 0:
-                pval = 2*norm.cdf(-stat)
+                pval = 2 * norm.cdf(-stat)
             else:
-                pval = 2*norm.cdf(stat)
+                pval = 2 * norm.cdf(stat)
         elif self.distribution == "chi2":
             if self.dof <= 0:
                 raise RuntimeError(
@@ -182,7 +182,7 @@ needs to be set""")
             from scipy.stats import chi2
             pval = chi2.cdf(stat, self.dof)
             if pval > 0.5:
-                pval = 1-chi2.cdf(stat, self.dof)
+                pval = 1 - chi2.cdf(stat, self.dof)
         else:
             return False
 
@@ -213,12 +213,12 @@ needs to be set""")
             # Now check the limits
             self.distribution = "chi2"
             if not self._check_random_var(self._confToVariance(
-                    val[1]-val[0]), -1):
+                    val[1] - val[0]), -1):
                 self.distribution = "conf_lim"
                 self.output_component = "lower confidence limit from the "
                 return False
             if not self._check_random_var(self._confToVariance(
-                    val[2]-val[1]), -1):
+                    val[2] - val[1]), -1):
                 self.distribution = "conf_lim"
                 self.output_component = "upper confidence limit from the "
                 return False
@@ -300,13 +300,14 @@ needs to be set""")
                 return True
             else:
                 # Check on expectation
-                mean = sum(val)/len(val)
+                mean = sum(val) / len(val)
                 var = self.variance
                 if self.variance == 0:
                     S2 = 0
                     for v in val:
-                        S2 = S2 + v*v
-                    var = (len(val)/(len(val)-1))*(S2/len(val) - mean*mean)
+                        S2 = S2 + v * v
+                    var = (len(val) / (len(val) - 1)) * \
+                        (S2 / len(val) - mean * mean)
                 stat = self._get_statistic(
                     mean, self.expectation,
                     var, len(val))
@@ -317,8 +318,8 @@ needs to be set""")
                 # Now check on variance
                 self.distribution, S2, self.dof = "chi2", 0, len(val) - 1
                 for v in val:
-                    S2 = S2 + v*v
-                var = (len(val) / self.dof)*(S2 / len(val) - mean*mean)
+                    S2 = S2 + v * v
+                var = (len(val) / self.dof) * (S2 / len(val) - mean * mean)
                 stat = self._get_statistic(
                     var, self.expectation,
                     self.variance, len(val))
@@ -334,10 +335,10 @@ needs to be set""")
 
             if num < 0:
                 stat = self._get_statistic(
-                    vv,  self.expectation, self.variance, 1)
+                    vv, self.expectation, self.variance, 1)
             else:
                 stat = self._get_statistic(
-                    vv,  self.expectation[num], self.variance[num], 1)
+                    vv, self.expectation[num], self.variance[num], 1)
 
         return self._hypo_check(stat)
 

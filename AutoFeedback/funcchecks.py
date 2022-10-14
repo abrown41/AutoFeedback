@@ -77,7 +77,7 @@ def _check_outputs(func, ins, expected):
 nsamples in the class you have provided as reference""")
             res = func(*inputs)
             if expected.nsamples > 1:
-                res = expected.nsamples*[0]
+                res = expected.nsamples * [0]
                 for i in range(expected.nsamples):
                     res[i] = func(*inputs)
             return expected.check_value(res)
@@ -109,7 +109,7 @@ def _check_calls(func, call):
         return False
 
 
-def check_func(funcname, inputs, expected, calls=[], output=True):
+def _run_all_checks(funcname, inputs, expected, calls=[], output=True):
     """given information on a function which the student has been asked to
     define, check whether it has been defined correctly, and provide feedback
 
@@ -132,10 +132,12 @@ def check_func(funcname, inputs, expected, calls=[], output=True):
     """
     from AutoFeedback.function_error_messages import print_error_message
     from copy import deepcopy as copy
+
     call = []
     ins = inputs[0]
     outs = expected[0]
     res = -999
+
     try:
         assert (_exists(funcname)), "existence"
         func = _get_func(funcname)
@@ -161,5 +163,59 @@ def check_func(funcname, inputs, expected, calls=[], output=True):
                                 exp=outs, result=res, callname=call,
                                 msg=traceback.format_exc().splitlines()[-3:])
         return False
-
     return True
+
+
+def check_func(func, inputs=[], expected=[], calls=[], output=True):
+    """given information on a function which the student has been asked to
+    define, check whether it has been defined correctly, and provide feedback
+
+    Parameters
+    ==========
+    func : function handle or str
+        function handle or name of function to be investigated
+    inputs : list of tuples
+        inputs with which to test func
+    expected : list
+        expected outputs of [func(inp) for inp in inputs]
+    inputs : list of tuples
+        inputs with which to test func
+    calls : list of strings
+        names of any functions which func should call
+    output : bool
+        if True, print output to screen. otherwise execute quietly
+
+    Returns
+    =======
+    bool: True if function works as expected, False otherwise.
+    """
+    from types import FunctionType
+
+    if type(func) == FunctionType:
+
+        if inputs == []:
+            try:
+                inputs = func.inputs
+            except AttributeError:
+                message = """Calling check_func with a function handle
+requires either
+1. The function have its inputs defined as an attribute, e.g.
+    def func(x):
+        return x**2
+    func.inputs = [(1,), (2,)]
+2. The inputs be provided as an argument to check_func, e.g.
+    check_func(func, inputs=[(1,), (2,)])"""
+                raise Exception(message)
+
+        expected = [func(*inp) for inp in inputs]
+        funcname = func.__name__
+    else:
+        funcname = func
+        if (inputs == []) or (expected == []):
+            message = """Calling check_func with a function name
+requires the inputs and expected outputs to be provided as arguments
+e.g.
+    check_func('myfunc', inputs=[(1,), (2,)], expected=[2, 3])"""
+            raise Exception(message)
+
+    return _run_all_checks(funcname, inputs, expected, calls, output)
