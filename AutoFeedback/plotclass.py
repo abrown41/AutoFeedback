@@ -102,21 +102,22 @@ class line:
             label for the data set to be plotted
         """
         if self.diagnosis == "badxy":
-            error_message = plot_error_messages.error_message._data(label)
+            emsg = plot_error_messages.error_message()
+            error_message = emsg._data(label)
         elif self.diagnosis == "badx":
             if hasattr(self.xdata, "get_error") and\
                     callable(self.xdata.get_error):
                 error_message = self.xdata.get_error(
-                    "x coordinates of the data series in the graph labelled "
-                    + label)
+                    f"""x coordinates of the data series in the graph labelled
+{label}""")
             else:
                 error_message = self.generic_error(label, "x")
         elif self.diagnosis == "bady":
             if hasattr(self.ydata, "get_error") and\
                     callable(self.ydata.get_error):
                 error_message = self.ydata.get_error(
-                    "y coordinates of the data series in the graph labelled "
-                    + label)
+                    f"""y coordinates of the data series in the graph labelled
+{label}""")
             else:
                 error_message = self.generic_error(label, "y")
         return error_message

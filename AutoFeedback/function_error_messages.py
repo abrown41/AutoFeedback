@@ -26,7 +26,7 @@ def _input_error(funcname, numargs):
     return e_message
 
 
-def _value_error(funcname, inp,  exp, res):
+def _value_error(funcname, inp, exp, res):
     e_message = f"""The function {funcname} returns the wrong value(s).
     When executed with the input(s), {inp}, we expected the output, {exp}, but
     instead we got {res}.

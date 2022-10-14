@@ -4,11 +4,11 @@
 Usage
 =====
 
-Start by importing AutoFeedback.
+AutoFeedback offers three high-level functions for checking student code
 
 .. code-block:: python
 
-    import AutoFeedback
+    from AutoFeedback import check_vars, check_func, check_plot
 
 Then use one of the three high level functions available for checking student
 code.
@@ -16,11 +16,10 @@ code.
 Checking Variables
 ==================
 
-:py:meth:`AutoFeedback.varchecks.check_vars`
+:py:meth:`AutoFeedback.check_vars`
 
 .. code-block:: python
 
-   from AutoFeedback.varchecks import check_vars
    assert check_vars('x', 3)
 
 will check whether the student has defined a variable `x` in main.py to be equal to 3 and
@@ -29,11 +28,40 @@ print feedback to the screen.
 Checking Functions
 ==================
 
-:py:meth:`AutoFeedback.funcchecks.check_func`
+:py:meth:`AutoFeedback.check_func`
+
+There are two ways to use `check_func`. The first is to define the functions exactly as you
+wish the students to do. You should also set the `.inputs` attribute of each
+function as a list of tuples containing some sample inputs that can be used for
+testing the function:
+
+.. code-block:: python
+   
+   def addup(x, y):
+      return x+y
+   addup.inputs = [(3, 4), (5, 6)]
+
+   def addAndSquare(x, y):
+      z = addup(x, y) 
+      return z * z
+   addAndSquare.inputs = [(3, 4)]
+
+   assert check_func(addup)
+   assert check_func(addAndSquare, calls=['addup'])
+
+Although this requires more lines of code than the legacy usage (see below), it
+removes the need to pre-calculate the expected outputs, ensuring that
+the results are robust against changes to libraries, environments etc.
+
+Legacy usage
+------------
+
+The second method is to pass the function name as a string. This is maintained
+for backwards compatability. In this case the inputs and expected outputs must
+be passed:
 
 .. code-block:: python
 
-   from AutoFeedback.func_checks import check_funcs
    assert check_func('addup', inputs=[(3, 4), (5, 6)], expected=[7, 11])
 
 will check whether the student has defined a function named addup `addup` in main.py which takes two input arguments, adds them and returns the result. 
@@ -43,16 +71,16 @@ argument:
 
 .. code-block:: python
 
-   assert check_func('addAndMult', inputs=[(3, 4)], expected=[84], calls=['addup'])
+   assert check_func('addAndSquare', inputs=[(3, 4)], expected=[49], calls=['addup'])
 
-which checks whether the function `addAndMult` calls the function `addup` during
+which checks whether the function `addAndSquare` calls the function `addup` during
 its execution.
 
 
 Checking Plots
 ==============
 
-:py:meth:`AutoFeedback.plotchecks.check_plot`
+:py:meth:`AutoFeedback.check_plot`
 
 To check a student's plot object you must first define the 'lines' you expect to
 see in the plot. The lines are of type :py:meth:`AutoFeedback.plotclass.line`
@@ -62,7 +90,6 @@ and are defined and tested as follows:
 .. code-block:: python
 
    from AutoFeedback.plotclass import line
-   from AutoFeedback.plotchecks import check_plot
    line1 = line([0,1,2,3], [0,1,4,9],
                 linestyle=['-', 'solid'],
                 colour=['r', 'red', (1.0,0.0,0.0,1)],
@@ -209,7 +236,6 @@ following assert statement in a test:
 
 .. code:: python
 
-   from AutoFeedback.funcchecks import check_func
    from AutoFeedback.randomclass import randomvar
 
    # We will test the students code by generating a Bernoulli random variable with p=0.5
@@ -234,7 +260,6 @@ following assert statement in a test:
 
 .. code:: python
 
-   from AutoFeedback.funcchecks import check_func
    from AutoFeedback.randomclass import randomvar
 
    # We will test the students code by generating a Bernoulli random variable with p=0.5
@@ -275,7 +300,6 @@ We can thus use AutoFeedback to test the students code by writing:
 
 .. code:: python
 
-   from AutoFeedback.funcchecks import check_func
    from AutoFeedback.randomclass import randomvar
 
    # We are going to test for a sample mean computed from 100 normal random variables here
@@ -308,7 +332,6 @@ following code:
 
 ::
 
-   from AutoFeedback.funcchecks import check_func
    from AutoFeedback.randomclass import randomvar
 
    # We are going to test for a sample mean computed from 100 normal random variables here
@@ -348,7 +371,6 @@ chi2 test. To test the function above you can thus write:
 
 .. code:: python
 
-   from AutoFeedback.funcchecks import check_func
    from AutoFeedback.randomclass import randomvar
 
    # We are going to test for a sample mean computed from 100 normal random variables here
@@ -606,7 +628,6 @@ this:
 
 .. code:: python
 
-   from AutoFeedback.funcchecks import check_func
    from AutoFeedback.randomclass import randomvar
 
    # We are using 100 random variables to calculate our sample mean here
@@ -658,7 +679,6 @@ To test this function using AutoFeedback you would write:
 
 .. code:: python
 
-   from AutoFeedback.funcchecks import check_func
    from AutoFeedback.randomclass import randomvar
 
    # We are using 100 random variables to calculate our sample mean here
