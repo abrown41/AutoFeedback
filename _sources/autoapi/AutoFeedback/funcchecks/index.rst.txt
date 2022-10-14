@@ -24,7 +24,7 @@ Functions
 
 
 
-.. py:function:: check_func(funcname, inputs, expected, calls=[], output=True)
+.. py:function:: check_func(func, inputs=[], expected=[], calls=[], output=True)
 
    
    given information on a function which the student has been asked to
@@ -33,17 +33,20 @@ Functions
 
    :Parameters:
 
-       **funcname** : str
-           name of function to be investigated
+       **func** : function handle or str
+           function handle or name of function to be investigated
 
        **inputs** : list of tuples
-           inputs with which to test funcname
+           inputs with which to test func
 
        **expected** : list
-           expected outputs of [funcname(inp) for inp in inputs]
+           expected outputs of [func(inp) for inp in inputs]
+
+       **inputs** : list of tuples
+           inputs with which to test func
 
        **calls** : list of strings
-           names of any functions which funcname should call
+           names of any functions which func should call
 
        **output** : bool
            if True, print output to screen. otherwise execute quietly

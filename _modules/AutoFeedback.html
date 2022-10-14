@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AutoFeedback &mdash; AutoFeedback 0.post115+g9c622f0 documentation</title>
+  <title>AutoFeedback &mdash; AutoFeedback 0.post117+g1aadbd3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
@@ -18,6 +18,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -33,7 +34,7 @@
             <a href="../index.html" class="icon icon-home"> AutoFeedback
           </a>
               <div class="version">
-                0.post115+g9c622f0
+                0.post117+g1aadbd3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -74,9 +75,13 @@
            <div itemprop="articleBody">
              
   <h1>Source code for AutoFeedback</h1><div class="highlight"><pre>
-<span></span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">_version</span>
+<span></span><span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">_version</span>
 <div class="viewcode-block" id="__version__"><a class="viewcode-back" href="../autoapi/AutoFeedback/index.html#AutoFeedback.__version__">[docs]</a><span class="n">__version__</span> <span class="o">=</span> <span class="n">_version</span><span class="o">.</span><span class="n">get_versions</span><span class="p">()[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span></div>
+
+
+<span class="kn">from</span> <span class="nn">AutoFeedback.plotchecks</span> <span class="kn">import</span> <span class="n">check_plot</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.varchecks</span> <span class="kn">import</span> <span class="n">check_vars</span>
+<span class="kn">from</span> <span class="nn">AutoFeedback.funcchecks</span> <span class="kn">import</span> <span class="n">check_func</span>
 </pre></div>
 
            </div>

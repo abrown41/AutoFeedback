@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AutoFeedback.randomclass &mdash; AutoFeedback 0.post115+g9c622f0 documentation</title>
+  <title>AutoFeedback.randomclass &mdash; AutoFeedback 0.post117+g1aadbd3 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
@@ -18,6 +18,7 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -33,7 +34,7 @@
             <a href="../../index.html" class="icon icon-home"> AutoFeedback
           </a>
               <div class="version">
-                0.post115+g9c622f0
+                0.post117+g1aadbd3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -205,7 +206,7 @@
         <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">limit</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;limit needs to be to do this task set&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">value</span> <span class="o">/</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">limit</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">value</span> <span class="o">/</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">limit</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
 
     <span class="k">def</span> <span class="nf">_get_statistic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">expectation</span><span class="p">,</span> <span class="n">variance</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;calculate the test statistic</span>
@@ -225,13 +226,13 @@
             <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
             <span class="k">if</span> <span class="n">variance</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;invalid&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="n">expectation</span><span class="p">)</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">variance</span><span class="o">/</span><span class="n">number</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="n">expectation</span><span class="p">)</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">variance</span> <span class="o">/</span> <span class="n">number</span><span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">==</span> <span class="s2">&quot;chi2&quot;</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dof</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
                     <span class="sd">&quot;&quot;&quot;if running chi2 test the number of degrees of</span>
 <span class="sd">freedom needs to be set&quot;&quot;&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dof</span><span class="o">*</span><span class="n">value</span> <span class="o">/</span> <span class="n">variance</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dof</span> <span class="o">*</span> <span class="n">value</span> <span class="o">/</span> <span class="n">variance</span>
         <span class="k">return</span> <span class="mi">1</span>
 
     <span class="k">def</span> <span class="nf">_hypo_check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stat</span><span class="p">):</span>
@@ -248,9 +249,9 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">==</span> <span class="s2">&quot;normal&quot;</span><span class="p">:</span>
             <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
             <span class="k">if</span> <span class="n">stat</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">pval</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="o">-</span><span class="n">stat</span><span class="p">)</span>
+                <span class="n">pval</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="o">-</span><span class="n">stat</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">pval</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">stat</span><span class="p">)</span>
+                <span class="n">pval</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">stat</span><span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">==</span> <span class="s2">&quot;chi2&quot;</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dof</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
@@ -259,7 +260,7 @@
             <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">chi2</span>
             <span class="n">pval</span> <span class="o">=</span> <span class="n">chi2</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dof</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">pval</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">:</span>
-                <span class="n">pval</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="n">chi2</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dof</span><span class="p">)</span>
+                <span class="n">pval</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">chi2</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dof</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
 
@@ -290,12 +291,12 @@
             <span class="c1"># Now check the limits</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">=</span> <span class="s2">&quot;chi2&quot;</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_random_var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_confToVariance</span><span class="p">(</span>
-                    <span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">=</span> <span class="s2">&quot;conf_lim&quot;</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">output_component</span> <span class="o">=</span> <span class="s2">&quot;lower confidence limit from the &quot;</span>
                 <span class="k">return</span> <span class="kc">False</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_random_var</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_confToVariance</span><span class="p">(</span>
-                    <span class="n">val</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="n">val</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">=</span> <span class="s2">&quot;conf_lim&quot;</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">output_component</span> <span class="o">=</span> <span class="s2">&quot;upper confidence limit from the &quot;</span>
                 <span class="k">return</span> <span class="kc">False</span>
@@ -377,13 +378,14 @@
                 <span class="k">return</span> <span class="kc">True</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># Check on expectation</span>
-                <span class="n">mean</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                <span class="n">mean</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
                 <span class="n">var</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">variance</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">variance</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="n">S2</span> <span class="o">=</span> <span class="mi">0</span>
                     <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">val</span><span class="p">:</span>
-                        <span class="n">S2</span> <span class="o">=</span> <span class="n">S2</span> <span class="o">+</span> <span class="n">v</span><span class="o">*</span><span class="n">v</span>
-                    <span class="n">var</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="p">(</span><span class="n">S2</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">-</span> <span class="n">mean</span><span class="o">*</span><span class="n">mean</span><span class="p">)</span>
+                        <span class="n">S2</span> <span class="o">=</span> <span class="n">S2</span> <span class="o">+</span> <span class="n">v</span> <span class="o">*</span> <span class="n">v</span>
+                    <span class="n">var</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> \
+                        <span class="p">(</span><span class="n">S2</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">-</span> <span class="n">mean</span> <span class="o">*</span> <span class="n">mean</span><span class="p">)</span>
                 <span class="n">stat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_statistic</span><span class="p">(</span>
                     <span class="n">mean</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">expectation</span><span class="p">,</span>
                     <span class="n">var</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
@@ -394,8 +396,8 @@
                 <span class="c1"># Now check on variance</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="p">,</span> <span class="n">S2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dof</span> <span class="o">=</span> <span class="s2">&quot;chi2&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
                 <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">val</span><span class="p">:</span>
-                    <span class="n">S2</span> <span class="o">=</span> <span class="n">S2</span> <span class="o">+</span> <span class="n">v</span><span class="o">*</span><span class="n">v</span>
-                <span class="n">var</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">dof</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">S2</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">-</span> <span class="n">mean</span><span class="o">*</span><span class="n">mean</span><span class="p">)</span>
+                    <span class="n">S2</span> <span class="o">=</span> <span class="n">S2</span> <span class="o">+</span> <span class="n">v</span> <span class="o">*</span> <span class="n">v</span>
+                <span class="n">var</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">dof</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">S2</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">-</span> <span class="n">mean</span> <span class="o">*</span> <span class="n">mean</span><span class="p">)</span>
                 <span class="n">stat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_statistic</span><span class="p">(</span>
                     <span class="n">var</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">expectation</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">variance</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
@@ -411,10 +413,10 @@
 
             <span class="k">if</span> <span class="n">num</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">stat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_statistic</span><span class="p">(</span>
-                    <span class="n">vv</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">expectation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">variance</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">vv</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">expectation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">variance</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">stat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_statistic</span><span class="p">(</span>
-                    <span class="n">vv</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">expectation</span><span class="p">[</span><span class="n">num</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">variance</span><span class="p">[</span><span class="n">num</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">vv</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">expectation</span><span class="p">[</span><span class="n">num</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">variance</span><span class="p">[</span><span class="n">num</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hypo_check</span><span class="p">(</span><span class="n">stat</span><span class="p">)</span>
 

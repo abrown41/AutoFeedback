@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usage &mdash; AutoFeedback 0.post115+g9c622f0 documentation</title>
+  <title>Usage &mdash; AutoFeedback 0.post117+g1aadbd3 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
@@ -18,6 +18,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -36,7 +37,7 @@
             <a href="index.html" class="icon icon-home"> AutoFeedback
           </a>
               <div class="version">
-                0.post115+g9c622f0
+                0.post117+g1aadbd3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -49,7 +50,10 @@
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#checking-variables">Checking Variables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#checking-functions">Checking Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#checking-functions">Checking Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#legacy-usage">Legacy usage</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#checking-plots">Checking Plots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#checking-random-variables">Checking random variables</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#single-random-variable">Single random variable</a></li>
@@ -97,17 +101,16 @@
              
   <div class="section" id="usage">
 <span id="id1"></span><h1>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h1>
-<p>Start by importing AutoFeedback.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">AutoFeedback</span>
+<p>AutoFeedback offers three high-level functions for checking student code</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback</span> <span class="kn">import</span> <span class="n">check_vars</span><span class="p">,</span> <span class="n">check_func</span><span class="p">,</span> <span class="n">check_plot</span>
 </pre></div>
 </div>
 <p>Then use one of the three high level functions available for checking student
 code.</p>
 <div class="section" id="checking-variables">
 <h2>Checking Variables<a class="headerlink" href="#checking-variables" title="Permalink to this heading">¶</a></h2>
-<p><a class="reference internal" href="autoapi/AutoFeedback/varchecks/index.html#AutoFeedback.varchecks.check_vars" title="AutoFeedback.varchecks.check_vars"><code class="xref py py-meth docutils literal notranslate"><span class="pre">AutoFeedback.varchecks.check_vars()</span></code></a></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.varchecks</span> <span class="kn">import</span> <span class="n">check_vars</span>
-<span class="k">assert</span> <span class="n">check_vars</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<p><code class="xref py py-meth docutils literal notranslate"><span class="pre">AutoFeedback.check_vars()</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">check_vars</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>will check whether the student has defined a variable <cite>x</cite> in main.py to be equal to 3 and
@@ -115,28 +118,52 @@ print feedback to the screen.</p>
 </div>
 <div class="section" id="checking-functions">
 <h2>Checking Functions<a class="headerlink" href="#checking-functions" title="Permalink to this heading">¶</a></h2>
-<p><a class="reference internal" href="autoapi/AutoFeedback/funcchecks/index.html#AutoFeedback.funcchecks.check_func" title="AutoFeedback.funcchecks.check_func"><code class="xref py py-meth docutils literal notranslate"><span class="pre">AutoFeedback.funcchecks.check_func()</span></code></a></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.func_checks</span> <span class="kn">import</span> <span class="n">check_funcs</span>
-<span class="k">assert</span> <span class="n">check_func</span><span class="p">(</span><span class="s1">&#39;addup&#39;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="p">[(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)],</span> <span class="n">expected</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">])</span>
+<p><code class="xref py py-meth docutils literal notranslate"><span class="pre">AutoFeedback.check_func()</span></code></p>
+<p>There are two ways to use <cite>check_func</cite>. The first is to define the functions exactly as you
+wish the students to do. You should also set the <cite>.inputs</cite> attribute of each
+function as a list of tuples containing some sample inputs that can be used for
+testing the function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">addup</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+   <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
+<span class="n">addup</span><span class="o">.</span><span class="n">inputs</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)]</span>
+
+<span class="k">def</span> <span class="nf">addAndSquare</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+   <span class="n">z</span> <span class="o">=</span> <span class="n">addup</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+   <span class="k">return</span> <span class="n">z</span> <span class="o">*</span> <span class="n">z</span>
+<span class="n">addAndSquare</span><span class="o">.</span><span class="n">inputs</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span>
+
+<span class="k">assert</span> <span class="n">check_func</span><span class="p">(</span><span class="n">addup</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">check_func</span><span class="p">(</span><span class="n">addAndSquare</span><span class="p">,</span> <span class="n">calls</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;addup&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Although this requires more lines of code than the legacy usage (see below), it
+removes the need to pre-calculate the expected outputs, ensuring that
+the results are robust against changes to libraries, environments etc.</p>
+<div class="section" id="legacy-usage">
+<h3>Legacy usage<a class="headerlink" href="#legacy-usage" title="Permalink to this heading">¶</a></h3>
+<p>The second method is to pass the function name as a string. This is maintained
+for backwards compatability. In this case the inputs and expected outputs must
+be passed:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">check_func</span><span class="p">(</span><span class="s1">&#39;addup&#39;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="p">[(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)],</span> <span class="n">expected</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>will check whether the student has defined a function named addup <cite>addup</cite> in main.py which takes two input arguments, adds them and returns the result.</p>
 <p>To check whether functions call other named functions, use the <cite>calls</cite> optional
 argument:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">check_func</span><span class="p">(</span><span class="s1">&#39;addAndMult&#39;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="p">[(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)],</span> <span class="n">expected</span><span class="o">=</span><span class="p">[</span><span class="mi">84</span><span class="p">],</span> <span class="n">calls</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;addup&#39;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">check_func</span><span class="p">(</span><span class="s1">&#39;addAndSquare&#39;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="p">[(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)],</span> <span class="n">expected</span><span class="o">=</span><span class="p">[</span><span class="mi">49</span><span class="p">],</span> <span class="n">calls</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;addup&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>which checks whether the function <cite>addAndMult</cite> calls the function <cite>addup</cite> during
+<p>which checks whether the function <cite>addAndSquare</cite> calls the function <cite>addup</cite> during
 its execution.</p>
+</div>
 </div>
 <div class="section" id="checking-plots">
 <h2>Checking Plots<a class="headerlink" href="#checking-plots" title="Permalink to this heading">¶</a></h2>
-<p><a class="reference internal" href="autoapi/AutoFeedback/plotchecks/index.html#AutoFeedback.plotchecks.check_plot" title="AutoFeedback.plotchecks.check_plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">AutoFeedback.plotchecks.check_plot()</span></code></a></p>
+<p><code class="xref py py-meth docutils literal notranslate"><span class="pre">AutoFeedback.check_plot()</span></code></p>
 <p>To check a student’s plot object you must first define the ‘lines’ you expect to
 see in the plot. The lines are of type <a class="reference internal" href="autoapi/AutoFeedback/plotclass/index.html#AutoFeedback.plotclass.line" title="AutoFeedback.plotclass.line"><code class="xref py py-meth docutils literal notranslate"><span class="pre">AutoFeedback.plotclass.line()</span></code></a>
 and are defined and tested as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.plotclass</span> <span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span> <span class="nn">AutoFeedback.plotchecks</span> <span class="kn">import</span> <span class="n">check_plot</span>
 <span class="n">line1</span> <span class="o">=</span> <span class="n">line</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">9</span><span class="p">],</span>
              <span class="n">linestyle</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;solid&#39;</span><span class="p">],</span>
              <span class="n">colour</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mi">1</span><span class="p">)],</span>
@@ -254,8 +281,7 @@ problem will look something like this:</p>
 <p>If this function is working correctly it should only ever return 0 or 1.
 We can use AutoFeedback to test that this is case by including the
 following assert statement in a test:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.funcchecks</span> <span class="kn">import</span> <span class="n">check_func</span>
-<span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
 
 <span class="c1"># We will test the students code by generating a Bernoulli random variable with p=0.5</span>
 <span class="c1"># Notice that inputs and variables are lists here.  If the inputs list and variables list</span>
@@ -279,8 +305,7 @@ of a false positive result in the hypothesis test. To reduce the
 likelihood of a false positive test you can add set <code class="docutils literal notranslate"><span class="pre">nsamples</span></code> when
 you define the <code class="docutils literal notranslate"><span class="pre">randomvar</span></code> object as shown below:</div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.funcchecks</span> <span class="kn">import</span> <span class="n">check_func</span>
-<span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
 
 <span class="c1"># We will test the students code by generating a Bernoulli random variable with p=0.5</span>
 <span class="c1"># Notice that inputs and variables are lists here.  If the inputs list and variables list</span>
@@ -315,8 +340,7 @@ a function similar to the one shown below.</p>
 identical and independent normal random variables. The mean and variance
 for the random variable the function outputs are thus 0 and <span class="math notranslate nohighlight">\(1/n\)</span>.
 We can thus use AutoFeedback to test the students code by writing:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.funcchecks</span> <span class="kn">import</span> <span class="n">check_func</span>
-<span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
 
 <span class="c1"># We are going to test for a sample mean computed from 100 normal random variables here</span>
 <span class="n">inputs</span><span class="p">,</span> <span class="n">variables</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">100</span><span class="p">,)],</span> <span class="p">[]</span>
@@ -344,8 +368,7 @@ calulating a sample variance like this:</p>
 distribution with <span class="math notranslate nohighlight">\(n-1\)</span> degrees of freedom if the function is
 correct. To complete such a test using AutoFeedback you would write the
 following code:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.funcchecks</span> <span class="kn">import</span> <span class="n">check_func</span>
-<span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
 
 <span class="c1"># We are going to test for a sample mean computed from 100 normal random variables here</span>
 <span class="n">inputs</span><span class="p">,</span> <span class="n">variables</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">100</span><span class="p">,)],</span> <span class="p">[]</span>
@@ -380,8 +403,7 @@ the following function:</p>
 <code class="docutils literal notranslate"><span class="pre">limit</span></code> for the chi2 test that converts the confidence interval that
 is returned by such functions into a variance on which I can peform a
 chi2 test. To test the function above you can thus write:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.funcchecks</span> <span class="kn">import</span> <span class="n">check_func</span>
-<span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
 
 <span class="c1"># We are going to test for a sample mean computed from 100 normal random variables here</span>
 <span class="n">inputs</span><span class="p">,</span> <span class="n">variables</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">100</span><span class="p">,)],</span> <span class="p">[]</span>
@@ -611,8 +633,7 @@ useful in terms of getting them to think about what confidence intervals
 are.</p>
 <p>To test the code above using AutoFeedback you would write something like
 this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.funcchecks</span> <span class="kn">import</span> <span class="n">check_func</span>
-<span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
 
 <span class="c1"># We are using 100 random variables to calculate our sample mean here</span>
 <span class="n">inputs</span><span class="p">,</span> <span class="n">variables</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">100</span><span class="p">,)],</span> <span class="p">[]</span>
@@ -658,8 +679,7 @@ uncertainty for an 80% confidence interval.</p>
 </pre></div>
 </div>
 <p>To test this function using AutoFeedback you would write:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.funcchecks</span> <span class="kn">import</span> <span class="n">check_func</span>
-<span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback.randomclass</span> <span class="kn">import</span> <span class="n">randomvar</span>
 
 <span class="c1"># We are using 100 random variables to calculate our sample mean here</span>
 <span class="n">inputs</span><span class="p">,</span> <span class="n">variables</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">100</span><span class="p">,)],</span> <span class="p">[]</span>

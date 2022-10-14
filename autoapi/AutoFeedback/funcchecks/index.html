@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AutoFeedback.funcchecks &mdash; AutoFeedback 0.post115+g9c622f0 documentation</title>
+  <title>AutoFeedback.funcchecks &mdash; AutoFeedback 0.post117+g1aadbd3 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/plot_directive.css" type="text/css" />
@@ -18,6 +18,7 @@
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -35,7 +36,7 @@
             <a href="../../../index.html" class="icon icon-home"> AutoFeedback
           </a>
               <div class="version">
-                0.post115+g9c622f0
+                0.post117+g1aadbd3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -109,26 +110,28 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#AutoFeedback.funcchecks.check_func" title="AutoFeedback.funcchecks.check_func"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_func</span></code></a>(funcname, inputs, expected[, calls, output])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#AutoFeedback.funcchecks.check_func" title="AutoFeedback.funcchecks.check_func"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_func</span></code></a>(func[, inputs, expected, calls, output])</p></td>
 <td><p>given information on a function which the student has been asked to</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="AutoFeedback.funcchecks.check_func">
-<span class="sig-prename descclassname"><span class="pre">AutoFeedback.funcchecks.</span></span><span class="sig-name descname"><span class="pre">check_func</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">funcname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/AutoFeedback/funcchecks.html#check_func"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#AutoFeedback.funcchecks.check_func" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">AutoFeedback.funcchecks.</span></span><span class="sig-name descname"><span class="pre">check_func</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/AutoFeedback/funcchecks.html#check_func"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#AutoFeedback.funcchecks.check_func" title="Permalink to this definition">¶</a></dt>
 <dd><p>given information on a function which the student has been asked to
 define, check whether it has been defined correctly, and provide feedback</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>funcname</strong><span class="classifier">str</span></dt><dd><p>name of function to be investigated</p>
+<dt><strong>func</strong><span class="classifier">function handle or str</span></dt><dd><p>function handle or name of function to be investigated</p>
 </dd>
-<dt><strong>inputs</strong><span class="classifier">list of tuples</span></dt><dd><p>inputs with which to test funcname</p>
+<dt><strong>inputs</strong><span class="classifier">list of tuples</span></dt><dd><p>inputs with which to test func</p>
 </dd>
-<dt><strong>expected</strong><span class="classifier">list</span></dt><dd><p>expected outputs of [funcname(inp) for inp in inputs]</p>
+<dt><strong>expected</strong><span class="classifier">list</span></dt><dd><p>expected outputs of [func(inp) for inp in inputs]</p>
 </dd>
-<dt><strong>calls</strong><span class="classifier">list of strings</span></dt><dd><p>names of any functions which funcname should call</p>
+<dt><strong>inputs</strong><span class="classifier">list of tuples</span></dt><dd><p>inputs with which to test func</p>
+</dd>
+<dt><strong>calls</strong><span class="classifier">list of strings</span></dt><dd><p>names of any functions which func should call</p>
 </dd>
 <dt><strong>output</strong><span class="classifier">bool</span></dt><dd><p>if True, print output to screen. otherwise execute quietly</p>
 </dd>
