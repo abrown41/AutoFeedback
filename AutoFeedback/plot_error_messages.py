@@ -34,13 +34,15 @@ class error_message:
         plt.plot(X,Y,'r')
     for red.""")
 
-    _axes = """The axis limits in your plot are set incorrectly.
+    def _axes(self, label):
+        return """The axis limits in your plot are set incorrectly.
     Set the axis limits with the plt.axis command like this
         plt.axis([ -1 , 1, -2, 2])
     where the four numbers correspond to the lower and upper limits of the x
     and y-axes respectively."""
 
-    _labels = """The axis labels or titles in your plot are set incorrectly.
+    def _labels(self, label):
+        return """The axis labels or titles in your plot are set incorrectly.
     Set the axis labels with the plt.xlabel and plt.ylabel commands like this
         plt.xlabel('this is the x axis label')
         plt.ylabel('this is the y axis label')
@@ -48,7 +50,8 @@ class error_message:
     remembering to check that the spacing, case and spelling of all words are
     correct """
 
-    _legend = """The legend does not contain the correct data labels
+    def _legend(self, label):
+        return """The legend does not contain the correct data labels
     Set the legend entries with the option 'label' keyword argument in the plot
     command like this
         plt.plot(X,Y,label="my data set")
@@ -61,7 +64,8 @@ class error_message:
     sets, or only some of the legend entries will show.
         """
 
-    _datasets = """The number of data sets plotted is incorrect.
+    def _datasets(self, label):
+        return """The number of data sets plotted is incorrect.
     Check that the number of datasets plotted matches the number requested in
     the instructions"""
 
