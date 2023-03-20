@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usage &mdash; AutoFeedback 0.post117+g1aadbd3 documentation</title>
+  <title>Usage &mdash; AutoFeedback 0.post118+gfc5933b documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
@@ -14,9 +15,6 @@
   <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/clipboard.min.js"></script>
@@ -34,14 +32,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> AutoFeedback
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            AutoFeedback
           </a>
               <div class="version">
-                0.post117+g1aadbd3
+                0.post118+gfc5933b
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -88,8 +90,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Usage</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Usage</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -99,7 +101,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="usage">
+  <section id="usage">
 <span id="id1"></span><h1>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h1>
 <p>AutoFeedback offers three high-level functions for checking student code</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AutoFeedback</span> <span class="kn">import</span> <span class="n">check_vars</span><span class="p">,</span> <span class="n">check_func</span><span class="p">,</span> <span class="n">check_plot</span>
@@ -107,7 +109,7 @@
 </div>
 <p>Then use one of the three high level functions available for checking student
 code.</p>
-<div class="section" id="checking-variables">
+<section id="checking-variables">
 <h2>Checking Variables<a class="headerlink" href="#checking-variables" title="Permalink to this heading">¶</a></h2>
 <p><code class="xref py py-meth docutils literal notranslate"><span class="pre">AutoFeedback.check_vars()</span></code></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">check_vars</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
@@ -115,8 +117,8 @@ code.</p>
 </div>
 <p>will check whether the student has defined a variable <cite>x</cite> in main.py to be equal to 3 and
 print feedback to the screen.</p>
-</div>
-<div class="section" id="checking-functions">
+</section>
+<section id="checking-functions">
 <h2>Checking Functions<a class="headerlink" href="#checking-functions" title="Permalink to this heading">¶</a></h2>
 <p><code class="xref py py-meth docutils literal notranslate"><span class="pre">AutoFeedback.check_func()</span></code></p>
 <p>There are two ways to use <cite>check_func</cite>. The first is to define the functions exactly as you
@@ -139,7 +141,7 @@ testing the function:</p>
 <p>Although this requires more lines of code than the legacy usage (see below), it
 removes the need to pre-calculate the expected outputs, ensuring that
 the results are robust against changes to libraries, environments etc.</p>
-<div class="section" id="legacy-usage">
+<section id="legacy-usage">
 <h3>Legacy usage<a class="headerlink" href="#legacy-usage" title="Permalink to this heading">¶</a></h3>
 <p>The second method is to pass the function name as a string. This is maintained
 for backwards compatability. In this case the inputs and expected outputs must
@@ -155,9 +157,9 @@ argument:</p>
 </div>
 <p>which checks whether the function <cite>addAndSquare</cite> calls the function <cite>addup</cite> during
 its execution.</p>
-</div>
-</div>
-<div class="section" id="checking-plots">
+</section>
+</section>
+<section id="checking-plots">
 <h2>Checking Plots<a class="headerlink" href="#checking-plots" title="Permalink to this heading">¶</a></h2>
 <p><code class="xref py py-meth docutils literal notranslate"><span class="pre">AutoFeedback.check_plot()</span></code></p>
 <p>To check a student’s plot object you must first define the ‘lines’ you expect to
@@ -181,8 +183,8 @@ and are defined and tested as follows:</p>
 <p>which checks to ensure that both the squared and cubed values are plotted with
 the correct colour and linestyle, that the legend is shown with the correct
 labels, and that the axis limits, labels and figure title are set correctly.</p>
-</div>
-<div class="section" id="checking-random-variables">
+</section>
+<section id="checking-random-variables">
 <h2>Checking random variables<a class="headerlink" href="#checking-random-variables" title="Permalink to this heading">¶</a></h2>
 <p>AutoFeedback can be used to provide feedback on student code that generates
 random variables. To get AutoFeedback to test student code for generating random
@@ -217,7 +219,7 @@ statistic above should be a sample from a chi2 distribution with
 <p>The examples that follow illustrate how AutoFeedback can be used a range
 of tasks that you might ask students to perform as part of an elementary
 course in statistics.</p>
-<div class="section" id="single-random-variable">
+<section id="single-random-variable">
 <h3>Single random variable<a class="headerlink" href="#single-random-variable" title="Permalink to this heading">¶</a></h3>
 <p>Suppose you want students to write a code to set a variable called
 <code class="docutils literal notranslate"><span class="pre">var</span></code> so that is a sample from a standard normal random variable. The
@@ -265,8 +267,8 @@ follows:</p>
 setup, AutoFeedback checks that <code class="docutils literal notranslate"><span class="pre">U</span></code> is between 0 and 1 before
 performing the hypothesis test that was performed on the normal random
 variable.</p>
-</div>
-<div class="section" id="fuctions-for-generating-random-variables">
+</section>
+<section id="fuctions-for-generating-random-variables">
 <h3>Fuctions for generating random variables<a class="headerlink" href="#fuctions-for-generating-random-variables" title="Permalink to this heading">¶</a></h3>
 <p>Lets suppose you have set students the task of writing a function for
 generating a Bernoulli random variable. A correct solution to this
@@ -432,8 +434,8 @@ calculate a function of a sample mean or sample variance as you can pass
 a code for applying the inverse function to the student output and then
 use AutoFeedback to do a hypothesis test on the sample mean or sample
 variance that the student transformed.</p>
-</div>
-<div class="section" id="plotting-random-variables">
+</section>
+<section id="plotting-random-variables">
 <h3>Plotting random variables<a class="headerlink" href="#plotting-random-variables" title="Permalink to this heading">¶</a></h3>
 <p>Getting students to complete computer programming exercises is a good
 way of getting them to generate plots that illustrate the behaviour of
@@ -444,7 +446,7 @@ the functionality in AutoFeedback is thus geared towards testing the
 plots that students produce.</p>
 <p>In this section we thus illustrate how to test three plotting tasks that
 we might ask students to complete:</p>
-<div class="section" id="plotting-a-sample-of-random-variables">
+<section id="plotting-a-sample-of-random-variables">
 <h4>Plotting a sample of random variables<a class="headerlink" href="#plotting-a-sample-of-random-variables" title="Permalink to this heading">¶</a></h4>
 <p>Lets suppose that we want students to generate and plot a sample of
 identical random variables using code something like this:</p>
@@ -492,8 +494,8 @@ is equal to 1/12.</p></li>
 <p>Notice that if you are generating a discrete random variable you can
 also use <code class="docutils literal notranslate"><span class="pre">isinteger</span></code>. Adding this flag tells AutoFeedback to check
 that all the y-coordinates should be integers.</p>
-</div>
-<div class="section" id="investigating-convergence-i-sample-mean">
+</section>
+<section id="investigating-convergence-i-sample-mean">
 <h4>Investigating convergence I: Sample mean<a class="headerlink" href="#investigating-convergence-i-sample-mean" title="Permalink to this heading">¶</a></h4>
 <p>Once students can plot a sample of random variables the next obvious
 thing to ask them to plot is a graph showing how the sample mean depends
@@ -540,8 +542,8 @@ and <span class="math notranslate nohighlight">\(1/12/x\)</span> as would be exp
 coordinates here and not all of them because the likelihood of the
 test failing is high if we test all 100 coordinates)</p></li>
 </ul>
-</div>
-<div class="section" id="investigating-convergence-ii-sample-variance">
+</section>
+<section id="investigating-convergence-ii-sample-variance">
 <h4>Investigating convergence II: Sample variance<a class="headerlink" href="#investigating-convergence-ii-sample-variance" title="Permalink to this heading">¶</a></h4>
 <p>There are numerous estimators for statistical quantities and you can ask
 students to calculate and plot graphs of these quantities like the
@@ -592,8 +594,8 @@ calculated for a subet of the y coordinates the resulting random
 variables are samples from a chi2 distribution with <span class="math notranslate nohighlight">\(x-1\)</span>
 degrees of freedom.</p></li>
 </ul>
-</div>
-<div class="section" id="quoting-the-mean">
+</section>
+<section id="quoting-the-mean">
 <h4>Quoting the mean<a class="headerlink" href="#quoting-the-mean" title="Permalink to this heading">¶</a></h4>
 <p>One of the key ideas that I want students to understand from my
 statistics course is that when we are doing experiments we are
@@ -606,8 +608,8 @@ statistical distribution that we obtained. I thus set students a number
 of exercises that involve calculating confidence intervals or the widths
 of error bars. In this section I will give examples of how you can test
 student code for completing these tasks.</p>
-</div>
-<div class="section" id="calculating-a-confidence-limit">
+</section>
+<section id="calculating-a-confidence-limit">
 <h4>Calculating a confidence limit<a class="headerlink" href="#calculating-a-confidence-limit" title="Permalink to this heading">¶</a></h4>
 <p>Consider the function below:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span>
@@ -693,9 +695,9 @@ uncertainty for an 80% confidence interval.</p>
 </div>
 <p>As in the previous section AutoFeedback will perform hypothesis tests on
 the mean and variance that the student is quoting here.</p>
-</div>
-</div>
-<div class="section" id="generating-a-histogram">
+</section>
+</section>
+<section id="generating-a-histogram">
 <h3>Generating a histogram<a class="headerlink" href="#generating-a-histogram" title="Permalink to this heading">¶</a></h3>
 <p>A final task that we might ask students to complete is to estimate a
 histogram. The following code snippet indicates how this task is
@@ -777,9 +779,9 @@ been introduced in this last section. For example, you could also use
 this feature to test code students are writing for looking at how the
 variance of a sample mean that is computed from <span class="math notranslate nohighlight">\(n\)</span> random
 variables depends on the value of <span class="math notranslate nohighlight">\(n\)</span>.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>

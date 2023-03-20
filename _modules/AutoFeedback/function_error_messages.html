@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AutoFeedback.function_error_messages &mdash; AutoFeedback 0.post117+g1aadbd3 documentation</title>
+  <title>AutoFeedback.function_error_messages &mdash; AutoFeedback 0.post118+gfc5933b documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
@@ -14,9 +14,6 @@
   <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/sphinx_highlight.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
@@ -31,14 +28,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> AutoFeedback
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            AutoFeedback
           </a>
               <div class="version">
-                0.post117+g1aadbd3
+                0.post118+gfc5933b
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -63,10 +64,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-          <li><a href="../AutoFeedback.html">AutoFeedback</a> &raquo;</li>
-      <li>AutoFeedback.function_error_messages</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../AutoFeedback.html">AutoFeedback</a></li>
+      <li class="breadcrumb-item active">AutoFeedback.function_error_messages</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -145,16 +146,16 @@
 <span class="s2">        print(</span><span class="si">{</span><span class="n">funcname</span><span class="si">}{</span><span class="n">inp</span><span class="si">}</span><span class="s2">)</span>
 
 <span class="s2">Error reported:</span>
-<span class="s2">    </span><span class="si">{</span><span class="n">msg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"></span>
-<span class="s2">    </span><span class="si">{</span><span class="n">msg</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"></span>
-<span class="s2">    </span><span class="si">{</span><span class="n">msg</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">    </span><span class="si">{</span><span class="n">msg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">    </span><span class="si">{</span><span class="n">msg</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">    </span><span class="si">{</span><span class="n">msg</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span>
 <span class="s2">        &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">e_message</span>
 
 
 <div class="viewcode-block" id="print_error_message"><a class="viewcode-back" href="../../autoapi/AutoFeedback/function_error_messages/index.html#AutoFeedback.function_error_messages.print_error_message">[docs]</a><span class="k">def</span> <span class="nf">print_error_message</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">funcname</span><span class="p">,</span> <span class="n">inp</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="n">exp</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">result</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                         <span class="n">callname</span><span class="o">=</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]):</span>
-    <span class="sd">&quot;&quot;&quot; given information on the execution of the function, display meaningfull</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; given information on the execution of the function, display meaningfull</span>
 <span class="sd">    feedback in the terminal as to why the submitted code has failed (or</span>
 <span class="sd">    passed).</span>
 

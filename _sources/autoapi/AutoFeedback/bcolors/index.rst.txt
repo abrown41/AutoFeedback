@@ -27,47 +27,47 @@ Classes
 .. py:class:: bcolors
 
    .. py:attribute:: HEADER
-      :annotation: = [95m
+      :value: '\x1b[95m'
 
       
 
    .. py:attribute:: OKBLUE
-      :annotation: = [94m
+      :value: '\x1b[94m'
 
       
 
    .. py:attribute:: OKCYAN
-      :annotation: = [96m
+      :value: '\x1b[96m'
 
       
 
    .. py:attribute:: OKGREEN
-      :annotation: = [92m
+      :value: '\x1b[92m'
 
       
 
    .. py:attribute:: WARNING
-      :annotation: = [93m
+      :value: '\x1b[93m'
 
       
 
    .. py:attribute:: FAIL
-      :annotation: = [91m
+      :value: '\x1b[91m'
 
       
 
    .. py:attribute:: ENDC
-      :annotation: = [0m
+      :value: '\x1b[0m'
 
       
 
    .. py:attribute:: BOLD
-      :annotation: = [1m
+      :value: '\x1b[1m'
 
       
 
    .. py:attribute:: UNDERLINE
-      :annotation: = [4m
+      :value: '\x1b[4m'
 
       
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AutoFeedback.funcchecks &mdash; AutoFeedback 0.post117+g1aadbd3 documentation</title>
+  <title>AutoFeedback.funcchecks &mdash; AutoFeedback 0.post118+gfc5933b documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
@@ -14,9 +14,6 @@
   <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/sphinx_highlight.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
@@ -31,14 +28,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> AutoFeedback
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            AutoFeedback
           </a>
               <div class="version">
-                0.post117+g1aadbd3
+                0.post118+gfc5933b
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -63,10 +64,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-          <li><a href="../AutoFeedback.html">AutoFeedback</a> &raquo;</li>
-      <li>AutoFeedback.funcchecks</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../AutoFeedback.html">AutoFeedback</a></li>
+      <li class="breadcrumb-item active">AutoFeedback.funcchecks</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -82,7 +83,7 @@
 
 
 <span class="k">def</span> <span class="nf">_exists</span><span class="p">(</span><span class="n">funcname</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Check that main.funcname exists (funcname is string)&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check that main.funcname exists (funcname is string)&quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">inspect</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">testfunc</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">__import__</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">fromlist</span><span class="o">=</span><span class="p">[</span><span class="n">funcname</span><span class="p">]),</span> <span class="n">funcname</span><span class="p">)</span>
@@ -92,13 +93,13 @@
 
 
 <span class="k">def</span> <span class="nf">_get_func</span><span class="p">(</span><span class="n">funcname</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;import main.funcname (funcname is string)&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;import main.funcname (funcname is string)&quot;&quot;&quot;</span>
     <span class="n">testfunc</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">__import__</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">,</span> <span class="n">fromlist</span><span class="o">=</span><span class="p">[</span><span class="n">funcname</span><span class="p">]),</span> <span class="n">funcname</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">testfunc</span>
 
 
 <span class="k">def</span> <span class="nf">_input_vars</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">ins</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;check that func accepts input as expected</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;check that func accepts input as expected</span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ==========</span>
 <span class="sd">    func : function handle for function to be checked</span>
@@ -117,7 +118,7 @@
 
 
 <span class="k">def</span> <span class="nf">_returns</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">ins</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;check that func returns a value</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;check that func returns a value</span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ==========</span>
 <span class="sd">    func : function handle for function to be checked</span>
@@ -138,7 +139,7 @@
 
 
 <span class="k">def</span> <span class="nf">_check_outputs</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">ins</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;check that func(ins) returns the expected value</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;check that func(ins) returns the expected value</span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ==========</span>
 <span class="sd">    func : function handle for function to be checked</span>
@@ -169,7 +170,7 @@
 
 
 <span class="k">def</span> <span class="nf">_check_calls</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">call</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;check that func calls another function called &#39;call&#39;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;check that func calls another function called &#39;call&#39;</span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ==========</span>
 <span class="sd">    func : function handle for function to be checked</span>
@@ -188,7 +189,7 @@
 
 
 <span class="k">def</span> <span class="nf">_run_all_checks</span><span class="p">(</span><span class="n">funcname</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">expected</span><span class="p">,</span> <span class="n">calls</span><span class="o">=</span><span class="p">[],</span> <span class="n">output</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;given information on a function which the student has been asked to</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;given information on a function which the student has been asked to</span>
 <span class="sd">    define, check whether it has been defined correctly, and provide feedback</span>
 
 <span class="sd">    Parameters</span>
@@ -245,7 +246,7 @@
 
 
 <div class="viewcode-block" id="check_func"><a class="viewcode-back" href="../../autoapi/AutoFeedback/funcchecks/index.html#AutoFeedback.funcchecks.check_func">[docs]</a><span class="k">def</span> <span class="nf">check_func</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="p">[],</span> <span class="n">expected</span><span class="o">=</span><span class="p">[],</span> <span class="n">calls</span><span class="o">=</span><span class="p">[],</span> <span class="n">output</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;given information on a function which the student has been asked to</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;given information on a function which the student has been asked to</span>
 <span class="sd">    define, check whether it has been defined correctly, and provide feedback</span>
 
 <span class="sd">    Parameters</span>

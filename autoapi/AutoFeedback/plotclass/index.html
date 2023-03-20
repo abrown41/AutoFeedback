@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AutoFeedback.plotclass &mdash; AutoFeedback 0.post117+g1aadbd3 documentation</title>
+  <title>AutoFeedback.plotclass &mdash; AutoFeedback 0.post118+gfc5933b documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/plot_directive.css" type="text/css" />
@@ -14,9 +15,6 @@
   <![endif]-->
   
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/sphinx_highlight.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
@@ -33,14 +31,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> AutoFeedback
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            AutoFeedback
           </a>
               <div class="version">
-                0.post117+g1aadbd3
+                0.post118+gfc5933b
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -84,10 +86,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">API Reference</a> &raquo;</li>
-          <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">AutoFeedback</span></code></a> &raquo;</li>
-      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">AutoFeedback.plotclass</span></code></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">AutoFeedback</span></code></a></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">AutoFeedback.plotclass</span></code></li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/autoapi/AutoFeedback/plotclass/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -97,20 +99,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="module-AutoFeedback.plotclass">
+  <section id="module-AutoFeedback.plotclass">
 <span id="autofeedback-plotclass"></span><h1><a class="reference internal" href="#module-AutoFeedback.plotclass" title="AutoFeedback.plotclass"><code class="xref py py-mod docutils literal notranslate"><span class="pre">AutoFeedback.plotclass</span></code></a><a class="headerlink" href="#module-AutoFeedback.plotclass" title="Permalink to this heading">¶</a></h1>
 <p>Define objects for comparison to matplotlib objects. I.E create something with
 attributes comparable with matplotlib lines, axes etc. without having to create
 a figure.</p>
-<div class="section" id="module-contents">
+<section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">¶</a></h2>
-<div class="section" id="classes">
+<section id="classes">
 <h3>Classes<a class="headerlink" href="#classes" title="Permalink to this heading">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#AutoFeedback.plotclass.line" title="AutoFeedback.plotclass.line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">line</span></code></a></p></td>
 <td><p>generic class for data plotted in a figure</p></td>
@@ -122,13 +120,13 @@ a figure.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">AutoFeedback.plotclass.</span></span><span class="sig-name descname"><span class="pre">line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xdata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ydata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linestyle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colour</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/AutoFeedback/plotclass.html#line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#AutoFeedback.plotclass.line" title="Permalink to this definition">¶</a></dt>
 <dd><p>generic class for data plotted in a figure</p>
 <dl class="field-list simple">
-<dt class="field-odd">Attributes</dt>
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>xdata</strong><span class="classifier">list/np.array</span></dt><dd><p>x-values for xydata/patch</p>
 </dd>
 <dt><strong>ydata</strong><span class="classifier">list/np.array</span></dt><dd><p>y-values for xydata/patch</p>
 </dd>
-<dt><strong>linestyle</strong><span class="classifier">list of strings or None</span></dt><dd><p>linestyles that will be accepted as correct, e.g. [‘-‘, ‘–’, ‘-.’]</p>
+<dt><strong>linestyle</strong><span class="classifier">list of strings or None</span></dt><dd><p>linestyles that will be accepted as correct, e.g. [‘-’, ‘–’, ‘-.’]</p>
 </dd>
 <dt><strong>colour</strong><span class="classifier">list of colour identifiers or None</span></dt><dd><p>colours that will be accepted as correct
 e.g. [‘r’,’red’,(1.0,0.0,0.0,1)])</p>
@@ -153,7 +151,7 @@ e.g. [‘r’,’red’,(1.0,0.0,0.0,1)])</p>
 <span class="sig-name descname"><span class="pre">check_linedata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_diagnose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/AutoFeedback/plotclass.html#line.check_linedata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#AutoFeedback.plotclass.line.check_linedata" title="Permalink to this definition">¶</a></dt>
 <dd><p>determine whether the xy data matches the expected data</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>x</strong><span class="classifier">list or np.array</span></dt><dd><p>expected x data</p>
 </dd>
@@ -163,7 +161,7 @@ e.g. [‘r’,’red’,(1.0,0.0,0.0,1)])</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt><strong>bool</strong><span class="classifier">True if data matches expected, False otherwise</span></dt><dd></dd>
 </dl>
@@ -182,7 +180,7 @@ e.g. [‘r’,’red’,(1.0,0.0,0.0,1)])</p>
 <span class="sig-name descname"><span class="pre">get_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/AutoFeedback/plotclass.html#line.get_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#AutoFeedback.plotclass.line.get_error" title="Permalink to this definition">¶</a></dt>
 <dd><p>determine the error message to be printed, based on the diagnosis</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>label</strong><span class="classifier">str</span></dt><dd><p>label for the data set to be plotted</p>
 </dd>
@@ -193,9 +191,9 @@ e.g. [‘r’,’red’,(1.0,0.0,0.0,1)])</p>
 
 </dd></dl>
 
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>

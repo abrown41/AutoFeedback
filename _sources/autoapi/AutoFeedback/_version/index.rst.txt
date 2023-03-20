@@ -156,12 +156,10 @@ Attributes
        !! processed by numpydoc !!
 
 .. py:data:: LONG_VERSION_PY
-   
 
    
 
 .. py:data:: HANDLERS
-   
 
    
 

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AutoFeedback Documentation &mdash; AutoFeedback 0.post117+g1aadbd3 documentation</title>
+  <title>AutoFeedback Documentation &mdash; AutoFeedback 0.post118+gfc5933b documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
@@ -14,9 +15,6 @@
   <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/clipboard.min.js"></script>
@@ -32,14 +30,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="#" class="icon icon-home"> AutoFeedback
+
+          
+          
+          <a href="#" class="icon icon-home">
+            AutoFeedback
           </a>
               <div class="version">
-                0.post117+g1aadbd3
+                0.post118+gfc5933b
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -64,8 +66,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-      <li>AutoFeedback Documentation</li>
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">AutoFeedback Documentation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -75,9 +77,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="autofeedback-documentation">
+  <section id="autofeedback-documentation">
 <h1>AutoFeedback Documentation<a class="headerlink" href="#autofeedback-documentation" title="Permalink to this heading">¶</a></h1>
-<div class="section" id="autofeedback-assignment-checker">
+<section id="autofeedback-assignment-checker">
 <h2>AutoFeedback: Assignment Checker<a class="headerlink" href="#autofeedback-assignment-checker" title="Permalink to this heading">¶</a></h2>
 <a class="reference external image-reference" href="https://github.com/abrown41/AutoFeedback/actions/workflows/"><img alt="https://github.com/abrown41/AutoFeedback/actions/workflows/build_test.yml/badge.svg" src="https://github.com/abrown41/AutoFeedback/actions/workflows/build_test.yml/badge.svg" /></a>
 <a class="reference external image-reference" href="https://github.com/abrown41/AutoFeedback/actions/workflows/"><img alt="https://github.com/abrown41/AutoFeedback/actions/workflows/build_docs.yml/badge.svg" src="https://github.com/abrown41/AutoFeedback/actions/workflows/build_docs.yml/badge.svg" /></a>
@@ -89,30 +91,30 @@
 <ul class="simple">
 <li><p>Free software: 3-clause BSD license</p></li>
 </ul>
-</div>
-<div class="section" id="description">
+</section>
+<section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
 <p>AutoFeedback is a suite of python utilities for testing and providing usable feedback introductory python assignments, specifically relevant to mathematics and the use of numpy and matplotlib.</p>
-</div>
-<div class="section" id="how-to-use-autofeedback">
+</section>
+<section id="how-to-use-autofeedback">
 <h2>How to use AutoFeedback<a class="headerlink" href="#how-to-use-autofeedback" title="Permalink to this heading">¶</a></h2>
 <p>AutoFeedback can be installed via pip</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install AutoFeedback
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>AutoFeedback
 </pre></div>
 </div>
 <p>The suite provides three basic checkers: one each for checking variables,
 functions and matplotlib.pyplot figures.</p>
-</div>
-<div class="section" id="installing-a-local-version-of-autofeedback">
+</section>
+<section id="installing-a-local-version-of-autofeedback">
 <h2>Installing a local version of AutoFeedback<a class="headerlink" href="#installing-a-local-version-of-autofeedback" title="Permalink to this heading">¶</a></h2>
 <p>If you want to develop AutoFeedback you can install a local version of the code.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> &lt;path to AutoFeedback&gt;
-pip install -r requirements-dev.txt -r requirements.txt
-pip install -e .
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;path<span class="w"> </span>to<span class="w"> </span>AutoFeedback&gt;
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements-dev.txt<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </pre></div>
 </div>
-</div>
-<div class="section" id="usage">
+</section>
+<section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
 <p>Full usage instructions can be found <a class="reference external" href="https://abrown41.github.io/AutoFeedback/usage.html">here.</a></p>
 <div class="toctree-wrapper compound">
@@ -131,8 +133,8 @@ pip install -e .
 </li>
 </ul>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

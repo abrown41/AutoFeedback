@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AutoFeedback.randomclass &mdash; AutoFeedback 0.post117+g1aadbd3 documentation</title>
+  <title>AutoFeedback.randomclass &mdash; AutoFeedback 0.post118+gfc5933b documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
@@ -14,9 +14,6 @@
   <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/sphinx_highlight.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
@@ -31,14 +28,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> AutoFeedback
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            AutoFeedback
           </a>
               <div class="version">
-                0.post117+g1aadbd3
+                0.post118+gfc5933b
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -63,10 +64,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-          <li><a href="../AutoFeedback.html">AutoFeedback</a> &raquo;</li>
-      <li>AutoFeedback.randomclass</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../AutoFeedback.html">AutoFeedback</a></li>
+      <li class="breadcrumb-item active">AutoFeedback.randomclass</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -77,7 +78,7 @@
              
   <h1>Source code for AutoFeedback.randomclass</h1><div class="highlight"><pre>
 <div class="viewcode-block" id="randomvar"><a class="viewcode-back" href="../../autoapi/AutoFeedback/randomclass/index.html#AutoFeedback.randomclass.randomvar">[docs]</a><span></span><span class="k">class</span> <span class="nc">randomvar</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    generic class for random variables.</span>
 <span class="sd">    allows you to test if students are sampling</span>
 <span class="sd">    from a distribution.</span>
@@ -134,7 +135,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_confToVariance</span>
 
 <div class="viewcode-block" id="randomvar.__str__"><a class="viewcode-back" href="../../autoapi/AutoFeedback/randomclass/index.html#AutoFeedback.randomclass.randomvar.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; This is what is printed if the print method is executed on an</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; This is what is printed if the print method is executed on an</span>
 <span class="sd">        instance of randomclass: it&#39;s defined as it is so that when</span>
 <span class="sd">        AutoFeedback prints out the expected value of a given variable we get</span>
 <span class="sd">        something other than &#39;&lt;AutoFeedback.randomclass.randomvar&gt;&#39;&quot;&quot;&quot;</span>
@@ -143,7 +144,7 @@
 <span class="s2"> and </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span><span class="si">}</span><span class="s2"> with expectation </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expectation</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span></div>
 
 <div class="viewcode-block" id="randomvar.__len__"><a class="viewcode-back" href="../../autoapi/AutoFeedback/randomclass/index.html#AutoFeedback.randomclass.randomvar.__len__">[docs]</a>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;This is what is returned if the len method is executed on an</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This is what is returned if the len method is executed on an</span>
 <span class="sd">        instance of randomclass. The expected length is equal to the number</span>
 <span class="sd">        of expectation values that have been provided&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expectation</span><span class="p">,</span> <span class="s2">&quot;__len__&quot;</span><span class="p">):</span>
@@ -151,7 +152,7 @@
         <span class="k">return</span> <span class="mi">1</span></div>
 
     <span class="k">def</span> <span class="nf">_check_for_bad_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;check if the value is within the allowed range for the random</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;check if the value is within the allowed range for the random</span>
 <span class="sd">        variable and (if relevant) it is an integer</span>
 
 <span class="sd">           Parameters</span>
@@ -196,7 +197,7 @@
         <span class="k">return</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="nf">_confToVariance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;convert a confidence interval into a variance</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;convert a confidence interval into a variance</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ==========</span>
@@ -209,7 +210,7 @@
         <span class="k">return</span> <span class="p">(</span><span class="n">value</span> <span class="o">/</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">limit</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
 
     <span class="k">def</span> <span class="nf">_get_statistic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">expectation</span><span class="p">,</span> <span class="n">variance</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;calculate the test statistic</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;calculate the test statistic</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ==========</span>
@@ -230,13 +231,13 @@
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">==</span> <span class="s2">&quot;chi2&quot;</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dof</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                    <span class="sd">&quot;&quot;&quot;if running chi2 test the number of degrees of</span>
+<span class="w">                    </span><span class="sd">&quot;&quot;&quot;if running chi2 test the number of degrees of</span>
 <span class="sd">freedom needs to be set&quot;&quot;&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dof</span> <span class="o">*</span> <span class="n">value</span> <span class="o">/</span> <span class="n">variance</span>
         <span class="k">return</span> <span class="mi">1</span>
 
     <span class="k">def</span> <span class="nf">_hypo_check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stat</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;perform the hypothesis test</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;perform the hypothesis test</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ==========</span>
@@ -255,7 +256,7 @@
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">==</span> <span class="s2">&quot;chi2&quot;</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dof</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                    <span class="sd">&quot;&quot;&quot;if runnign chi2 test the number of degrees of freedom</span>
+<span class="w">                    </span><span class="sd">&quot;&quot;&quot;if runnign chi2 test the number of degrees of freedom</span>
 <span class="sd">needs to be set&quot;&quot;&quot;</span><span class="p">)</span>
             <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">chi2</span>
             <span class="n">pval</span> <span class="o">=</span> <span class="n">chi2</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dof</span><span class="p">)</span>
@@ -271,7 +272,7 @@
         <span class="k">return</span> <span class="kc">True</span>
 
 <div class="viewcode-block" id="randomvar.check_value"><a class="viewcode-back" href="../../autoapi/AutoFeedback/randomclass/index.html#AutoFeedback.randomclass.randomvar.check_value">[docs]</a>    <span class="k">def</span> <span class="nf">check_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;check that the value is consistent with the specified distribution</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;check that the value is consistent with the specified distribution</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ==========</span>
@@ -333,7 +334,7 @@
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_random_var</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_check_random_var</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;check that a value is consistent with one of the specified</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;check that a value is consistent with one of the specified</span>
 <span class="sd">        distributions</span>
 
 
@@ -421,7 +422,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hypo_check</span><span class="p">(</span><span class="n">stat</span><span class="p">)</span>
 
 <div class="viewcode-block" id="randomvar.get_error"><a class="viewcode-back" href="../../autoapi/AutoFeedback/randomclass/index.html#AutoFeedback.randomclass.randomvar.get_error">[docs]</a>    <span class="k">def</span> <span class="nf">get_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;get the error message when the check fails</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;get the error message when the check fails</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ==========</span>
