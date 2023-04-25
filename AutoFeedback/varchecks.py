@@ -1,15 +1,17 @@
 """
 Check a student-defined variable has expected value, and provide feedback
 """
+import sys
+if sys.argv[-1].endswith(".json"):
+    importfrom = '__main__'
+else:
+    importfrom = 'main'
 
 
 def _exists(varname):
     """Check that main.varname exists (varname is string)"""
-#    mod = importlib.import_module('main')
-#    varstring = f"mod.{varname}"  # get variable from main code
     try:
-        getattr(__import__('main', fromlist=[varname]), varname)
-#        eval(varstring)
+        getattr(__import__(importfrom, fromlist=[varname]), varname)
         return True
     except AttributeError:
         return False
@@ -17,7 +19,7 @@ def _exists(varname):
 
 def _get_var(varname):
     """import main.varname (varname is string)"""
-    imported = getattr(__import__('main', fromlist=[varname]), varname)
+    imported = getattr(__import__(importfrom, fromlist=[varname]), varname)
     return imported
 
 
