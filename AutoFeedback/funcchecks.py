@@ -1,13 +1,19 @@
 """
 Check a students' function works as expected, and provide feedback
 """
+import sys
+if sys.argv[-1].endswith(".json"):
+    importfrom = '__main__'
+else:
+    importfrom = 'main'
 
 
 def _exists(funcname):
     """Check that main.funcname exists (funcname is string)"""
     import inspect
     try:
-        testfunc = getattr(__import__('main', fromlist=[funcname]), funcname)
+        testfunc = getattr(__import__(
+            importfrom, fromlist=[funcname]), funcname)
         return inspect.isfunction(testfunc)
     except Exception:
         return False
@@ -15,7 +21,7 @@ def _exists(funcname):
 
 def _get_func(funcname):
     """import main.funcname (funcname is string)"""
-    testfunc = getattr(__import__('main', fromlist=[funcname]), funcname)
+    testfunc = getattr(__import__(importfrom, fromlist=[funcname]), funcname)
     return testfunc
 
 
