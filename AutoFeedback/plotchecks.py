@@ -14,14 +14,23 @@ def _grab_figure():
     =======
     fighand : matplotlib.pyplot figure handle
     """
+    import sys
+    from matplotlib.axes._axes import Axes
     fighand = None
     try:
-        plt.ion()  # make any show commands non-blocking
-        __import__('main')
-        fighand = plt.gca()
-        # plt.close() # close any open figures
+        if sys.argv[-1].endswith(".json"):
+            from __main__ import fighand
+            if type(fighand) != Axes:
+                raise ImportError
+        else:
+            plt.ion()  # make any show commands non-blocking
+            __import__('main')
+            fighand = plt.gca()
+            # plt.close() # close any open figures
     except ModuleNotFoundError:
-        import sys
+        sys.exit()
+    except ImportError:
+        print("Ensure you have included fighand=plt.gca() in your codecell")
         sys.exit()
     return fighand
 
@@ -190,6 +199,7 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
     """
     from AutoFeedback.plot_error_messages import print_error_message
     from itertools import zip_longest
+
     try:
         fighand = _grab_figure()
         lines, patch, axes, labels, legends =\
