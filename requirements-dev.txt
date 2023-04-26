@@ -6,7 +6,6 @@ flake8
 sphinx
 twine
 versioneer
-pyyaml
 # These are optional dependencies which can be installed to enable special
 # functionality in AutoFeedback, but are required for unittests
 matplotlib
