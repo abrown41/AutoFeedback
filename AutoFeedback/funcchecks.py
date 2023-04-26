@@ -1,28 +1,6 @@
 """
 Check a students' function works as expected, and provide feedback
 """
-import sys
-if sys.argv[-1].endswith(".json"):
-    importfrom = '__main__'
-else:
-    importfrom = 'main'
-
-
-def _exists(funcname):
-    """Check that main.funcname exists (funcname is string)"""
-    import inspect
-    try:
-        testfunc = getattr(__import__(
-            importfrom, fromlist=[funcname]), funcname)
-        return inspect.isfunction(testfunc)
-    except Exception:
-        return False
-
-
-def _get_func(funcname):
-    """import main.funcname (funcname is string)"""
-    testfunc = getattr(__import__(importfrom, fromlist=[funcname]), funcname)
-    return testfunc
 
 
 def _input_vars(func, ins):
@@ -137,6 +115,7 @@ def _run_all_checks(funcname, inputs, expected, calls=[], output=True):
     bool: True if function works as expected, False otherwise.
     """
     from AutoFeedback.function_error_messages import print_error_message
+    from AutoFeedback.utils import exists, get
     from copy import deepcopy as copy
 
     call = []
@@ -145,8 +124,8 @@ def _run_all_checks(funcname, inputs, expected, calls=[], output=True):
     res = -999
 
     try:
-        assert (_exists(funcname)), "existence"
-        func = _get_func(funcname)
+        assert (exists(funcname, isfunc=True)), "existence"
+        func = get(funcname)
         assert (_input_vars(func, inputs[0])), "inputs"
 
         assert (_returns(func, inputs[0])), "return"

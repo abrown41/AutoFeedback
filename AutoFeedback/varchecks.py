@@ -1,26 +1,6 @@
 """
 Check a student-defined variable has expected value, and provide feedback
 """
-import sys
-if sys.argv[-1].endswith(".json"):
-    importfrom = '__main__'
-else:
-    importfrom = 'main'
-
-
-def _exists(varname):
-    """Check that main.varname exists (varname is string)"""
-    try:
-        getattr(__import__(importfrom, fromlist=[varname]), varname)
-        return True
-    except AttributeError:
-        return False
-
-
-def _get_var(varname):
-    """import main.varname (varname is string)"""
-    imported = getattr(__import__(importfrom, fromlist=[varname]), varname)
-    return imported
 
 
 def _check_size(a, b):
@@ -107,10 +87,11 @@ def check_vars(varname, expected, output=True):
     bool: True if function works as expected, False otherwise.
     """
     from AutoFeedback.variable_error_messages import print_error_message
+    from AutoFeedback.utils import exists, get
     var = -999
     try:
-        assert (_exists(varname)), "existence"
-        var = _get_var(varname)
+        assert (exists(varname)), "existence"
+        var = get(varname)
         assert (_check_size(var, expected)), "size"
         assert (check_value(var, expected)), "value"
         if output:
