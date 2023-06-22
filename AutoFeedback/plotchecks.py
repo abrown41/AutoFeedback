@@ -199,7 +199,7 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
                                    legend=explegend)
         explegends = [line.label for line in explines
                       if line.label is not None]
-        expline = ""
+        expline = explines[0]
         if not check_partial:
             if explines:
                 assert (len(lines) == len(explines)), "_datasets"
