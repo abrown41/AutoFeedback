@@ -106,6 +106,6 @@ def print_error_message(error, expline):
             str(error).replace("_data(", "").replace(")", ""))
         print(f"{bcolors.FAIL}{emsg}{bcolors.ENDC}")
     else:
-        emsg = eval(f"error_message().{error}(expline.label)")
+        emsg = eval(f"error_message().{error}")
         print(f"{bcolors.FAIL}{emsg}{bcolors.ENDC}")
     print(f"{bcolors.WARNING}{30*'='}\n{bcolors.ENDC}")

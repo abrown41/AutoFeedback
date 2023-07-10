@@ -184,7 +184,7 @@ class PlotErrorTests(unittest.TestCase):
         error_message is the expected error message that is printed"""
         f = io.StringIO()
         with contextlib.redirect_stdout(f):
-            pr(estring, line)
+            pr(f"{estring}('googlyboo')", line)
         printed = f.getvalue()
         expected = colour_message(error_message)
         return printed == expected
