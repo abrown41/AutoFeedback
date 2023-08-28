@@ -199,12 +199,18 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
                                    legend=explegend)
         explegends = [line.label for line in explines
                       if line.label is not None]
-        expline = explines[0]
+        if explines:
+            expline = explines[0]
+        else:
+            expline = exppatch
+
         if not check_partial:
             if explines:
-                assert (len(lines) == len(explines)), _e_string("_datasets", "")
+                assert (len(lines) == len(explines)
+                        ), _e_string("_datasets", "")
             if explegend:
-                assert (len(legends) == len(explegends)), _e_string("_legend", "")
+                assert (len(legends) == len(explegends)
+                        ), _e_string("_legend", "")
 
         if (explines and not lines):
             assert (False), "_datasets"
@@ -229,7 +235,7 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
                         if line.get_label()[0] != "_":
                             assert (_check_legend(line.get_label(),
                                                   expline.label)),\
-                                                  _e_string("_legend", expline.label)
+                                _e_string("_legend", expline.label)
                         else:
                             assert (_check_legend(legend, expline.label)),\
                                 _e_string("_legend", expline.label)
