@@ -243,7 +243,6 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
                         print_error_message(
                             _e_string("_partial", expline.label), expline)
         if (exppatch):
-            expline = exppatch
             assert (_check_patchdata(patch, exppatch)), _e_string("_data", "")
             if output:
                 print_error_message(_e_string("_partial", ""), exppatch)
