@@ -45,7 +45,10 @@ def check_value(a, b):
     np.set_printoptions(threshold=10)
 
     if hasattr(b, "check_value") and callable(b.check_value):
-        return b.check_value(a)
+        correct = b.check_value(a)
+        # if b.diagnosis.startswith("hypothesis"):
+        #     return False
+        return correct
 
     # if check_value is invoked without first having called check_size,
     # incommensurate sizes can be missed

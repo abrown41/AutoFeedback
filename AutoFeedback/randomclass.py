@@ -186,11 +186,12 @@ needs to be set""")
         else:
             return False
 
-        if pval < 0.01:
-            self.diagnosis = "hypothesis"
-            return False
-        self.diagnosis = "ok"
-        return True
+        if self.diagnosis == "hypothesis":
+            if pval > self.pval:
+                pval = self.pval
+        self.pval = pval
+        self.diagnosis = "hypothesis"
+        return pval > 0.05
 
     def check_value(self, val):
         """check that the value is consistent with the specified distribution
@@ -320,6 +321,9 @@ needs to be set""")
                 for v in val:
                     S2 = S2 + v * v
                 var = (len(val) / self.dof) * (S2 / len(val) - mean * mean)
+                if (var == 0):
+                    self.diagnosis = "zero_variance"
+                    return False
                 stat = self._get_statistic(
                     var, self.expectation,
                     self.variance, len(val))
@@ -369,22 +373,31 @@ values for this type of random variable"""
             else:
                 error_message += f"""\n The random variable should be between
  {self.lower} and {self.upper}"""
-        elif self.diagnosis == "hypothesis":
-            error_message = f"""The {self.output_component}{obj} appear to be
-sampled from the wrong distribution
+        elif self.diagnosis.startswith("hypothesis"):
+            error_message = f"The p-value for the hypothesis test on your random \
+variable is {self.pval}"
 
-            To test if you generating a random variable from the correct
-            distribution the test code performs a hypothesis test.  The null
-            hypothesis in this test is that you are sampling from the desired
-            distribution and the alternative is that you are not sampling the
-            correct distribution.  The size of the critical region is
-            determined using a a significance level of 1%.  There is thus a
-            small probability that you will fail on this test even if your code
-            is correct. If you see this error only you should thus run the
-            calculation again to check whether the hypothesis test is giving a
-            type I error.  If you fail this test twice your code is most likely
-            wrong.
-            """
+            if self.pval < 0.05:
+                error_message += """
+
+    To test if you generating a random variable from the correct
+    distribution the test code performs a series of hypothesis tests.
+    In these tests the null hypothesis is that you are sampling from the
+    desired distribution and the alternative is that you are not
+    sampling the correct distribution.  The p value reported above gives
+    the probability that your code would have generated the value it did
+    under the assumption that the null hypothesis is true.  In other
+    words, it is the probablity that your program is correct.  The
+    pvalue should, therefore, be large.
+
+    In statistics it is common practise to reject the null hypothesis in
+    favour of the alternative when the pvalue is less than 5%.  However,
+    there is always a finite probability that you will get a small p
+    value even if your code is correct. If your p-value is very small
+    then you should thus run the calculation again to check whether the
+    hypothesis test is giving a type I error.  If your p-value is still
+    very small then your code is most likely wrong.
+    """
         elif self.diagnosis == "number":
             error_message = f"""The {obj} is not generating the correct number
 of random variables
@@ -408,5 +421,8 @@ of random variables.
             {obj} should return two random variables.  The first of these
             is the sample mean and the second is the width of the error bar
             for the specified confidence interval around the sample mean
+            """
+        elif self.diagnosis == "zero_variance":
+            error_message = """A sample of random variables cannot have zero variance!
             """
         return error_message
