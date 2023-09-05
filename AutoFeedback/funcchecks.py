@@ -131,6 +131,7 @@ def _run_all_checks(funcname, inputs, expected, calls=[], output=True):
     bool: True if function works as expected, False otherwise.
     """
     from AutoFeedback.function_error_messages import print_error_message
+    from AutoFeedback.randomclass import randomvar
     from copy import deepcopy as copy
 
     call = []
@@ -138,19 +139,35 @@ def _run_all_checks(funcname, inputs, expected, calls=[], output=True):
     outs = expected[0]
     res = -999
 
+    if isinstance(expected[0], randomvar):
+        thresh = 0.8
+    else:
+        thresh = 1.0
+
     try:
         assert (_exists(funcname)), "existence"
         func = _get_func(funcname)
         assert (_input_vars(func, inputs[0])), "inputs"
 
         assert (_returns(func, inputs[0])), "return"
+        listOfOuts = []
+        minPval = 1
         for ins, outs in zip(inputs, expected):
             res = func(*copy(ins))  # ensure the inputs are not overwritten
-            assert (_check_outputs(func, ins, outs)), "outputs"
+            if isinstance(expected[0], randomvar):
+                listOfOuts.append(_check_outputs(func, ins, outs))
+                minPval = min(minPval, outs.pval)
+            else:
+                assert _check_outputs(func, ins, outs)
+        if isinstance(expected[0], randomvar):
+            outs.pval = minPval
+            assert listOfOuts.count(False)/len(listOfOuts) < 0.5, "outputs"
+
         for call in calls:
             assert (_check_calls(func, call)), "calls"
         if output:
-            print_error_message("success", funcname)
+            print_error_message("success", funcname,
+                                inp=ins, exp=outs, result=res)
     except AssertionError as error:
         if output:
             print_error_message(error, funcname, inp=ins,
