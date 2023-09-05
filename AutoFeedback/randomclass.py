@@ -1,3 +1,6 @@
+import numpy as np
+
+
 class randomvar:
     """
     generic class for random variables.
@@ -90,7 +93,7 @@ class randomvar:
             isint = self.isinteger[num]
         if isint:
             from math import isclose
-            if not isclose(val, round(val), abs_tol=10**-7):
+            if not isclose(val, np.round(val), abs_tol=10**-7):
                 self.diagnosis = "integer"
                 return False
 
@@ -269,7 +272,8 @@ needs to be set""")
               is from correct distribution
         """
         if hasattr(val, "__len__"):
-            for v in val:
+            npval = np.array(val)
+            for v in np.nditer(npval):
                 vv = v
                 if self.transform is not None:
                     vv = self.transform(v)
@@ -301,32 +305,32 @@ needs to be set""")
                 return True
             else:
                 # Check on expectation
-                mean = sum(val) / len(val)
+                mean = np.sum(npval) / npval.size
                 var = self.variance
                 if self.variance == 0:
                     S2 = 0
-                    for v in val:
+                    for v in np.nditer(npval):
                         S2 = S2 + v * v
-                    var = (len(val) / (len(val) - 1)) * \
-                        (S2 / len(val) - mean * mean)
+                    var = (npval.size / (npval.size - 1)) * \
+                        (S2 / npval.size - mean * mean)
                 stat = self._get_statistic(
                     mean, self.expectation,
-                    var, len(val))
+                    var, npval.size)
                 if not self._hypo_check(stat):
                     return False
                 if self.variance == 0:
                     return True
                 # Now check on variance
-                self.distribution, S2, self.dof = "chi2", 0, len(val) - 1
-                for v in val:
+                self.distribution, S2, self.dof = "chi2", 0, npval.size - 1
+                for v in np.nditer(npval):
                     S2 = S2 + v * v
-                var = (len(val) / self.dof) * (S2 / len(val) - mean * mean)
+                var = (npval.size / self.dof) * (S2 / npval.size - mean * mean)
                 if (var == 0):
                     self.diagnosis = "zero_variance"
                     return False
                 stat = self._get_statistic(
                     var, self.expectation,
-                    self.variance, len(val))
+                    self.variance, npval.size)
                 if not self._hypo_check(stat):
                     self.distribution = "normal"
                     return False
