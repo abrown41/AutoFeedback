@@ -191,9 +191,9 @@ of random variables.
         r, vals = rv(expectation=0, variance=1, dist="chi2", meanconv=True), []
         for i in range(1, 200):
             if np.random.uniform(0, 1) < 0.5:
-                vals.append(scipy.stats.chi2.ppf(0.02, i-1)/(i-1))
+                vals.append(scipy.stats.chi2.ppf(0.1, i-1)/(i-1))
             else:
-                vals.append(scipy.stats.chi2.ppf(0.98, i-1)/(i-1))
+                vals.append(scipy.stats.chi2.ppf(0.9, i-1)/(i-1))
         vals2 = []
         for i in range(1, 200):
             if np.random.uniform(0, 1) < 0.5:
@@ -204,14 +204,17 @@ of random variables.
 
     def test_single_chi2(self):
         r = rv(expectation=0, variance=1, dist="chi2", dof=5)
-        assert (r.check_value(scipy.stats.chi2.ppf(0.02, 5)/5) and not r.check_value(scipy.stats.chi2.ppf(0.005, 5)/5) and
-                r.check_value(scipy.stats.chi2.ppf(0.98, 5)/5) and not r.check_value(scipy.stats.chi2.ppf(0.998, 5)/5))
+        assert r.check_value(scipy.stats.chi2.ppf(0.06, 5)/5)
+        assert (not r.check_value(scipy.stats.chi2.ppf(0.005, 5)/5))
+        r = rv(expectation=0, variance=1, dist="chi2", dof=5)
+        assert r.check_value(scipy.stats.chi2.ppf(0.94, 5)/5)
+        assert (not r.check_value(scipy.stats.chi2.ppf(0.998, 5)/5))
 
     def test_multiple_chi2(self):
         r = rv(expectation=[0, 0, 0], variance=[1, 1, 1],
                dist="chi2", dof=10, isinteger=[False, False, False])
         vals1 = [scipy.stats.chi2.ppf(
-            0.02, 10)/10, scipy.stats.chi2.ppf(0.5, 10)/10, scipy.stats.chi2.ppf(0.98, 10)/10]
+            0.06, 10)/10, scipy.stats.chi2.ppf(0.5, 10)/10, scipy.stats.chi2.ppf(0.94, 10)/10]
         vals2 = [scipy.stats.chi2.ppf(
             0.02, 10)/10, scipy.stats.chi2.ppf(0.02, 10)/10, scipy.stats.chi2.ppf(0.005, 10)/10]
         vals3 = [scipy.stats.chi2.ppf(
@@ -223,46 +226,58 @@ of random variables.
         r, pref = rv(expectation=0, variance=1, dist="chi2",
                      dof=5, limit=0.5), scipy.stats.norm.ppf(0.75)
         goodvar1, goodvar2 = scipy.stats.chi2.ppf(
-            0.02, 5)/5, scipy.stats.chi2.ppf(0.98, 5)/5
+            0.06, 5)/5, scipy.stats.chi2.ppf(0.94, 5)/5
         badvar1, badvar2 = scipy.stats.chi2.ppf(
             0.005, 5)/5, scipy.stats.chi2.ppf(0.998, 5)/5
-        assert (r.check_value(pref*np.sqrt(goodvar1)) and not r.check_value(pref*np.sqrt(badvar1)) and
-                r.check_value(pref*np.sqrt(goodvar2)) and not r.check_value(pref*np.sqrt(badvar2)))
+        assert r.check_value(pref*np.sqrt(goodvar1))
+        assert (not r.check_value(pref*np.sqrt(badvar1)))
+        r, pref = rv(expectation=0, variance=1, dist="chi2",
+                     dof=5, limit=0.5), scipy.stats.norm.ppf(0.75)
+        assert r.check_value(pref*np.sqrt(goodvar2))
+        assert (not r.check_value(pref*np.sqrt(badvar2)))
 
     def test_conflim(self):
         r, pref = rv(expectation=0, variance=1, dist="conf_lim",
                      dof=9, limit=0.90), scipy.stats.norm.ppf(0.95)
         goodmean1, goodmean2 = scipy.stats.norm.ppf(
-            0.02), scipy.stats.norm.ppf(0.98)
+            0.1), scipy.stats.norm.ppf(0.9)
         badmean1, badmean2 = scipy.stats.norm.ppf(
             0.005), scipy.stats.norm.ppf(0.998)
         goodvar1, goodvar2 = scipy.stats.chi2.ppf(
-            0.02, 9)/9, scipy.stats.chi2.ppf(0.98, 9)/9
+            0.1, 9)/9, scipy.stats.chi2.ppf(0.9, 9)/9
         badvar1, badvar2 = scipy.stats.chi2.ppf(
             0.005, 9)/9, scipy.stats.chi2.ppf(0.998, 9)/9
-        assert (r.check_value([goodmean1-pref*np.sqrt(goodvar1), goodmean1, goodmean1+pref*np.sqrt(goodvar2)]) and
-                r.check_value([goodmean2-pref*np.sqrt(goodvar2), goodmean2, goodmean2+pref*np.sqrt(goodvar1)]) and
-                not r.check_value([goodmean1-pref*np.sqrt(goodvar1), badmean1, goodmean1+pref*np.sqrt(goodvar2)]) and
-                not r.check_value([goodmean2-pref*np.sqrt(goodvar2), badmean2, goodmean2+pref*np.sqrt(goodvar1)]) and
-                not r.check_value([goodmean1-pref*np.sqrt(badvar1), goodmean1, goodmean1+pref*np.sqrt(goodvar2)]) and
-                not r.check_value([goodmean2-pref*np.sqrt(goodvar1), goodmean2, goodmean2+pref*np.sqrt(badvar2)]) and
-                not r.check_value([goodmean2-pref*np.sqrt(goodvar1), goodmean2]))
+        assert (r.check_value(
+            [goodmean1-pref*np.sqrt(goodvar1), goodmean1, goodmean1+pref*np.sqrt(goodvar2)]) and
+            r.check_value([goodmean2-pref*np.sqrt(goodvar2), goodmean2, goodmean2+pref*np.sqrt(goodvar1)]) and
+            not r.check_value([goodmean1-pref*np.sqrt(goodvar1), badmean1, goodmean1+pref*np.sqrt(goodvar2)]) and
+            not r.check_value([goodmean2-pref*np.sqrt(goodvar2), badmean2, goodmean2+pref*np.sqrt(goodvar1)]) and
+            not r.check_value([goodmean1-pref*np.sqrt(badvar1), goodmean1, goodmean1+pref*np.sqrt(goodvar2)]) and
+            not r.check_value([goodmean2-pref*np.sqrt(goodvar1), goodmean2, goodmean2+pref*np.sqrt(badvar2)]) and
+            not r.check_value([goodmean2-pref*np.sqrt(goodvar1), goodmean2]))
 
     def test_uncertainty(self):
         r, pref = rv(expectation=0, variance=1, dist="uncertainty",
                      dof=16, limit=0.80), scipy.stats.norm.ppf(0.9)
         goodmean1, goodmean2 = scipy.stats.norm.ppf(
-            0.02), scipy.stats.norm.ppf(0.98)
+            0.06), scipy.stats.norm.ppf(0.94)
         badmean1, badmean2 = scipy.stats.norm.ppf(
             0.005), scipy.stats.norm.ppf(0.998)
         goodvar1, goodvar2 = scipy.stats.chi2.ppf(
-            0.02, 16)/16, scipy.stats.chi2.ppf(0.98, 16)/16
+            0.06, 16)/16, scipy.stats.chi2.ppf(0.94, 16)/16
         badvar1, badvar2 = scipy.stats.chi2.ppf(
             0.005, 16)/16, scipy.stats.chi2.ppf(0.998, 16)/16
-        assert (r.check_value([goodmean1, pref*np.sqrt(goodvar1)]) and
-                r.check_value([goodmean2, pref*np.sqrt(goodvar2)]) and
-                not r.check_value([badmean1, pref*np.sqrt(goodvar1)]) and
-                not r.check_value([badmean2, pref*np.sqrt(goodvar2)]) and
-                not r.check_value([goodmean1, pref*np.sqrt(badvar1)]) and
-                not r.check_value([goodmean2, pref*np.sqrt(badvar2)]) and
-                not r.check_value([goodmean1-pref*np.sqrt(goodvar1), goodmean1, goodmean1+pref*np.sqrt(goodvar2)]))
+        assert r.check_value([goodmean1, pref*np.sqrt(goodvar1)])
+        assert r.check_value([goodmean2, pref*np.sqrt(goodvar2)])
+        r, pref = rv(expectation=0, variance=1, dist="uncertainty",
+                     dof=16, limit=0.80), scipy.stats.norm.ppf(0.9)
+        assert not r.check_value([badmean1, pref*np.sqrt(goodvar1)])
+        assert not r.check_value([badmean2, pref*np.sqrt(goodvar2)])
+        r, pref = rv(expectation=0, variance=1, dist="uncertainty",
+                     dof=16, limit=0.80), scipy.stats.norm.ppf(0.9)
+        assert not r.check_value([goodmean1, pref*np.sqrt(badvar1)])
+        assert not r.check_value([goodmean2, pref*np.sqrt(badvar2)])
+        r, pref = rv(expectation=0, variance=1, dist="uncertainty",
+                     dof=16, limit=0.80), scipy.stats.norm.ppf(0.9)
+        assert not r.check_value(
+            [goodmean1-pref*np.sqrt(goodvar1), goodmean1, goodmean1+pref*np.sqrt(goodvar2)])
