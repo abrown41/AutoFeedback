@@ -378,8 +378,8 @@ values for this type of random variable"""
                 error_message += f"""\n The random variable should be between
  {self.lower} and {self.upper}"""
         elif self.diagnosis.startswith("hypothesis"):
-            error_message = f"The p-value for the hypothesis test on your random \
-variable is {self.pval}"
+            error_message = f"The p-value for the hypothesis test on your \
+random variable is {self.pval}"
 
             if self.pval < 0.05:
                 error_message += """
@@ -427,6 +427,7 @@ of random variables.
             for the specified confidence interval around the sample mean
             """
         elif self.diagnosis == "zero_variance":
-            error_message = """A sample of random variables cannot have zero variance!
+            error_message = """
+            A sample of random variables cannot have zero variance!
             """
         return error_message

@@ -234,10 +234,10 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
                     if expline.label and explegend:
                         if line.get_label()[0] != "_":
                             assert (_check_legend(line.get_label(),
-                                                  expline.label)),\
+                                                  expline.label)), \
                                 _e_string("_legend", expline.label)
                         else:
-                            assert (_check_legend(legend, expline.label)),\
+                            assert (_check_legend(legend, expline.label)), \
                                 _e_string("_legend", expline.label)
                     if output:
                         print_error_message(

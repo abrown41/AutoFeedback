@@ -139,11 +139,6 @@ def _run_all_checks(funcname, inputs, expected, calls=[], output=True):
     outs = expected[0]
     res = -999
 
-    if isinstance(expected[0], randomvar):
-        thresh = 0.8
-    else:
-        thresh = 1.0
-
     try:
         assert (_exists(funcname)), "existence"
         func = _get_func(funcname)
@@ -211,7 +206,7 @@ def check_func(func, inputs=[], expected=[], calls=[], output=True):
     """
     from types import FunctionType
 
-    if type(func) == FunctionType:
+    if isinstance(func, FunctionType):
 
         if inputs == []:
             try:
