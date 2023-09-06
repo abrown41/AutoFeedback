@@ -90,7 +90,7 @@ def check_value(a, b):
                 return False
 
 
-def check_vars(varname, expected, output=True):
+def check_vars(varname, expected, output=True, printname=""):
     """given information on a variable which the student has been asked to
     define, check whether it has been defined correctly, and provide feedback
 
@@ -110,8 +110,12 @@ def check_vars(varname, expected, output=True):
     from AutoFeedback.variable_error_messages import print_error_message
     var = -999
     try:
-        assert (_exists(varname)), "existence"
-        var = _get_var(varname)
+        if isinstance(varname, str):
+            assert (_exists(varname)), "existence"
+            var = _get_var(varname)
+        else:
+            var = varname
+            varname = printname
         assert (_check_size(var, expected)), "size"
         assert (check_value(var, expected)), "value"
         if output:
