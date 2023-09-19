@@ -153,7 +153,7 @@ def _run_all_checks(funcname, inputs, expected, calls=[], output=True):
                 listOfOuts.append(_check_outputs(func, ins, outs))
                 minPval = min(minPval, outs.pval)
             else:
-                assert _check_outputs(func, ins, outs)
+                assert _check_outputs(func, ins, outs), "outputs"
         if isinstance(expected[0], randomvar):
             outs.pval = minPval
             assert listOfOuts.count(False)/len(listOfOuts) < 0.5, "outputs"
