@@ -23,6 +23,8 @@ def _get_var(varname):
 
 def _check_size(a, b):
     """check that variable a is the same size (and shape) as b"""
+    if hasattr(b, "check_value") and callable(b.check_value):
+        return True
     if hasattr(b, "shape") and hasattr(a, "shape"):  # both ndarrays
         return a.shape == b.shape
     if hasattr(b, "__len__") and hasattr(a, "__len__"):  # both arrays
