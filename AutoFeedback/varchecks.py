@@ -89,7 +89,7 @@ def check_value(a, b):
                         return False
                 return True
             except Exception:
-                return False
+                return a==b
 
 
 def check_vars(varname, expected, output=True, printname=""):
