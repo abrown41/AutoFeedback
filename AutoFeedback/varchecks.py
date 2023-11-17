@@ -3,24 +3,6 @@ Check a student-defined variable has expected value, and provide feedback
 """
 
 
-def _exists(varname):
-    """Check that main.varname exists (varname is string)"""
-#    mod = importlib.import_module('main')
-#    varstring = f"mod.{varname}"  # get variable from main code
-    try:
-        getattr(__import__('main', fromlist=[varname]), varname)
-#        eval(varstring)
-        return True
-    except AttributeError:
-        return False
-
-
-def _get_var(varname):
-    """import main.varname (varname is string)"""
-    imported = getattr(__import__('main', fromlist=[varname]), varname)
-    return imported
-
-
 def _check_size(a, b):
     """check that variable a is the same size (and shape) as b"""
     if hasattr(b, "check_value") and callable(b.check_value):
@@ -89,7 +71,7 @@ def check_value(a, b):
                         return False
                 return True
             except Exception:
-                return False
+                return a == b
 
 
 def check_vars(varname, expected, output=True, printname=""):
@@ -110,11 +92,12 @@ def check_vars(varname, expected, output=True, printname=""):
     bool: True if function works as expected, False otherwise.
     """
     from AutoFeedback.variable_error_messages import print_error_message
+    from AutoFeedback.utils import exists, get
     var = -999
     try:
         if isinstance(varname, str):
-            assert (_exists(varname)), "existence"
-            var = _get_var(varname)
+            assert (exists(varname)), "existence"
+            var = get(varname)
         else:
             var = varname
             varname = printname

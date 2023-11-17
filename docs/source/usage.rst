@@ -107,6 +107,45 @@ which checks to ensure that both the squared and cubed values are plotted with
 the correct colour and linestyle, that the legend is shown with the correct
 labels, and that the axis limits, labels and figure title are set correctly.
 
+Using in a notebook
+===================
+
+AutoFeedback tests can also be run within a Jupyter Notebook. The tests should be included in a code cell, and run after the students code has been executed. AutoFeedback will intelligently load the objects (functions, variables or plots) from the notebook instead of looking for an external file named 'main.py'. The exception is for plots, where the figure handle must be defined in the same code cell as the student's plot. So the extra command 
+
+.. code-block:: python
+
+   fighand = plt.gca()
+
+must be added somewhere in the cell. For instance, you may choose to pre-populate the code cell with 
+
+.. code-block:: python
+
+   import matplotlib.pyplot as plt
+   fighand = plt.gca()
+
+   # place your code here:
+
+to ensure that the figure handle is accessible to AutoFeedback. If the command is absent, then upon running the tests, AutoFeedback will print an error message, instructing the student to add the command to the cell.
+
+If your tests are structured as a UnitTest.TestCase, then AutoFeedback provides a utility function to execute those tests. E.G if your 'test cell' looks like this
+
+.. code-block:: python
+
+   from AutoFeedback import check_vars
+   import unittest
+
+
+   class UnitTests(unittest.TestCase) :
+      def test_x(self):
+         assert(check_vars('x', 7))
+
+You can execute your tests with 
+
+.. code-block:: python
+
+   from AutoFeedback.utils import run_tests
+   run_tests()
+
 
 Checking random variables
 =========================

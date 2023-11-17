@@ -12,19 +12,9 @@ class tmod:
 
 
 class UnitTests(unittest.TestCase):
-    def test_main_exists(self):
-        assert (vc._exists('x'))
-
-    def test_main_getvar(self):
-        mainx = vc._get_var('x')
-        assert (mainx == 3)
-
     def test_check_value(self):
         b = tmod()
         assert (vc.check_value(12, b))
-
-    def test_notexists(self):
-        assert (not vc._exists('t'))
 
     def test_size(self):
         assert (vc._check_size([1, 2, 3], [4, 5, 6]))
