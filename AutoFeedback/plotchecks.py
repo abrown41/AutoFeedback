@@ -20,7 +20,7 @@ def _grab_figure():
     try:
         if sys.argv[-1].endswith(".json"):
             from __main__ import fighand
-            if type(fighand) != Axes:
+            if isinstance(fighand, Axes):
                 raise ImportError
         else:
             plt.ion()  # make any show commands non-blocking
@@ -209,12 +209,18 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
                                    legend=explegend)
         explegends = [line.label for line in explines
                       if line.label is not None]
-        expline = ""
+        if explines:
+            expline = explines[0]
+        else:
+            expline = exppatch
+
         if not check_partial:
             if explines:
-                assert (len(lines) == len(explines)), "_datasets"
+                assert (len(lines) == len(explines)
+                        ), _e_string("_datasets", "")
             if explegend:
-                assert (len(legends) == len(explegends)), "_legend"
+                assert (len(legends) == len(explegends)
+                        ), _e_string("_legend", "")
 
         if (explines and not lines):
             assert (False), "_datasets"
@@ -238,15 +244,15 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
                     if expline.label and explegend:
                         if line.get_label()[0] != "_":
                             assert (_check_legend(line.get_label(),
-                                                  expline.label)), "_legend"
+                                                  expline.label)), \
+                                _e_string("_legend", expline.label)
                         else:
-                            assert (_check_legend(legend, expline.label)),\
-                                "_legend"
+                            assert (_check_legend(legend, expline.label)), \
+                                _e_string("_legend", expline.label)
                     if output:
                         print_error_message(
                             _e_string("_partial", expline.label), expline)
         if (exppatch):
-            expline = exppatch
             assert (_check_patchdata(patch, exppatch)), _e_string("_data", "")
             if output:
                 print_error_message(_e_string("_partial", ""), exppatch)
@@ -255,9 +261,9 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
         if explabels:
             if len(explabels) == 2:
                 explabels.append("")
-            assert (_check_axes(labels, explabels)), "_labels"
+            assert (_check_axes(labels, explabels)), _e_string("_labels", "")
         if expaxes:
-            assert (_check_axes(axes, expaxes)), "_axes"
+            assert (_check_axes(axes, expaxes)), _e_string("_axes", "")
         if output:
             print_error_message("_success", expline)
         return True

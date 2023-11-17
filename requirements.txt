@@ -2,3 +2,5 @@ numpy
 scipy
 multipledispatch
 pyyaml
+sympy
+matplotlib

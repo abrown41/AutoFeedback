@@ -58,6 +58,12 @@ class UnitTests(unittest.TestCase):
 
 
 class SystemTests(unittest.TestCase):
+    def test_pass_value(self):
+        assert vc.check_vars(3, 3, output=False)
+
+    def test_not_pass_value(self):
+        assert not vc.check_vars(7, 3, output=False)
+
     def test_mod_varx(self):
         assert (vc.check_vars('x', 3, output=False))
 

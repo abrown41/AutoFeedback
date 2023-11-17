@@ -6,10 +6,6 @@ flake8
 sphinx
 twine
 versioneer
-# These are optional dependencies which can be installed to enable special
-# functionality in AutoFeedback, but are required for unittests
-matplotlib
-sympy
 # These are dependencies of various sphinx extensions for documentation.
 ipython
 numpydoc

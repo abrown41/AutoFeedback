@@ -62,8 +62,16 @@ def print_error_message(error, varname, exp, res):
     """
     from AutoFeedback.bcolors import bcolors
 
+    pval_string = ""
+    if hasattr(exp, "pval"):
+        if exp.pval < 0.05:
+            error = "value"
+        else:
+            error = "success"
+            pval_string = f" The p-value is {exp.pval}."
+
     if (str(error) == "success"):
-        print(f"{bcolors.OKGREEN}Variable {varname} is correct!\
+        print(f"{bcolors.OKGREEN}Variable {varname} is correct!{pval_string}\
               \n{bcolors.ENDC}")
 
     else:

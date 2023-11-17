@@ -5,6 +5,8 @@ Check a student-defined variable has expected value, and provide feedback
 
 def _check_size(a, b):
     """check that variable a is the same size (and shape) as b"""
+    if hasattr(b, "check_value") and callable(b.check_value):
+        return True
     if hasattr(b, "shape") and hasattr(a, "shape"):  # both ndarrays
         return a.shape == b.shape
     if hasattr(b, "__len__") and hasattr(a, "__len__"):  # both arrays
@@ -27,7 +29,10 @@ def check_value(a, b):
     np.set_printoptions(threshold=10)
 
     if hasattr(b, "check_value") and callable(b.check_value):
-        return b.check_value(a)
+        correct = b.check_value(a)
+        # if b.diagnosis.startswith("hypothesis"):
+        #     return False
+        return correct
 
     # if check_value is invoked without first having called check_size,
     # incommensurate sizes can be missed
@@ -66,10 +71,10 @@ def check_value(a, b):
                         return False
                 return True
             except Exception:
-                return False
+                return a == b
 
 
-def check_vars(varname, expected, output=True):
+def check_vars(varname, expected, output=True, printname=""):
     """given information on a variable which the student has been asked to
     define, check whether it has been defined correctly, and provide feedback
 
@@ -90,8 +95,12 @@ def check_vars(varname, expected, output=True):
     from AutoFeedback.utils import exists, get
     var = -999
     try:
-        assert (exists(varname)), "existence"
-        var = get(varname)
+        if isinstance(varname, str):
+            assert (exists(varname)), "existence"
+            var = get(varname)
+        else:
+            var = varname
+            varname = printname
         assert (_check_size(var, expected)), "size"
         assert (check_value(var, expected)), "value"
         if output:

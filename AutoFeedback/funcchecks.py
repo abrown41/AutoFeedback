@@ -116,6 +116,7 @@ def _run_all_checks(funcname, inputs, expected, calls=[], output=True):
     """
     from AutoFeedback.function_error_messages import print_error_message
     from AutoFeedback.utils import exists, get
+    from AutoFeedback.randomclass import randomvar
     from copy import deepcopy as copy
 
     call = []
@@ -129,18 +130,32 @@ def _run_all_checks(funcname, inputs, expected, calls=[], output=True):
         assert (_input_vars(func, inputs[0])), "inputs"
 
         assert (_returns(func, inputs[0])), "return"
+        listOfOuts = []
+        minPval = 1
         for ins, outs in zip(inputs, expected):
             res = func(*copy(ins))  # ensure the inputs are not overwritten
-            assert (_check_outputs(func, ins, outs)), "outputs"
+            if isinstance(expected[0], randomvar):
+                listOfOuts.append(_check_outputs(func, ins, outs))
+                minPval = min(minPval, outs.pval)
+            else:
+                assert _check_outputs(func, ins, outs), "outputs"
+        if isinstance(expected[0], randomvar):
+            outs.pval = minPval
+            assert listOfOuts.count(False)/len(listOfOuts) < 0.5, "outputs"
+
         for call in calls:
             assert (_check_calls(func, call)), "calls"
         if output:
-            print_error_message("success", funcname)
+            print_error_message("success", funcname,
+                                inp=ins, exp=outs, result=res)
     except AssertionError as error:
         if output:
             print_error_message(error, funcname, inp=ins,
                                 exp=outs, result=res, callname=call)
-        return False
+        if hasattr(outs, "pval") and outs.pval > 0.05:
+            return True
+        else:
+            return False
     except Exception:
         if output:
             import traceback
@@ -176,7 +191,7 @@ def check_func(func, inputs=[], expected=[], calls=[], output=True):
     """
     from types import FunctionType
 
-    if type(func) == FunctionType:
+    if isinstance(func, FunctionType):
 
         if inputs == []:
             try:

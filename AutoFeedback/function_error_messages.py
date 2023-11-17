@@ -106,8 +106,16 @@ def print_error_message(error, funcname, inp=(0,), exp=7, result=0,
     """
     from AutoFeedback.bcolors import bcolors
 
+    pval_string = ""
+    if hasattr(exp, "pval"):
+        if exp.pval < 0.05:
+            error = "outputs"
+        else:
+            error = "success"
+            pval_string = f" The p-value is {exp.pval}."
+
     if (str(error) == "success"):
-        print(f"{bcolors.OKGREEN}Function, {funcname} is correct!\
+        print(f"{bcolors.OKGREEN}Function, {funcname} is correct!{pval_string}\
               \n{bcolors.ENDC}")
 
     else:
