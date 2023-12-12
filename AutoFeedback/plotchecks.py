@@ -19,8 +19,17 @@ def _grab_figure():
     fighand = None
     try:
         if sys.argv[-1].endswith(".json"):
-            from __main__ import fighand
-            if isinstance(fighand, Axes):
+            try:
+                from __main__ import fighand
+                if not isinstance(fighand, Axes):
+                    raise ImportError
+            except ImportError:
+                print("""If you are seeing this error, you may have deleted an
+important line of code from your notebook: in the code cell where you are
+plotting your figure insert the line
+
+fighand = plt.gca()
+""")
                 raise ImportError
         else:
             plt.ion()  # make any show commands non-blocking
@@ -28,10 +37,7 @@ def _grab_figure():
             fighand = plt.gca()
             # plt.close() # close any open figures
     except ModuleNotFoundError:
-        sys.exit()
-    except ImportError:
-        print("Ensure you have included fighand=plt.gca() in your codecell")
-        sys.exit()
+        raise ModuleNotFoundError
     return fighand
 
 
