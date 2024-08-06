@@ -37,6 +37,19 @@ def get(objname):
     return testobj
 
 
+def get_internal(objname):
+    """check main.objname exists, then import main.objname
+    (objname is string)"""
+    if not exists(objname):
+        print(f"""In order to check your code, the variable {objname}
+              must be set.""")
+        from .variable_error_messages import print_error_message
+        print_error_message("existence", objname, exp=None, res=None)
+        raise AssertionError
+    else:
+        return get(objname)
+
+
 def check_module(modname):
     """ check if modname is installed, and if not, attempt to use pip to
     install it"""
