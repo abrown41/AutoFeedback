@@ -49,6 +49,7 @@ class randomvar:
         self.limit = limit
         self.transform = transform
         self.nsamples = nsamples
+        self.pval = 0
         if limit > 0 and dist == "chi2":
             if self.transform is not None:
                 raise RuntimeError(

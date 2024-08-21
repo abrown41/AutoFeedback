@@ -68,7 +68,8 @@ def print_error_message(error, varname, exp, res):
             error = "value"
         else:
             error = "success"
-            pval_string = f" The p-value is {exp.pval}."
+            pval_string = f"""The p-value for the hypothesis test on your
+random variable is {exp.pval}."""
 
     if (str(error) == "success"):
         print(f"{bcolors.OKGREEN}Variable {varname} is correct!{pval_string}\

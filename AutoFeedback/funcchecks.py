@@ -64,6 +64,7 @@ nsamples in the class you have provided as reference""")
                 res = expected.nsamples * [0]
                 for i in range(expected.nsamples):
                     res[i] = func(*inputs)
+
             return expected.check_value(res)
         else:
             res = func(*inputs)
@@ -131,17 +132,21 @@ def _run_all_checks(funcname, inputs, expected, calls=[], output=True):
 
         assert (_returns(func, inputs[0])), "return"
         listOfOuts = []
-        minPval = 1
+        PvalList = []
         for ins, outs in zip(inputs, expected):
             res = func(*copy(ins))  # ensure the inputs are not overwritten
             if isinstance(expected[0], randomvar):
                 listOfOuts.append(_check_outputs(func, ins, outs))
-                minPval = min(minPval, outs.pval)
+                PvalList.append(outs.pval)
             else:
                 assert _check_outputs(func, ins, outs), "outputs"
         if isinstance(expected[0], randomvar):
-            outs.pval = minPval
-            assert listOfOuts.count(False)/len(listOfOuts) < 0.5, "outputs"
+            success = listOfOuts.count(False)/len(listOfOuts) < 0.5
+            if not success:
+                outs.pval = min(PvalList)
+            else:
+                outs.pval = max(PvalList)
+            assert success, "outputs"
 
         for call in calls:
             assert (_check_calls(func, call)), "calls"
