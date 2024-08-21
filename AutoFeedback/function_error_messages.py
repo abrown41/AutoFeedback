@@ -112,7 +112,8 @@ def print_error_message(error, funcname, inp=(0,), exp=7, result=0,
             error = "outputs"
         else:
             error = "success"
-            pval_string = f" The p-value is {exp.pval}."
+            pval_string = f"""
+The p-value for the hypothesis test on your random variable is {exp.pval}."""
 
     if (str(error) == "success"):
         print(f"{bcolors.OKGREEN}Function, {funcname} is correct!{pval_string}\
@@ -126,8 +127,8 @@ def print_error_message(error, funcname, inp=(0,), exp=7, result=0,
         elif (str(error) == "outputs"):
             if hasattr(exp, "get_error") and callable(exp.get_error):
                 emsg = exp.get_error(
-                    f"values returned from the function {funcname} with input\
-                    parameters {inp}")
+                    f"""values returned from the function {funcname} with input
+parameters {inp}""")
             else:
                 emsg = _value_error(funcname, inp, exp, result)
         elif (str(error) == "return"):
