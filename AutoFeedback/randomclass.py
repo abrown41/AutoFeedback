@@ -187,11 +187,12 @@ needs to be set""")
         else:
             return False
 
-        if pval < 0.01:
-            self.diagnosis = "hypothesis"
-            return False
-        self.diagnosis = "ok"
-        return True
+        if self.diagnosis == "hypothesis":
+            if pval > self.pval:
+                pval = self.pval
+        self.pval = pval
+        self.diagnosis = "hypothesis"
+        return pval > 0.05
 
     def check_value(self, val):
         """check that the value is consistent with the specified distribution
