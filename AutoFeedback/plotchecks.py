@@ -18,7 +18,7 @@ def _grab_figure():
     from matplotlib.axes._axes import Axes
     fighand = None
     try:
-        if any(["ipykernel_launcher.py" in j for j in sys.argv]):
+        if any(["kernel_launcher.py" in j for j in sys.argv]):
             try:
                 from __main__ import fighand
                 if not isinstance(fighand, Axes):
