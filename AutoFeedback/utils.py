@@ -4,7 +4,7 @@
 def _import_location():
     """check the context and specify whence the objects should be imported"""
     import sys
-    if sys.argv[-1].endswith(".json"):
+    if any(["ipykernel_launcher.py" in j for j in sys.argv]):
         # If running a notebook, import from local __main__
         importfrom = '__main__'
     else:
