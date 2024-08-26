@@ -119,6 +119,7 @@ def _run_all_checks(funcname, inputs, expected, calls=[], output=True):
     from AutoFeedback.utils import exists, get
     from AutoFeedback.randomclass import randomvar
     from copy import deepcopy as copy
+    import scipy
 
     call = []
     ins = inputs[0]
@@ -132,21 +133,16 @@ def _run_all_checks(funcname, inputs, expected, calls=[], output=True):
 
         assert (_returns(func, inputs[0])), "return"
         listOfOuts = []
-        PvalList = []
         for ins, outs in zip(inputs, expected):
             res = func(*copy(ins))  # ensure the inputs are not overwritten
             if isinstance(expected[0], randomvar):
                 listOfOuts.append(_check_outputs(func, ins, outs))
-                PvalList.append(outs.pval)
             else:
                 assert _check_outputs(func, ins, outs), "outputs"
         if isinstance(expected[0], randomvar):
-            success = listOfOuts.count(False)/len(listOfOuts) < 0.5
-            if not success:
-                outs.pval = min(PvalList)
-            else:
-                outs.pval = max(PvalList)
-            assert success, "outputs"
+            outs.pval = scipy.stats.binom.cdf(listOfOuts.count(False),
+                                              len(listOfOuts), 0.05)
+            assert outs.pval > 0.05, "outputs"
 
         for call in calls:
             assert (_check_calls(func, call)), "calls"
