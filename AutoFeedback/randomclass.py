@@ -253,7 +253,9 @@ needs to be set""")
                 for n, v in enumerate(val):
                     if not self._check_random_var(v, n):
                         failcount += 1
-                self.pval = 1 - scipy.stats.binom.cdf(failcount, len(val), 0.05)
+                self.pval = 1 - scipy.stats.binom.cdf(failcount,
+                                                      len(val),
+                                                      0.05)
                 return self.pval > 0.05
             else:
                 return self._check_random_var(val, -1)
