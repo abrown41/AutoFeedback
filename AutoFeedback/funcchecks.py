@@ -140,8 +140,8 @@ def _run_all_checks(funcname, inputs, expected, calls=[], output=True):
             else:
                 assert _check_outputs(func, ins, outs), "outputs"
         if isinstance(expected[0], randomvar):
-            outs.pval = scipy.stats.binom.cdf(listOfOuts.count(False),
-                                              len(listOfOuts), 0.05)
+            outs.pval = 1 - scipy.stats.binom.cdf(listOfOuts.count(False),
+                                                  len(listOfOuts), 0.05)
             assert outs.pval > 0.05, "outputs"
 
         for call in calls:

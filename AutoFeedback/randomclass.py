@@ -1,4 +1,5 @@
 import numpy as np
+import scipy
 
 
 class randomvar:
@@ -189,9 +190,6 @@ needs to be set""")
         else:
             return False
 
-        if self.diagnosis == "hypothesis":
-            if pval > self.pval:
-                pval = self.pval
         self.pval = pval
         self.diagnosis = "hypothesis"
         return pval > 0.05
@@ -251,10 +249,14 @@ needs to be set""")
                 if len(val) != len(self.expectation):
                     self.diagnosis = "number"
                     return False
+                failcount = 0
                 for n, v in enumerate(val):
                     if not self._check_random_var(v, n):
-                        return False
-                return True
+                        failcount += 1
+                self.pval = 1 - scipy.stats.binom.cdf(failcount,
+                                                      len(val),
+                                                      0.05)
+                return self.pval > 0.05
             else:
                 return self._check_random_var(val, -1)
 
