@@ -45,12 +45,12 @@ values for this type of random variable"""
         r = rv(expectation=0)
         r.diagnosis = "hypothesis"
         r.pval = 0.06
-        error_message = f"The p-value for the hypothesis test on your random variable is 0.06"
+        error_message = f"The p-value for the hypothesis test on googlyboo is 0.06"
 
         assert (error_message == r.get_error("googlyboo"))
 
         r.pval = 0.01
-        error_message = f"The p-value for the hypothesis test on your random variable is 0.01"
+        error_message = f"The p-value for the hypothesis test on googlyboo is 0.01"
         error_message += """
 
     To test if you generating a random variable from the correct
