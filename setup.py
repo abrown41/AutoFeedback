@@ -11,7 +11,7 @@ import yaml
 min_version = (3, 7)
 if sys.version_info < min_version:
     error = """
-AutoFeedback does not support Python {0}.{1}.
+autofeedback does not support Python {0}.{1}.
 Python {2}.{3} and above is required. Check your Python version like so:
 
 python3 --version
@@ -37,7 +37,7 @@ with open(path.join(here, 'optional_requirements.txt'), 'r') as opt_req_file:
     optional_requirements = yaml.load(opt_req_file, Loader=yaml.Loader)
 
 setup(
-    name='AutoFeedback',
+    name='autofeedback',
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
     description="check basic python exercises with pretty feedback",
