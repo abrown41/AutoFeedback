@@ -20,8 +20,10 @@ def _size_error(varname):
     return error_message
 
 
-def _value_error(varname, exp, res):
-    error_message = f"""The variable {varname} has the wrong value(s)\n
+def _value_error(varname, exp=None, res=None):
+    error_message = f"The variable {varname} has the wrong value(s)\n"
+    if exp:
+        error_message += f"""
         We expected the output:
         {exp}
         but instead we got:

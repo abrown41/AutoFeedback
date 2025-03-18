@@ -1,7 +1,7 @@
 import unittest
 import AutoFeedback.variable_error_messages as vm
 import AutoFeedback.function_error_messages as fm
-from AutoFeedback.plot_error_messages import error_message 
+from AutoFeedback.plot_error_messages import error_message
 from AutoFeedback.plot_error_messages import print_error_message as pr
 import io
 import contextlib
@@ -33,16 +33,16 @@ class VarErrorTests(unittest.TestCase):
     Ensure you have named the variable properly,
     bearing in mind that capital letters matter.
     """
-        assert(vm._existence_error("googlyboo") == error_message)
-        assert(self.checkprint("existence", error_message))
+        assert (vm._existence_error("googlyboo") == error_message)
+        assert (self.checkprint("existence", error_message))
 
     def test_var_size(self):
         error_message = """The variable googlyboo is the wrong size.
     Try using len(googlyboo) to determine the size of the array, or
     print(googlyboo to check the values look as you expect them to.
     """
-        assert(vm._size_error("googlyboo") == error_message)
-        assert(self.checkprint("size", error_message))
+        assert (vm._size_error("googlyboo") == error_message)
+        assert (self.checkprint("size", error_message))
 
     def test_var_value(self):
         error_message = """The variable googlyboo has the wrong value(s)\n
@@ -54,16 +54,18 @@ class VarErrorTests(unittest.TestCase):
         to and ensure the expression used to calculate the variable
         is correct.
         """
-        assert(vm._value_error("googlyboo", "this", "that") == error_message)
-        assert(self.checkprint("value", error_message, exp="this", res="that"))
+        assert (vm._value_error("googlyboo") ==
+                "The variable googlyboo has the wrong value(s)\n")
+        assert (vm._value_error("googlyboo", "this", "that") == error_message)
+        assert (self.checkprint("value", error_message, exp="this", res="that"))
 
     def test_var_import(self):
         error_message = """Your code fails to execute.
     Please refer to the error messages printed in the terminal to resolve
     any errors in your code.
     """
-        assert(vm._import_error() == error_message)
-        assert(self.checkprint("import", error_message))
+        assert (vm._import_error() == error_message)
+        assert (self.checkprint("import", error_message))
 
     def test_var_success(self):
         from AutoFeedback.bcolors import bcolors
@@ -74,11 +76,11 @@ class VarErrorTests(unittest.TestCase):
         with contextlib.redirect_stdout(f):
             vm.print_error_message("success", "googlyboo",
                                    exp=None, res=None)
-        assert(f.getvalue() == error_message)
+        assert (f.getvalue() == error_message)
 
     def test_wrong_estring(self):
         error_message = "something not right with googlyboo"
-        assert(self.checkprint("asdfdas", error_message))
+        assert (self.checkprint("asdfdas", error_message))
 
 
 class FuncErrorTests(unittest.TestCase):
@@ -102,8 +104,8 @@ class FuncErrorTests(unittest.TestCase):
         def googlyboo(inputs):
             ...
     """
-        assert(fm._existence_error("googlyboo") == error_message)
-        assert(self.checkprint("existence", error_message, "googlyboo"))
+        assert (fm._existence_error("googlyboo") == error_message)
+        assert (self.checkprint("existence", error_message, "googlyboo"))
 
     def test_func_input(self):
         error_message = """The function googlyboo does not accept input correctly.
@@ -113,18 +115,18 @@ class FuncErrorTests(unittest.TestCase):
         def googlyboo(input_1, input_2, ...):
             ...
     """
-        assert(fm._input_error("googlyboo", 3) == error_message)
-        assert(self.checkprint("inputs", error_message, "googlyboo",
-                               inp=(1, 1, 1)))
+        assert (fm._input_error("googlyboo", 3) == error_message)
+        assert (self.checkprint("inputs", error_message, "googlyboo",
+                                inp=(1, 1, 1)))
 
     def test_func_value(self):
         error_message = """The function googlyboo returns the wrong value(s).
     When executed with the input(s), (7, 8, 9), we expected the output, 4, but
     instead we got 17.
     """
-        assert(fm._value_error("googlyboo", (7, 8, 9), 4, 17) == error_message)
-        assert(self.checkprint("outputs", error_message, "googlyboo",
-                               inp=(7, 8, 9), exp=4, result=17))
+        assert (fm._value_error("googlyboo", (7, 8, 9), 4, 17) == error_message)
+        assert (self.checkprint("outputs", error_message, "googlyboo",
+                                inp=(7, 8, 9), exp=4, result=17))
 
     def test_func_return(self):
         error_message = """The function googlyboo does not return a value.
@@ -134,8 +136,8 @@ class FuncErrorTests(unittest.TestCase):
             ...
             return (answer)
     """
-        assert(fm._return_error("googlyboo") == error_message)
-        assert(self.checkprint("return", error_message, "googlyboo"))
+        assert (fm._return_error("googlyboo") == error_message)
+        assert (self.checkprint("return", error_message, "googlyboo"))
 
     def test_func_call(self):
         error_message = """The function Manny does not call the function Bernard.
@@ -150,9 +152,9 @@ class FuncErrorTests(unittest.TestCase):
             new_answer = some_operation + Bernard(input)
             return(new_answer)
     """
-        assert(fm._call_error("Manny", "Bernard") == error_message)
-        assert(self.checkprint("calls", error_message, "Manny",
-                               callname="Bernard"))
+        assert (fm._call_error("Manny", "Bernard") == error_message)
+        assert (self.checkprint("calls", error_message, "Manny",
+                                callname="Bernard"))
 
     def test_func_exec(self):
         error_message = """The function googlyboo does not execute correctly.
@@ -166,9 +168,9 @@ Error reported:
         """
         op = fm._execution_error("googlyboo", (1, 2, 3), msg=[
                                  "this", "and", "that"])
-        assert(op == error_message)
-        assert(self.checkprint("execution", error_message, "googlyboo",
-                               inp=(1, 2, 3), msg=["this", "and", "that"]))
+        assert (op == error_message)
+        assert (self.checkprint("execution", error_message, "googlyboo",
+                                inp=(1, 2, 3), msg=["this", "and", "that"]))
 
 
 class dummyline:
@@ -193,8 +195,8 @@ class PlotErrorTests(unittest.TestCase):
         error_message = """Data set googlyboo is plotted with incorrect data.
     Check that all variables are correctly defined, and that you are plotting
     the right variables in the right order (i.e. plt.plot(X,Y))"""
-        assert(pm._data("googlyboo") == error_message)
-        assert(self.checkprint("_data", error_message))
+        assert (pm._data("googlyboo") == error_message)
+        assert (self.checkprint("_data", error_message))
 
     def test_plot_linestyle(self):
         error_message = """Data set googlyboo is plotted with the incorrect linestyle.
@@ -203,8 +205,8 @@ class PlotErrorTests(unittest.TestCase):
     for dashed lines or
         plt.plot(X,Y,'.')
     for dots."""
-        assert(pm._linestyle("googlyboo") == error_message)
-        assert(self.checkprint("_linestyle", error_message))
+        assert (pm._linestyle("googlyboo") == error_message)
+        assert (self.checkprint("_linestyle", error_message))
 
     def test_plot_marker(self):
         error_message = """Data set googlyboo is plotted with incorrect markers.
@@ -213,8 +215,8 @@ class PlotErrorTests(unittest.TestCase):
     for points
         plt.plot(X,Y,'o')
     for circles."""
-        assert(pm._marker("googlyboo") == error_message)
-        assert(self.checkprint("_marker", error_message))
+        assert (pm._marker("googlyboo") == error_message)
+        assert (self.checkprint("_marker", error_message))
 
     def test_plot_colour(self):
         error_message = """Data set googlyboo is plotted with the incorrect colour.
@@ -223,12 +225,12 @@ class PlotErrorTests(unittest.TestCase):
     for black or
         plt.plot(X,Y,'r')
     for red."""
-        assert(pm._colour("googlyboo") == error_message)
-        assert(self.checkprint("_colour", error_message))
+        assert (pm._colour("googlyboo") == error_message)
+        assert (self.checkprint("_colour", error_message))
 
     def test_plot_partial(self):
         error_message = """Dataset googlyboo plotted correctly!\n"""
-        assert(pm._partial("googlyboo") == error_message)
+        assert (pm._partial("googlyboo") == error_message)
 
     def test_plot_success(self):
         from AutoFeedback.bcolors import bcolors
@@ -237,4 +239,4 @@ class PlotErrorTests(unittest.TestCase):
         f = io.StringIO()
         with contextlib.redirect_stdout(f):
             pr("_success", myline)
-        assert(f.getvalue() == error_message)
+        assert (f.getvalue() == error_message)
