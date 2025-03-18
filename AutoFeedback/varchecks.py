@@ -74,7 +74,8 @@ def check_value(a, b):
                 return a == b
 
 
-def check_vars(varname, expected, output=True, printname=""):
+def check_vars(varname, expected, output=True, printname="",
+               suppress_expected=False):
     """given information on a variable which the student has been asked to
     define, check whether it has been defined correctly, and provide feedback
 
@@ -107,7 +108,10 @@ def check_vars(varname, expected, output=True, printname=""):
             print_error_message("success", varname, expected, var)
     except AssertionError as error:
         if output:
-            print_error_message(error, varname, expected, var)
+            if suppress_expected:
+                print_error_message(error, varname, None, None)
+            else:
+                print_error_message(error, varname, expected, var)
         return False
     return True
 
