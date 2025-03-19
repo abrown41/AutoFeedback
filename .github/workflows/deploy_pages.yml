@@ -17,14 +17,11 @@ jobs:
         pip install -r requirements-dev.txt
         pip install .
     - name: Build and Commit
-      id: deployment
       uses: sphinx-notes/pages@v3.2
       with:
-        documentation_path: ./docs
-        publish: false
+        documentation_path: ./docs/source
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ${{ steps.deployment.outputs.artifact }}
         branch: gh-pages
