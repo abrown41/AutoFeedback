@@ -5,10 +5,17 @@ Check a student-defined variable has expected value, and provide feedback
 
 def _check_size(a, b):
     """check that variable a is the same size (and shape) as b"""
+    import sympy as sp
+
     if hasattr(b, "check_value") and callable(b.check_value):
         return True
     if hasattr(b, "shape") and hasattr(a, "shape"):  # both ndarrays
         return a.shape == b.shape
+    if isinstance(a, sp.Matrix) or isinstance(b, sp.Matrix):
+        if isinstance(a, sp.Matrix):
+            return a.shape[0] == len(b)
+        else:
+            return b.shape[0] == len(a)
     if hasattr(b, "__len__") and hasattr(a, "__len__"):  # both arrays
         return len(a) == len(b)  # size of arrays matches
     elif not (hasattr(b, "__len__") or hasattr(a, "__len__")):  # both scalars
@@ -42,7 +49,7 @@ def check_value(a, b):
     except Exception:
         return False
 
-    if isinstance(a, list) or isinstance(b, list):
+    if isinstance(a, list) and isinstance(b, list):
         try:
             for x, y in zip(a, b):
                 if not check_value(x, y):
@@ -60,8 +67,9 @@ def check_value(a, b):
     if (isinstance(a, str) and isinstance(b, str)) \
             or (isinstance(a, dict) and isinstance(b, dict)):
         return (a == b)
-    elif (sym_installed and isinstance(a, sp.Basic)
-          and isinstance(b, sp.Basic)):
+    elif (sym_installed and
+          ((isinstance(a, sp.Basic) and isinstance(b, sp.Basic)) or
+           (isinstance(a, sp.Matrix) and isinstance(b, sp.Matrix)))):
         try:
             sp.simplify(a)
             sp.simplify(b)
@@ -80,10 +88,16 @@ def check_value(a, b):
     elif (sym_installed and
           (isinstance(a, sp.Matrix) or isinstance(b, sp.Matrix))):
         try:
-            x = np.array(list(a), dtype=float)
-            y = np.array(list(b), dtype=float)
+            x = np.array(a, dtype=float)
+            y = np.array(b, dtype=float)
             return np.all(np.isclose(x, y))
-        except Exception:
+        except TypeError:
+            pass
+        try:
+            x = sp.Matrix(a)
+            y = sp.Matrix(b)
+            return sp.simplify(x) == sp.simplify(y)
+        except:
             return a == b
     else:
         try:  # treat inputs as ndarrays and compare with builtin
