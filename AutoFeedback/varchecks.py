@@ -42,6 +42,15 @@ def check_value(a, b):
     except Exception:
         return False
 
+    if isinstance(a, list) or isinstance(b, list):
+        try:
+            for x, y in zip(a, b):
+                if not check_value(x, y):
+                    return False
+            return True
+        except:
+            pass
+
     try:
         import sympy as sp
         sym_installed = True
@@ -60,6 +69,22 @@ def check_value(a, b):
                     or (sp.factor(a) == sp.factor(b)))
         except Exception:
             return (a == b)
+    elif (sym_installed and
+          (isinstance(a, sp.Basic) or isinstance(b, sp.Basic))):
+        try:
+            x = float(sp.N(a))
+            y = float(sp.N(b))
+            return np.isclose(x, y)
+        except Exception:
+            return (a == b)
+    elif (sym_installed and
+          (isinstance(a, sp.Matrix) or isinstance(b, sp.Matrix))):
+        try:
+            x = np.array(list(a), dtype=float)
+            y = np.array(list(b), dtype=float)
+            return np.all(np.isclose(x, y))
+        except Exception:
+            return a == b
     else:
         try:  # treat inputs as ndarrays and compare with builtin
             return np.all(np.isclose(a, b))
@@ -75,7 +100,7 @@ def check_value(a, b):
 
 
 def check_vars(varname, expected, output=True, printname="",
-               suppress_expected=False):
+               suppress_expected=False, perm=False):
     """given information on a variable which the student has been asked to
     define, check whether it has been defined correctly, and provide feedback
 
@@ -103,7 +128,17 @@ def check_vars(varname, expected, output=True, printname="",
             var = varname
             varname = printname
         assert (_check_size(var, expected)), "size"
-        assert (check_value(var, expected)), "value"
+        if perm:
+            from itertools import permutations
+            res = []
+            for p in permutations(expected):
+                res.append(check_value(var, list(p)))
+                if res[-1]:
+                    break
+            if not any(res):
+                assert (check_value(var, expected)), "value"
+        else:
+            assert (check_value(var, expected)), "value"
         if output:
             print_error_message("success", varname, expected, var)
     except AssertionError as error:
