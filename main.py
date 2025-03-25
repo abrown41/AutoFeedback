@@ -7,14 +7,16 @@ import sympy as sp
 
 
 def f1(x):
-    return(x**2)
+    return (x**2)
 
 
 def f2(x, y):
     return
 
+
 def broken_function(x):
     raise RuntimeError
+
 
 x = 3
 y = np.linspace(0, 1, 3)
@@ -29,7 +31,8 @@ plt.ylabel('y')
 plt.title('z')
 
 
+symR = sp.Rational(1/2)
 symx = sp.symbols("x")
-symy = sp.Array([1, 2, symx])
+symy = sp.Matrix([1, 2, symx])
 symz = sp.Matrix([[1, 2, 3], [1, 3, 2], [3, 1, 2]])
 symd = {"a": 1, "b": 2}

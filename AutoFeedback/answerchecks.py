@@ -1,4 +1,4 @@
-def check_answer(questionName):
+def check_answer(questionName, perm=False):
     """
 
     Parameters
@@ -13,4 +13,4 @@ def check_answer(questionName):
     vars = question.solve()
 
     for var in vars:
-        check_vars(var, vars[var], suppress_expected=True)
+        check_vars(var, vars[var], suppress_expected=True, perm=perm)

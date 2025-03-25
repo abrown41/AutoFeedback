@@ -1,5 +1,6 @@
 import unittest
 import numpy as np
+import sympy as sy
 
 import AutoFeedback.varchecks as vc
 
@@ -78,3 +79,6 @@ class SystemTests(unittest.TestCase):
 
     def test_notmod_vary(self):
         assert (not vc.check_vars('y', [0.1, 0.5, 1.0], output=False))
+
+    def test_perm(self):
+        assert vc.check_vars('y', [1.0, 0.5, 0], perm=True, output=False)
