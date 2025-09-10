@@ -3,10 +3,6 @@ AutoFeedback: Assignment Checker
 ================================
 
 .. image:: https://github.com/abrown41/AutoFeedback/actions/workflows/build_test.yml/badge.svg
-        :target: https://github.com/abrown41/AutoFeedback/actions/workflows/ 
-.. image:: https://github.com/abrown41/AutoFeedback/actions/workflows/build_docs.yml/badge.svg
-        :target: https://github.com/abrown41/AutoFeedback/actions/workflows/
-.. image:: https://github.com/abrown41/AutoFeedback/actions/workflows/install.yml/badge.svg
         :target: https://github.com/abrown41/AutoFeedback/actions/workflows/
 
 .. image:: https://img.shields.io/pypi/v/AutoFeedback.svg
@@ -47,8 +43,7 @@ If you want to develop AutoFeedback you can install a local version of the code.
 .. code:: shell
 
     cd <path to AutoFeedback>
-    pip install -r requirements-dev.txt -r requirements.txt
-    pip install -e .
+    pip install -e .[dev,docs]
 
 
 =====
