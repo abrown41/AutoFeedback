@@ -16,7 +16,6 @@ dependencies = [
     "numpy",
     "scipy",
     "multipledispatch",
-    "pyyaml",
     "sympy",
     "matplotlib"
 ]
@@ -34,7 +33,7 @@ Repository = "https://github.com/abrown41/AutoFeedback"
 [project.optional-dependencies]
 dev = [
     "codecov",
-    "coverage",
+    "coverage[toml]",
     "ruff",
     "twine",
     "setuptools",
