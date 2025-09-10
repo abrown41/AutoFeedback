@@ -22,7 +22,7 @@ def _size_error(varname):
 
 def _value_error(varname, exp=None, res=None):
     error_message = f"The variable {varname} has the wrong value(s)\n"
-    if exp:
+    if exp is not None:
         error_message += f"""
         We expected the output:
         {exp}

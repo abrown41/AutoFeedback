@@ -1,0 +1,73 @@
+[build-system]
+requires = ["setuptools>=61", "wheel", "versioneer[toml]==0.29"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "autofeedback"
+dynamic = ["version"]
+description = "check basic python exercises with pretty feedback"
+authors = [
+    {name = "Andrew Brown", email = "andrew.brown@qub.ac.uk"}
+]
+readme = "README.rst"
+license = {text = "BSD-3-Clause"}
+requires-python = ">=3.7"
+dependencies = [
+    "numpy",
+    "scipy",
+    "multipledispatch",
+    "pyyaml",
+    "sympy",
+    "matplotlib"
+]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: BSD License",
+]
+
+[project.urls]
+Homepage = "https://github.com/abrown41/AutoFeedback"
+Repository = "https://github.com/abrown41/AutoFeedback"
+
+[project.optional-dependencies]
+dev = [
+    "codecov",
+    "coverage",
+    "flake8",
+    "sphinx<=5.3.0",
+    "twine",
+    "setuptools",
+    "wheel",
+    "ipython",
+    "numpydoc",
+    "docutils < 0.17",
+    "sphinx-copybutton",
+    "sphinx_rtd_theme",
+    "sphinx-autoapi"
+]
+
+[tool.setuptools.packages.find]
+exclude = ["docs*", "tests*"]
+
+[tool.versioneer]
+VCS = "git"
+style = "pep440-post"
+versionfile_source = "AutoFeedback/_version.py"
+versionfile_build = "AutoFeedback/_version.py"
+tag_prefix = "v"
+parentdir_prefix = "AutoFeedback-"
+
+[tool.coverage.run]
+omit = [
+    "AutoFeedback/_version.py",
+    "setup.py",
+    "versioneer.py",
+    "*/__init__.py",
+    "test/*.py"
+]
+
+[tool.ruff.lint.per-file-ignores]
+"AutoFeedback/__init__.py" = ["F401"]
+"AutoFeedback/funcchecks.py" = ["F811"]

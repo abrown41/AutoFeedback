@@ -55,7 +55,7 @@ def check_value(a, b):
                 if not check_value(x, y):
                     return False
             return True
-        except:
+        except Exception:
             pass
 
     try:
@@ -97,7 +97,7 @@ def check_value(a, b):
             x = sp.Matrix(a)
             y = sp.Matrix(b)
             return sp.simplify(x) == sp.simplify(y)
-        except:
+        except Exception:
             return a == b
     else:
         try:  # treat inputs as ndarrays and compare with builtin
