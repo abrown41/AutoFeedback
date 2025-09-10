@@ -36,11 +36,14 @@ dev = [
     "codecov",
     "coverage",
     "ruff",
-    "sphinx>=7.0",
     "twine",
     "setuptools",
     "wheel",
-    "ipython",
+    "ipython"
+]
+
+docs = [
+    "sphinx>=7.0",
     "numpydoc",
     "docutils >= 0.17",
     "sphinx-copybutton",
