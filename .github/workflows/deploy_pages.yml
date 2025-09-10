@@ -13,11 +13,9 @@ jobs:
         fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
     - name: Install Dependencies
       run : |
-        pip install -r requirements.txt
-        pip install -r requirements-dev.txt
-        pip install .
+        pip install .[dev]
     - name: Build and Commit
-      uses: sphinx-notes/pages@v3.2
+      uses: sphinx-notes/pages@v3
       with:
         documentation_path: ./docs/source
     - name: Push changes
