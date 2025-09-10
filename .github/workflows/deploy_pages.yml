@@ -13,7 +13,8 @@ jobs:
         fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
     - name: Install Dependencies
       run : |
-        pip install .[dev]
+        pip install -e .[dev]
+        python -c "import AutoFeedback; print('AutoFeedback version:', AutoFeedback.__version__)"
     - name: Build and Commit
       uses: sphinx-notes/pages@v3
       with:
