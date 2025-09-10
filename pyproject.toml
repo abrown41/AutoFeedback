@@ -44,7 +44,7 @@ dev = [
     "numpydoc",
     "docutils >= 0.17",
     "sphinx-copybutton",
-    "sphinx_rtd_theme",
+    "sphinx-rtd-theme",
     "sphinx-autoapi>=3.0"
 ]
 
