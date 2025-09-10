@@ -14,9 +14,6 @@ AutoFeedback: Assignment Checker
 
 .. image:: https://codecov.io/gh/abrown41/AutoFeedback/branch/master/graph/badge.svg?token=R2Z5SI6T71
         :target: https://codecov.io/gh/abrown41/AutoFeedback
-        
-.. image:: https://img.shields.io/lgtm/grade/python/g/abrown41/AutoFeedback.svg?logo=lgtm&logoWidth=18
-        :target: https://lgtm.com/projects/g/abrown41/AutoFeedback/context:python
 
 
 Check basic python exercises and provide pretty feedback

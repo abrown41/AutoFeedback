@@ -36,16 +36,16 @@ dev = [
     "codecov",
     "coverage",
     "ruff",
-    "sphinx<=5.3.0",
+    "sphinx>=7.0",
     "twine",
     "setuptools",
     "wheel",
     "ipython",
     "numpydoc",
-    "docutils < 0.17",
+    "docutils >= 0.17",
     "sphinx-copybutton",
     "sphinx_rtd_theme",
-    "sphinx-autoapi"
+    "sphinx-autoapi>=3.0"
 ]
 
 [tool.setuptools.packages.find]

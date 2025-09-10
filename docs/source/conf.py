@@ -105,7 +105,7 @@ todo_include_todos = False
 autoapi_type = "python"
 autoapi_dirs = ["../../AutoFeedback"]
 autoapi_keep_files = False
-autoapi_ignore = ['*test*']
+autoapi_ignore = ['*test*', '*/_version.py', 'versioneer.py']
 autoapi_options = [
     "members",
     "undoc-members",
