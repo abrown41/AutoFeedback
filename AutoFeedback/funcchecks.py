@@ -43,13 +43,14 @@ def _returns(func, ins):
         raise e
 
 
-def _check_outputs(func, ins, expected):
+def _check_outputs(func, ins, expected, tol=1e-9):
     """check that func(ins) returns the expected value
     Parameters
     ==========
     func : function handle for function to be checked
     ins : tuple containing sample inputs
     expected : expected return value of func(ins)
+    tol : float, tolerance
     """
     from AutoFeedback.varchecks import check_value
     from copy import deepcopy as dc
@@ -68,7 +69,7 @@ nsamples in the class you have provided as reference""")
             return expected.check_value(res)
         else:
             res = func(*inputs)
-            return (check_value(res, expected))
+            return (check_value(res, expected, tol=tol))
     except RuntimeError as e:
         raise e
     except Exception:
@@ -94,7 +95,7 @@ def _check_calls(func, call):
         return False
 
 
-def _run_all_checks(funcname, inputs, expected, calls=[], output=True):
+def _run_all_checks(funcname, inputs, expected, calls=[], output=True, tol=1e-9):
     """given information on a function which the student has been asked to
     define, check whether it has been defined correctly, and provide feedback
 
@@ -110,6 +111,8 @@ def _run_all_checks(funcname, inputs, expected, calls=[], output=True):
         names of any functions which funcname should call
     output : bool
         if True, print output to screen. otherwise execute quietly
+    tol : float
+        the tolerance for numerical comparisons
 
     Returns
     =======
@@ -138,7 +141,7 @@ def _run_all_checks(funcname, inputs, expected, calls=[], output=True):
             if isinstance(expected[0], randomvar):
                 listOfOuts.append(_check_outputs(func, ins, outs))
             else:
-                assert _check_outputs(func, ins, outs), "outputs"
+                assert _check_outputs(func, ins, outs, tol=tol), "outputs"
         if isinstance(expected[0], randomvar):
             outs.pval = 1 - scipy.stats.binom.cdf(listOfOuts.count(False),
                                                   len(listOfOuts), 0.05)
@@ -167,7 +170,8 @@ def _run_all_checks(funcname, inputs, expected, calls=[], output=True):
     return True
 
 
-def check_func(func, inputs=[], expected=[], calls=[], output=True):
+def check_func(func, inputs=[], expected=[], calls=[], output=True,
+               tol=1e-9):
     """given information on a function which the student has been asked to
     define, check whether it has been defined correctly, and provide feedback
 
@@ -219,4 +223,5 @@ e.g.
     check_func('myfunc', inputs=[(1,), (2,)], expected=[2, 3])"""
             raise Exception(message)
 
-    return _run_all_checks(funcname, inputs, expected, calls, output)
+    return _run_all_checks(funcname, inputs, expected, calls, output,
+                           tol=tol)

@@ -24,7 +24,7 @@ def _check_size(a, b):
         return False
 
 
-def check_value(a, b):
+def check_value(a, b, tol=1e-9):
     """check that variable a has the same value as b
 
     Note that this has been tested for strings, integers, floats, numpy arrays,
@@ -101,7 +101,7 @@ def check_value(a, b):
             return a == b
     else:
         try:  # treat inputs as ndarrays and compare with builtin
-            return np.all(np.isclose(a, b))
+            return np.all(np.isclose(a, b, atol=tol))
         # if not ndarrays, treat as list (of strings) and compare elements
         except Exception:
             try:
@@ -114,7 +114,7 @@ def check_value(a, b):
 
 
 def check_vars(varname, expected, output=True, printname="",
-               suppress_expected=False, perm=False):
+               suppress_expected=False, perm=False, tol=1e-9):
     """given information on a variable which the student has been asked to
     define, check whether it has been defined correctly, and provide feedback
 
@@ -126,6 +126,8 @@ def check_vars(varname, expected, output=True, printname="",
         expected value of varname
     output : bool
         if True, print output to screen. otherwise execute quietly
+    tol : float
+        tolerance for numerical calculations
 
     Returns
     =======
@@ -150,9 +152,9 @@ def check_vars(varname, expected, output=True, printname="",
                 if res[-1]:
                     break
             if not any(res):
-                assert (check_value(var, expected)), "value"
+                assert (check_value(var, expected, tol=tol)), "value"
         else:
-            assert (check_value(var, expected)), "value"
+            assert (check_value(var, expected, tol=tol)), "value"
         if output:
             print_error_message("success", varname, expected, var)
     except AssertionError as error:

@@ -52,10 +52,10 @@ class UnitTests(unittest.TestCase):
         assert (not vc.check_value([1, 2, 3], np.array([1.0, 32.0, 3.0])))
 
     def test_tol_value(self):
-        assert (vc.check_value(1.0, 0.999999999))
+        assert (vc.check_value(1.0, 0.9999, tol=1e-3))
 
     def test_not_tol_value(self):
-        assert (not vc.check_value(1.0, 1.0001))
+        assert (not vc.check_value(1.0, 0.9999, tol=1e-5))
 
 
 class SystemTests(unittest.TestCase):

@@ -100,6 +100,11 @@ class SystemTests(unittest.TestCase):
                 not fc.check_func('f2', [(3,), (-4,)], [9, 16],
                                   output=False))
 
+    def test_f1_tol(self):
+        assert (fc.check_func('f1', [(3.01,)], [9.05],
+                              output=False,tol=0.1) and
+                not fc.check_func('f1', [(3.01,)], [9.05],
+                                  output=False, tol=1e-5))
     def test_f1_handle(self):
         assert (fc.check_func(f1, inputs=[(3,), (-4,)], output=False))
 
