@@ -234,6 +234,7 @@ def check_plot(explines, exppatch=None, explabels=None, expaxes=None,
         if (explines):
             lines = _reorder(explines, lines)
 
+
             for line, expline, legend in zip_longest(lines, explines, legends):
                 if expline:
                     assert (_check_linedata(line, expline)), _e_string(

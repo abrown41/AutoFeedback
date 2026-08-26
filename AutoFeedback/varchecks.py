@@ -40,7 +40,6 @@ def check_value(a, b, tol=1e-9):
         # if b.diagnosis.startswith("hypothesis"):
         #     return False
         return correct
-
     # if check_value is invoked without first having called check_size,
     # incommensurate sizes can be missed
     try:
@@ -49,7 +48,7 @@ def check_value(a, b, tol=1e-9):
     except Exception:
         return False
 
-    if isinstance(a, list) and isinstance(b, list):
+    if isinstance(a, (list, tuple)) and isinstance(b, (list, tuple)):
         try:
             for x, y in zip(a, b):
                 if not check_value(x, y):
